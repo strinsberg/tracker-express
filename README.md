@@ -11,9 +11,9 @@ Currently in Proposal phase.
 * All design, planning, and team documentation will be in docs/planning.
 
 #### Members
-Lorenzo Conrad (Front-End Specialist)
-Mathew Richards (Idea Specialist)
-Steven Deutekom (Scrum Master)
+Lorenzo Conrad (Front-End Specialist)  
+Mathew Richards (Idea Specialist)  
+Steven Deutekom (Scrum Master)  
 
 # Contributing
 
