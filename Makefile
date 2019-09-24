@@ -10,7 +10,7 @@ TEST_DIR = test
 GMOCK = /usr/src/gmock/gmock-all.cc -lpthread
 
 SRC_INCLUDE = include
-GAME_MAIN = ${SRC_DIR}/game/main.cpp
+MAIN = ${SRC_DIR}/main/main.cpp
 TEST_INCLUDE = test
 INCLUDE = -I ${SRC_INCLUDE} -I ${TEST_INCLUDE}
 
