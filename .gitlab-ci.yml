@@ -1,0 +1,39 @@
+build-rest:
+   stage: build
+   script:
+      - make restService
+   artifacts:
+      paths:
+         - restService
+
+build-test:
+   stage: build
+   script:
+      - make testRest
+   artifacts:
+      paths:
+         - testRest
+
+test-rest:
+   stage: test
+   script:
+      - testRest
+      - make memcheck-test
+      - make static
+      - make style
+
+pages:
+   stage: deploy
+   dependencies:
+      - test-rest
+   script:
+      - make coverage
+      - make docs
+   artifacts:
+      paths:
+         - coverage
+         - docs
+      expire_in: 14 days
+   only:
+      - master
+      - dev

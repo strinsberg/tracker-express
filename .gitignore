@@ -1,0 +1,26 @@
+# autosaves
+*~
+*.swp
+*.autosave
+
+# coverage artifacts
+*.gcda
+*.gcno
+*.gcov
+coverage
+results.coverage
+
+# executables
+restService
+testRest
+
+# object files
+*.o
+
+# doxygen
+html
+*.log
+
+# codeblocks
+*.cbp
+*.layout
