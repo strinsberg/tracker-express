@@ -4,6 +4,11 @@
 
 Currently in Proposal phase.
 
+## TODO
+* Still need to add the REST framework to the project
+* make sure builds are still working with proper version of g++ for rest
+* remove lcov since Dr. Anvik says it will not work with our 
+
 #### Documentation
 * Project documentation such as Proposals and Manuals will be in docs/release.
 * Agile/Scrum documentation is in docs/agile.
