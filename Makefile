@@ -10,7 +10,7 @@ TEST_DIR = test
 GMOCK = /usr/src/gmock/gmock-all.cc -lpthread
 
 SRC_INCLUDE = include
-GAME_MAIN = ${SRC_DIR}/game/main.cpp
+MAIN = ${SRC_DIR}/main/main.cpp
 TEST_INCLUDE = test
 INCLUDE = -I ${SRC_INCLUDE} -I ${TEST_INCLUDE}
 
@@ -25,8 +25,8 @@ STYLE_CHECK = cpplint.py
 
 BROWSER = firefox
 
-PROGRAM = cardGame
-PROGRAM_TEST = testGame
+PROGRAM = restService
+PROGRAM_TEST = testRest
 
 .PHONY: all
 all: $(PROGRAM) $(PROGRAM_TEST) memcheck-test coverage docs static style
@@ -45,7 +45,7 @@ clean-all: clean
 	rm -rf $(PROGRAM) $(PROGRAM_TEST)
 
 $(PROGRAM):
-	$(CXX) $(CXXFLAGS) -o $(PROGRAM) -I $(SRC_INCLUDE) $(GAME_MAIN) $(SRC_DIR)/*.cpp $(LINKFLAGS)
+	$(CXX) $(CXXFLAGS) -o $(PROGRAM) -I $(SRC_INCLUDE) $(MAIN) $(SRC_DIR)/*.cpp $(LINKFLAGS)
 
 $(PROGRAM_TEST):
 	$(CXX) $(CXXFLAGS) -o $(PROGRAM_TEST) $(INCLUDE) $(TEST_DIR)/*.cpp $(SRC_DIR)/*.cpp $(LINKFLAGS) $(GMOCK)
@@ -61,7 +61,7 @@ memcheck-test: $(PROGRAM_TEST)
 .PHONY: coverage
 coverage: $(PROGRAM_TEST)
 	$(LCOV) --capture --gcov-tool $(GCOV) --directory . --output-file $(COVERAGE_RESULTS)
-	$(LCOV) --extract $(COVERAGE_RESULTS) "*/OldMaid/src/*" -o $(COVERAGE_RESULTS)
+	$(LCOV) --extract $(COVERAGE_RESULTS) "*/Aegir/src/*" -o $(COVERAGE_RESULTS)
 	genhtml $(COVERAGE_RESULTS) --output-directory $(COVERAGE_DIR)
 	rm -f *.gc*
 
