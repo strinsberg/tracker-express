@@ -76,4 +76,4 @@ style: ${TEST_DIR} ${SRC_INCLUDE} ${SRC_DIR}
 
 .PHONY: docs
 docs: ${SRC_INCLUDE}
-	doxygen docs/code/doxyfile
+	doxygen docs/source/doxyfile
