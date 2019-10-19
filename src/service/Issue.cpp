@@ -15,7 +15,7 @@ int Issue::getPriority() {
     return priority;
 }
 
-string Issue::getAssignee(s) {
+int Issue::getAssignee(s) {
     return assignee;
 }
 
@@ -43,7 +43,7 @@ void Issue::setPriority(int newPriority) {
     priority = newPriority;
 }
 
-void Issue::setAssignee(string newAssignee) {
+void Issue::setAssignee(int newAssignee) {
     assignee = newAssignee;
 }
 

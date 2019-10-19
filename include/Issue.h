@@ -12,7 +12,7 @@ class Issue {
     string getTitle();
     string getDescription();
     int getPriority();
-    string getAssignee();
+    int getAssignee();
     vector<string> getTags();
     string getTagAtPos(int i);
     Status getStatus();
@@ -28,7 +28,7 @@ class Issue {
     string title;
     string description;
     int priority;
-    string assignee;
+    int assignee;
     vector<string> tag;
     Status status;
 };
