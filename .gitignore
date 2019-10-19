@@ -11,8 +11,8 @@ coverage
 results.coverage
 
 # executables
-trackEx
-testTrackEx
+restService
+testRest
 
 # object files
 *.o

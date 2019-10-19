@@ -1,22 +1,19 @@
-CXX_9=g++9.1
 CXX=g++
 CXXFLAGS= -std=c++11 -g -fprofile-arcs -ftest-coverage
 
-LINKFLAGS = -lrestbed -lpthread
-LINKFLAGS_TEST= -lgtest
+LINKFLAGS= -lgtest
 
-SRC_DIR_SERVER = src/server
-SRC_DIR_SERVICE = src/service
+SRC_DIR = src
 
 TEST_DIR = test
 
-#GMOCK = /usr/src/gmock/gmock-all.cc -lpthread
+GMOCK = /usr/src/gmock/gmock-all.cc -lpthread
 
 SRC_INCLUDE = include
+MAIN = ${SRC_DIR}/main/main.cpp
 TEST_INCLUDE = test
 INCLUDE = -I ${SRC_INCLUDE} -I ${TEST_INCLUDE}
 
-GCOV_9 = gcov9.1
 GCOV = gcov
 LCOV = lcov
 COVERAGE_RESULTS = results.coverage
@@ -26,8 +23,10 @@ STATIC_ANALYSIS = cppcheck
 
 STYLE_CHECK = cpplint.py
 
-PROGRAM_SERVER = trackEx
-PROGRAM_TEST = testTrackEx
+BROWSER = firefox
+
+PROGRAM = restService
+PROGRAM_TEST = testRest
 
 .PHONY: all
 all: $(PROGRAM) $(PROGRAM_TEST) memcheck-test coverage docs static style
@@ -36,23 +35,24 @@ all: $(PROGRAM) $(PROGRAM_TEST) memcheck-test coverage docs static style
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-
 .PHONY: clean
 clean:
-	rm -rf *~ $(SRC)/*.o $(TEST_SRC)/*.o *.gcov *.gcda *.gcno $(COVERAGE_RESULTS) $(PROGRAM_SERVER) $(PROGRAM_TEST) $(COVERAGE_DIR)
+	rm -rf *~ $(SRC)/*.o $(TEST_SRC)/*.o *.gcov *.gcda *.gcno $(COVERAGE_RESULTS) $(PROGRAM) $(PROGRAM_TEST) $(COVERAGE_DIR)
 
 
-$(PROGRAM_SERVER):
-	$(CXX_9) $(CXXFLAGS) -o $(PROGRAM_SERVER) -I $(SRC_INCLUDE) $(SRC_DIR_SERVER)/main.cpp $(SRC_DIR_SERVICE)/*.cpp $(LINKFLAGS)
+.PHONY: clean-all
+clean-all: clean
+	rm -rf $(PROGRAM) $(PROGRAM_TEST)
 
+$(PROGRAM):
+	$(CXX) $(CXXFLAGS) -o $(PROGRAM) -I $(SRC_INCLUDE) $(MAIN) $(SRC_DIR)/*.cpp $(LINKFLAGS)
 
 $(PROGRAM_TEST):
-	$(CXX_9) $(CXXFLAGS) -o $(PROGRAM_TEST) $(INCLUDE) $(TEST_DIR)/*.cpp $(SRC_DIR_SERVICE)/*.cpp $(LINKFLAGS) $(LINKFLAGS_TEST) $(GMOCK)
+	$(CXX) $(CXXFLAGS) -o $(PROGRAM_TEST) $(INCLUDE) $(TEST_DIR)/*.cpp $(SRC_DIR)/*.cpp $(LINKFLAGS) $(GMOCK)
 	$(PROGRAM_TEST)
 
-
 memcheck-game: $(PROGRAM)
-	valgrind --tool=memcheck --leak-check=yes $(PROGRAM)
+	valgrind --tool=memcheck --leak-check=yes --xml=yes --xml-file=$(MEMCHECK_RESULTS) $(PROGRAM)
 
 
 memcheck-test: $(PROGRAM_TEST)
@@ -60,20 +60,19 @@ memcheck-test: $(PROGRAM_TEST)
 
 .PHONY: coverage
 coverage: $(PROGRAM_TEST)
-	$(PROGRAM_TEST)
-	$(GCOV) -b $(SRC_DIR_SERVICE)/*.cpp -o .
+	$(LCOV) --capture --gcov-tool $(GCOV) --directory . --output-file $(COVERAGE_RESULTS)
+	$(LCOV) --extract $(COVERAGE_RESULTS) "*/Aegir/src/*" -o $(COVERAGE_RESULTS)
+	genhtml $(COVERAGE_RESULTS) --output-directory $(COVERAGE_DIR)
 	rm -f *.gc*
 
 
 .PHONY: static
-static: ${SRC_DIR_SERVICE}
+static: ${SRC_DIR}
 	cppcheck --verbose --enable=all --xml ${SRC_DIR} ${TEST_DIR} ${INCLUDE} --suppress=missingInclude
 
-
 .PHONY: style
-style: ${TEST_DIR} ${SRC_INCLUDE} ${SRC_DIR_SERVICE}
-	${STYLE_CHECK} $(SRC_INCLUDE)/* ${TEST_DIR}/* ${SRC_DIR_SERVER}/*
-
+style: ${TEST_DIR} ${SRC_INCLUDE} ${SRC_DIR}
+	${STYLE_CHECK} $(SRC_INCLUDE)/* ${TEST_DIR}/* ${SRC_DIR}/*
 
 .PHONY: docs
 docs: ${SRC_INCLUDE}
