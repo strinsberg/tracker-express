@@ -1,23 +1,23 @@
 build-rest:
    stage: build
    script:
-      - make trackEx
+      - make restService
    artifacts:
       paths:
-         - trackEx
+         - restService
 
 build-test:
    stage: build
    script:
-      - make testTrackEx
+      - make testRest
    artifacts:
       paths:
-         - testTrackEx
+         - testRest
 
 test-rest:
    stage: test
    script:
-      - testTrackEx
+      - testRest
       - make memcheck-test
       - make static
       - make style
