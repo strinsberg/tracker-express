@@ -1,13 +1,18 @@
+#ifndef ISSUE_H
+#define ISSUE_H
+
 #include <iostream>
 #include <string>
 #include <vector>
-#include "include/status.h"
+#include "Status.h"
 
 using std::string;
 using std::vector;
 
 class Issue {
  public:
+    Issue();
+    //Issue(string, string, int, int, vector<string>, string, Status);
     //Getters
     string getTitle();
     string getDescription();
@@ -21,7 +26,7 @@ class Issue {
     void setTitle(string);
     void setDescription(string);
     void setPriority(int);
-    void setAssignee(string);
+    void setAssignee(int);
     void addTag(string);
 
  private:
@@ -29,6 +34,8 @@ class Issue {
     string description;
     int priority;
     int assignee;
-    vector<string> tag;
+    vector<string> tags;
     Status status;
 };
+
+#endif // ISSUE_H

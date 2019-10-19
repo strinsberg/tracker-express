@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "include/Issue.h"
+#include "Issue.h"
+
+Issue::Issue() : priority(0), assignee(0);
 
 string Issue::getTitle() {
     return title;
@@ -15,20 +17,20 @@ int Issue::getPriority() {
     return priority;
 }
 
-int Issue::getAssignee(s) {
+int Issue::getAssignee() {
     return assignee;
 }
 
-vector<string> getTags() {
-    return tag;
+vector<string> Issue::getTags() {
+    return tags;
 }
 
-string getTagAtPos(int i) {
-    return tag.at(i);
+string Issue::getTagAtPos(int i) {
+    return tags.at(i);
 }
 
-Status getStatus() {
-    return status;
+Status Issue::getStatus() {
+    return Issue::status;
 }
 
 void Issue::setTitle(string newTitle) {
@@ -48,5 +50,5 @@ void Issue::setAssignee(int newAssignee) {
 }
 
 void Issue::addTag(string newTag) {
-    tag.push_back(newTag);
+    tags.push_back(newTag);
 }
