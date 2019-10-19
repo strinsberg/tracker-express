@@ -6,45 +6,45 @@ using std::string;
 
 TEST(TestUser, id_getter_Test) {
     User u(23, "name", "blurb", 2);
-    EXPECT_EQ(23, u.Getid());
+    EXPECT_EQ(23, u.getId());
 }
 
 TEST(TestUser, id_setter_Test) {
     User u(23, "name", "blurb", 2);
-    u.Setid(24);
-    EXPECT_EQ(24, u.Getid());
+    u.setId(24);
+    EXPECT_EQ(24, u.getId());
 }
 
 TEST(TestUser, name_getter_Test) {
     User u(23, "name", "blurb", 2);
-    EXPECT_EQ("name", u.Getname());
+    EXPECT_EQ("name", u.getName());
 }
 
 TEST(TestUser, name_setter_Test) {
     User u(23, "name", "blurb", 2);
-    u.Setname("changed");
-    EXPECT_EQ("changed", u.Getname());
+    u.setName("changed");
+    EXPECT_EQ("changed", u.getName());
 }
 
 TEST(TestUser, blurb_getter_Test) {
     User u(23, "name", "blurb", 2);
-    EXPECT_EQ("blurb", u.Getblurb());
+    EXPECT_EQ("blurb", u.getBlurb());
 }
 
 TEST(TestUser, blurb_setter_Test) {
     User u(23, "name", "blurb", 2);
-    u.Setblurb("newBlurb");
-    EXPECT_EQ("newBlurb", u.Getblurb());
+    u.setBlurb("newBlurb");
+    EXPECT_EQ("newBlurb", u.getBlurb());
 }
 
 TEST(TestUser, pictureNum_getter_Test) {
     User u(23, "name", "blurb", 2);
-    EXPECT_EQ(2, u.GetpictureNum());
+    EXPECT_EQ(2, u.getPictureNum());
 }
 
 TEST(TestUser, pictureNum_setter_Test) {
     User u(23, "name", "blurb", 2);
-    u.SetpictureNum(4);
-    EXPECT_EQ(4, u.GetpictureNum());
+    u.setPictureNum(4);
+    EXPECT_EQ(4, u.getPictureNum());
 }
 

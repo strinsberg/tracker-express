@@ -10,28 +10,28 @@ class User {
     User(int, string, string, int);
     virtual ~User();
 
-    int Getid() {
+    int getId() {
         return id;
     }
-    void Setid(int val) {
+    void setId(int val) {
         id = val;
     }
-    string Getname() {
+    string getName() {
         return name;
     }
-    void Setname(string val) {
+    void setName(string val) {
         name = val;
     }
-    string Getblurb() {
+    string getBlurb() {
         return blurb;
     }
-    void Setblurb(string val) {
+    void setBlurb(string val) {
         blurb = val;
     }
-    int GetpictureNum() {
+    int getPictureNum() {
         return pictureNum;
     }
-    void SetpictureNum(int val) {
+    void setPictureNum(int val) {
         pictureNum = val;
     }
 
