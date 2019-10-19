@@ -8,7 +8,7 @@
  * @date Sept 24, 2019
  */
 class Empty {
- public:
+  public:
     /**
      * Creates nothing.
      * @param blah An integer for nothing.
