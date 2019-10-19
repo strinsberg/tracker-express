@@ -6,38 +6,22 @@
 using std::string;
 
 class User {
-  public:
+ public:
     User(int, string, string, int);
     virtual ~User();
 
-    int getId() {
-        return id;
-    }
-    void setId(int val) {
-        id = val;
-    }
-    string getName() {
-        return name;
-    }
-    void setName(string val) {
-        name = val;
-    }
-    string getBlurb() {
-        return blurb;
-    }
-    void setBlurb(string val) {
-        blurb = val;
-    }
-    int getPictureNum() {
-        return pictureNum;
-    }
-    void setPictureNum(int val) {
-        pictureNum = val;
-    }
+    int getId();
+    void setId(int val);
+    string getName();
+    void setName(string val);
+    string getBlurb();
+    void setBlurb(string val);
+    int getPictureNum();
+    void setPictureNum(int val);
 
-  protected:
+ protected:
 
-  private:
+ private:
     int id;
     string name;
     string blurb;
