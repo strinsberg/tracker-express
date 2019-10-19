@@ -30,11 +30,11 @@ PROGRAM_SERVER = trackEx
 PROGRAM_TEST = testTrackEx
 
 .PHONY: all
-all: $(PROGRAM) $(PROGRAM_TEST) memcheck-test coverage docs static style
+all: $(PROGRAM_SERVER) $(PROGRAM_TEST) memcheck-test coverage docs static style
 
 # default rule for compiling .cc to .o
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX_9) $(CXXFLAGS) $(LINKFLAGS) -c $< -o $@
 
 
 .PHONY: clean
@@ -47,7 +47,7 @@ $(PROGRAM_SERVER):
 
 
 $(PROGRAM_TEST):
-	$(CXX_9) $(CXXFLAGS) -o $(PROGRAM_TEST) $(INCLUDE) $(TEST_DIR)/*.cpp $(SRC_DIR_SERVICE)/*.cpp $(LINKFLAGS) $(LINKFLAGS_TEST) $(GMOCK)
+	$(CXX) $(CXXFLAGS) -o $(PROGRAM_TEST) $(INCLUDE) $(TEST_DIR)/*.cpp $(SRC_DIR_SERVICE)/*.cpp $(LINKFLAGS) $(LINKFLAGS_TEST)
 	$(PROGRAM_TEST)
 
 

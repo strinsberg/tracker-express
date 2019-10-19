@@ -20,7 +20,7 @@ class User {
     void setPictureNum(int val);
 
  protected:
-
+    //prevent style error
  private:
     int id;
     string name;

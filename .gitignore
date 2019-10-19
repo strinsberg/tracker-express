@@ -24,3 +24,7 @@ html
 # codeblocks
 *.cbp
 *.layout
+*.depend
+bin
+debug
+obj
