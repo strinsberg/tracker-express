@@ -2,16 +2,12 @@
 #include <iostream>
 #include <string>
 
-
-User::User()
-{
-    //ctor
-}
+using std::string;
 
 User::User(int id, string name, string blurb, int pictureNum):id(id),
     name(name), blurb(blurb), pictureNum(pictureNum) {}
 
-User::~User()
-{
+User::~User() {
     //dtor
 }
+
