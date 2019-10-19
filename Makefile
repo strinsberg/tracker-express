@@ -30,7 +30,7 @@ PROGRAM_SERVER = trackEx
 PROGRAM_TEST = testTrackEx
 
 .PHONY: all
-all: $(PROGRAM) $(PROGRAM_TEST) memcheck-test coverage docs static style
+all: $(PROGRAM_SERVER) $(PROGRAM_TEST) memcheck-test coverage docs static style
 
 # default rule for compiling .cc to .o
 %.o: %.cpp
