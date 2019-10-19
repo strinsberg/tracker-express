@@ -56,7 +56,6 @@ class IssueSystem {
  private:
   std::vector<Issues> issues;
   std::vector<Users> users;
-
 };
 
 #endif
