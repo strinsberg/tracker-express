@@ -3,7 +3,7 @@
 #include <vector>
 #include "Issue.h"
 
-Issue::Issue() : priority(0), assignee(0);
+Issue::Issue() : priority(0), assignee(0) {}
 
 string Issue::getTitle() {
     return title;
