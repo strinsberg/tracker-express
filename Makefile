@@ -10,7 +10,7 @@ SRC_DIR_SERVICE = src/service
 
 TEST_DIR = test
 
-GMOCK = /usr/src/gmock/gmock-all.cc -lpthread
+#GMOCK = /usr/src/gmock/gmock-all.cc -lpthread
 
 SRC_INCLUDE = include
 TEST_INCLUDE = test
