@@ -1,3 +1,5 @@
+#include "gtest/gtest.h"
+#include "Issue.h"
 
 TEST(TestIssue, testTitle) {
 Issue i;
@@ -20,7 +22,7 @@ EXPECT_EQ(0, i.getAssignee());
 TEST(TestIssue, testTag) {
 Issue i;
 i.addTag("Test");
-EXPECT_EQ("Test", i.getTagAtPosition(0));
+EXPECT_EQ("Test", i.getTagAtPos(0));
 }
 
 TEST(TestIssue, testTag2) {
