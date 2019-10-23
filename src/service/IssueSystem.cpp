@@ -21,33 +21,21 @@ int IssueSystem::createIssue() {
 }
 
 int IssueSystem::createUser() {
-    bool valid = false;
-    //condition to set input to true??
-    if (valid) {
-        //create a user with the id of the current userCount
-        users.push_back(User(userCount));
-        //increment the userCount for further user creation
-        userCount++;
-        //return the count of the user just created
-        return userCount - 1;
-    } else {
-        return -1;
-    }
+    //create a user with the id of the current userCount
+    users.push_back(User(userCount));
+    //increment the userCount for further user creation
+    userCount++;
+    //return the count of the user just created
+    return userCount - 1;
 }
 
 int IssueSystem::createComment() {
-    bool valid = false;
-    //condition to set input to true??
-    if (valid) {
-        //create a comment with the id of the current commentCount
-        comments.push_back(Comment(commentCount));
-        //increment the commentCount for further comment creation
-        commentCount++;
-        //return the count of the comment just created
-        return commentCount - 1;
-    } else {
-        return -1;
-    }
+    //create a comment with the id of the current commentCount
+    comments.push_back(Comment(commentCount));
+    //increment the commentCount for further comment creation
+    commentCount++;
+    //return the count of the comment just created
+    return commentCount - 1;
 }
 
 std::vector<Issue>& IssueSystem::getIssues() {
@@ -63,14 +51,13 @@ std::vector<Comment>& IssueSystem::getComments() {
 }
 
 Issue& IssueSystem::getIssue(int id) {
-    //CHECKPOINT
-    //WHAT TO DO WITH ISSUE&??!?!?!?!
+    //no userID implemented yet
 }
 
 User& IssueSystem::getUser(int id) {
-
+    return users[id-1]; //IDs start at 1, vector has normal index
 }
 
-Comment& IssueSystem::getComment() {
-
+Comment& IssueSystem::getComment(int id) {
+    return comments[id-1];
 }
