@@ -5,11 +5,12 @@
 #include <vector>
 #include "User.h"
 #include "Issue.h"
+#include "Comment.h"
 
 /**
  * Holds the Issues, and Users for the issue tracking system.
  *
- * @author Steven Deutekom
+ * @author Steven Deutekom, Mathew Richards
  * @date Oct 19 2019
  */
 class IssueSystem {
@@ -19,14 +20,14 @@ class IssueSystem {
    */
   IssueSystem();
 
-  virtual IssueSystem();
+  virtual ~IssueSystem();
 
   /**
    * Get all the issues.
-   * 
+   *
    * @return the list of issues.
    */
-  std::vector<Issues>& getIssues();
+  std::vector<Issue>& getIssues();
 
   /**
    * Get all the users.
@@ -40,7 +41,7 @@ class IssueSystem {
    *
    * @return the list of comments.
    */
-  std::vector<Comment>& getComments();
+   std::vector<Comment>& getComments();
 
   /**
    * Gets an issue by ID.
@@ -67,38 +68,37 @@ class IssueSystem {
    * @return return the comment by ID.
    * @throws invalid_argument if the ID does not exist.
    */
-  Comment& getComment();
+  Comment& getComment(int id);
 
   /**
    * Create a new issue.
    *
    * @return the id of the issue.
    */
-  int CreateIssue();
+  int createIssue();
 
   /**
-   * Create a comment.
+   * Create a user.
    *
-   *
-   * @return the id of the comment.
+   * @return the id of the user.
    */
-  int CreateUser();
+  int createUser();
 
   /**
    * Create a new comment.
    *
    * @return the id of the comment.
    */
-  int CreateComment();
+  int createComment();
 
  private:
-  std::vector<Issues> issues;
-  std::vector<Users> users;
-  std::vector<Comment> users;
+  std::vector<Issue> issues;
+  std::vector<User> users;
+  std::vector<Comment> comments;
 
-  int issueID;
-  int commentID;
-  int userID;
+  int issueCount;
+  int commentCount;
+  int userCount;
 };
 
 #endif
