@@ -9,7 +9,7 @@ class Comment{
      * @brief Default constructor for Comment class
      * @param The ID of the comment, sets the commentID variable
      */
-     Comment(int);
+     explicit Comment(int);
      /**
      * @brief Setter for the Issue ID
      * @param issue_id, the Issue ID to set
