@@ -1,5 +1,5 @@
-#include "Issue.h"
 #include "gtest/gtest.h"
+#include "Issue.h"
 
 TEST(TestIssue, testTitle) {
 Issue i(1);

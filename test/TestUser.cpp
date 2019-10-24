@@ -1,7 +1,7 @@
 #include "User.h"
+#include <gtest/gtest.h>
 #include <iostream>
 #include <string>
-#include "gtest/gtest.h"
 
 
 using std::string;

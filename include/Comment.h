@@ -14,12 +14,12 @@ class Comment{
      * @brief Setter for the Issue ID
      * @param issue_id, the Issue ID to set
      */
-     void setIssueId(int);
+     void setIssueID(int);
      /**
      * @brief Setter for the User ID
      * @param user_id, the User ID to set
      */
-     void setUserId(int);
+     void setUserID(int);
      /**
      * @brief Setter for the comment text
      * @param comment, The text of the comment
@@ -29,17 +29,17 @@ class Comment{
      * @brief Setter for Comment ID
      * @param comment_id, the Comment ID to set
      */
-     int getCommentId();
+     int getCommentID();
      /**
      * @brief Getter for the Issue ID
      * @return issueID, The issueID variable
      */
-     int getIssueId();
+     int getIssueID();
      /**
      * @brief Getter for the User ID
      * @return userID, the UserID
      */
-     int getUserId();
+     int getUserID();
      /**
      * @brief Getter for the Comment text
      * @return The Comment string
@@ -51,9 +51,9 @@ class Comment{
      ~Comment();
 
  private:
-    int commentId;
-    int issueId;
-    int userId;
+    int commentID;
+    int issueID;
+    int userID;
     string text;
 };
 
