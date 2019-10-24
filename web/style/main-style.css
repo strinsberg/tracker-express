@@ -78,10 +78,10 @@
             background-color: #009143;
             transition: 1s;
             cursor: pointer;
-        } 
+        }
         .page-body {
             margin: 0 auto;
-            width: 80%;
+            width: 70%;
             max-width: 1600px;
         }
 
@@ -93,9 +93,9 @@
           background-color: #F5F5F5;
           height: 80px;
           padding: 20px;
- 
+
           box-sizing: border-box;
-      } 
+      }
       .footer-text {
           margin: 0px auto;
           font-size: 12px;
@@ -140,4 +140,14 @@
     .menu-bar {
         margin-top: 0px;
     }
+}
+.sidenav {
+	width: 130px;
+	position:fixed;
+	z-index: 1;
+	top: 320px;
+	left: 10px;
+	background: #eee;
+	overflow-x: hidden;
+	padding: 8px 0;
 }
