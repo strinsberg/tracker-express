@@ -19,7 +19,7 @@ class Issue {
     /**
     * @brief The default constructor for the Issue class.
     */
-    Issue();
+    explicit Issue(int);
     //Issue(string, string, int, int, vector<string>, string, Status);
     //Getters
     /**
@@ -58,6 +58,11 @@ class Issue {
     * @return The Status enum
     */
     Status getStatus();
+    /**
+    * @brief Getter for IssueId
+    * @return issueId, the ID number of the issue
+    */
+    int getIssueId();
 
     //Setters
     /**
@@ -91,6 +96,7 @@ class Issue {
     string description;
     int priority;
     int assignee;
+    int issueId;
     vector<string> tags;
     Status status;
 };
