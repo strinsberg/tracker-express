@@ -5,6 +5,7 @@
 #include <restbed>
 #include <string>
 #include <memory>
+#include "Handlers.h"
 #include "IssueSystem.h"
 
 
@@ -44,6 +45,7 @@ class Server {
 
  private:
   IssueSystem system;
+  Handlers handler;
   std::shared_ptr<restbed::Resource> resource;
   std::shared_ptr<restbed::Settings> settings;
   restbed::Service service;

@@ -1,7 +1,7 @@
 #include <restbed>
 #include <nlohmann/json.hpp>
 #include "Server.h"
-
+#include "Handlers.h"
 
 #define ALLOW_ALL { "Access-Control-Allow-Origin", "*" }
 #define CLOSE_CONNECTION { "Connection", "close" }
@@ -19,7 +19,10 @@ Server::~Server() {}
 
 
 void Server::setup() {
-  //resource->set_method_handler("GET", &get_issues_handler);
+  resource->set_method_handler("GET",
+    [this](const std::shared_ptr<restbed::Session>& session) {
+      this->handler.get_issues(session, this->system);
+    });
   //resource->set_method_handler("POST", &create_issue_handler);
   service.publish(resource);
 }
@@ -51,10 +54,10 @@ void Server::get_issues_handler(
     responseJSON["response"].push_back(entryJSON.dump());
   }
 
-  std::string response = responsJSON.dump();
+  std::string response = responseJSON.dump();
   session->close(restbed::OK, response, {
       ALLOW_ALL,
-      { "Content-Length", std::tostring(response.length()) },
+      { "Content-Length", std::to_string(response.length()) },
       CLOSE_CONNECTION
   });
 }
@@ -62,7 +65,6 @@ void Server::get_issues_handler(
 
 void Server::create_issue_handler(
     const std::shared_ptr<restbed::Session>& session) {
-  // nothing
 }
 
 
