@@ -2,7 +2,8 @@
 <head>
 <title>Add Issue</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-<link href="../style/main-style.css" rel="stylesheet">
+<link href="style/main-style.css" rel="stylesheet">
+<meta charset="UTF-8">
 </head>
 <body>
 <h1>Add an Issue</h1>
@@ -32,7 +33,8 @@ Priority:<br>
 <br>Tags (separate by comma):<br>
 <input type="text" name="tags" required>
 <br>
-<button type="button" onclick="alert('This didnt do anything')">Submit</button>
+<input type="button" value="Submit" onclick="postIssue();"/>
 </form>
 </body>
+<script src="js/addIssue.js"></script>
 </html>
