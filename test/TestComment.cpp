@@ -4,7 +4,7 @@
 
 TEST(TestComment, testConstructor) {
     Comment c(1);
-    EXPECT_EQ(1, c.getCommentId());
+    EXPECT_EQ(1, c.getId());
 }
 
 TEST(TestComment, testIssueId) {

@@ -1,6 +1,7 @@
 # autosaves
 *~
 *.swp
+*.swo
 *.autosave
 
 # coverage artifacts

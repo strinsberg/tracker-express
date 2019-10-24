@@ -25,6 +25,10 @@ int Issue::getAssignee() {
     return assignee;
 }
 
+int Issue::getCreator() {
+    return creator;
+}
+
 vector<string> Issue::getTags() {
     return tags;
 }
@@ -51,6 +55,10 @@ void Issue::setPriority(int newPriority) {
 
 void Issue::setAssignee(int newAssignee) {
     assignee = newAssignee;
+}
+
+void Issue::setCreator(int id) {
+    creator = id;
 }
 
 void Issue::addTag(string newTag) {

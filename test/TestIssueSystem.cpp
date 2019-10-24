@@ -47,6 +47,6 @@ TEST(TestIssueSystem, getComment_by_Id) {
     IssueSystem iss;
     int testId = iss.createComment();
     
-    EXPECT_EQ(testId, iss.getComment(testId).getCommentId());
+    EXPECT_EQ(testId, iss.getComment(testId).getId());
 }
 

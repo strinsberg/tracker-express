@@ -29,7 +29,7 @@ class Comment{
      * @brief Setter for Comment ID
      * @param comment_id, the Comment ID to set
      */
-     int getCommentId();
+     int getId();
      /**
      * @brief Getter for the Issue ID
      * @return issueID, The issueID variable

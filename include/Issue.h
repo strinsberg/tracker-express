@@ -6,8 +6,11 @@
 #include <vector>
 #include "Status.h"
 
+
 using std::string;
 using std::vector;
+
+
 /**
 * Allows users to create issues with a title, description,
 * priority, assignee, and tag.
@@ -71,6 +74,12 @@ class Issue {
     int getId();
 
     /**
+     * Gets the id of the issue creator.
+     * @return the id of the creator.
+     */
+    int getCreator();
+
+    /**
     * Setter for the title
     * @param newTitle What you would like to name the title
     */
@@ -100,11 +109,17 @@ class Issue {
     */
     void addTag(string);
 
+    /**
+     * Sets the Id of the creator.
+     */
+    void setCreator(int id);
+
  private:
     string title;
     string description;
     int priority;
     int assignee;
+    int creator;
     int issueId;
     vector<string> tags;
     Status status;

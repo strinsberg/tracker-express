@@ -3,6 +3,7 @@
 #include "User.h"
 #include "Comment.h"
 #include <vector>
+#include <stdexcept>
 
 IssueSystem::IssueSystem() : issueCount(1), userCount(1),
 commentCount(1) {}
