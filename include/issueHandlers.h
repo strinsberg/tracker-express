@@ -4,6 +4,7 @@
 
 #include <restbed>
 #include <string>
+#include <memory>
 
 
 /**
@@ -20,9 +21,9 @@ class Server {
    * @param hostAddress The server address.
    */
   Server(std::string hostAddress);
-  
+
   virtual ~Server();
-  
+
   /**
    * Run the server.
    */
