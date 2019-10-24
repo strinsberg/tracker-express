@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Add Issue</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
+<link href="../style/main-style.css" rel="stylesheet">
+</head>
+<body>
+<h1>Add an Issue</h1>
+<form>
+Title:<br>
+<input type="text" name="title" required>
+<br>Description:<br>
+<textarea name="description" rows="5" cols="20" required>
+Type your description here.
+</textarea>
+<br></br>
+Priority:<br>
+<select name="priority">
+  <option value="high">High Priority</option>
+  <option value="low">Low Priority</option>
+</select>
+<br>Created By:<br>
+<select name="createdBy">
+  <option value="mat">Mathew Richards</option>
+  <option value="steve">Steven Deutekom</option>
+</select>
+<br>Assigned To:<br>
+<select name="assignedTo">
+  <option value="">Unassigned</option>
+  <option value="lorenzo">Lorenzo Conrad</option>
+</select>
+<br>Tags (separate by comma):<br>
+<input type="text" name="tags" required>
+<br>
+<button type="button" onclick="alert('This didnt do anything')">Submit</button>
+</form>
+</body>
+</html>
