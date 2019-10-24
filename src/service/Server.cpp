@@ -24,3 +24,22 @@ void Server::setup() {
 void Server::run() {
   service.start(settings);
 }
+
+
+void Server::get_issues_handler(
+    const std::shared_ptr<restbed::Session>& session) {
+  //nothing
+}
+
+
+void Server::create_issue_handler(
+    const std::shared_ptr<restbed::Session>& session) {
+  // nothing
+}
+
+
+void Server::create_issue_request(
+    const std::shared_ptr<restbed::Session >& session,
+    const restbed::Bytes & body) {
+  //nothing
+}
