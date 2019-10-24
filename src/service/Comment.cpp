@@ -18,7 +18,7 @@ void Comment::setCommentText(string comment) {
     text = comment;
 }
 
-int Comment::getCommentId() {
+int Comment::getId() {
     return commentId;
 }
 

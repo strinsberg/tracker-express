@@ -3,18 +3,15 @@
 #include "User.h"
 #include "Comment.h"
 #include <vector>
+#include <stdexcept>
 
 IssueSystem::IssueSystem() : issueCount(1), userCount(1),
 commentCount(1) {}
 
-IssueSystem::~IssueSystem() {
-    //dtor
-}
+IssueSystem::~IssueSystem() {}
 
 int IssueSystem::createIssue() {
-    //use issueCount in Issue CONSTR. - n/a yet
-    issues.push_back(Issue()); //will be issueID = 1 to start
-    //increment the issueCount for other issues created
+    issues.push_back(Issue(issueCount));
     return issueCount++;
 }
 
@@ -41,23 +38,25 @@ std::vector<Comment>& IssueSystem::getComments() {
 }
 
 Issue& IssueSystem::getIssue(int id) {
-    //no issueID implemented yet
+    for (size_t i = 0; i < issues.size(); i++) {
+        if (id = issues.at(i).getId())
+            return issues.at(i);
+    }
+    throw std::invalid_argument("Error: Not a valid ID");
 }
 
 User& IssueSystem::getUser(int id) {
-    for (unsigned int i=0; i < users.size(); i++) {
-        if (i == id-1)
-            return users[i];
+    for (size_t i = 0; i < users.size(); i++) {
+        if (id == users.at(i).getId())
+            return users.at(i);
     }
-    //shouldn't get here
-    //return User();
+    throw std::invalid_argument("Error: Not a valid ID");
 }
 
 Comment& IssueSystem::getComment(int id) {
-    for (unsigned int i=0; i < comments.size(); i++) {
-        if (i == id-1)
+    for (size_t i = 0; i < comments.size(); i++) {
+        if (id == comments.at(i).getId())
             return comments[i];
     }
-    //shouldn't get here
-    //return Comment();
+    throw std::invalid_argument("Error: Not a valid ID");
 }

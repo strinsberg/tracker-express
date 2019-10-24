@@ -12,15 +12,14 @@ using std::string;
  */
 class User {
  public:
-     /**
+    /**
      * Creates a user object, id is set and all others set to default.
      *
      * @param id The user's id number
-    */
-     User(int id);
+     */
+    explicit User(int id);
     /**
      * Creates a user object.
-     *
      * @param id The user's id number
      * @param name The user's name
      * @param blurb The user's profile blurb

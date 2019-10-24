@@ -1,7 +1,9 @@
 # autosaves
 *~
 *.swp
+*.swo
 *.autosave
+*.orig
 
 # coverage artifacts
 *.gcda

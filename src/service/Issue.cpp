@@ -3,10 +3,14 @@
 #include <vector>
 #include "Issue.h"
 
-Issue::Issue() : priority(0), assignee(0) {}
+Issue::Issue(int newIssue) : priority(0), assignee(0), issueId(newIssue) {}
 
 string Issue::getTitle() {
     return title;
+}
+
+int Issue::getId() {
+   return issueId;
 }
 
 string Issue::getDescription() {
@@ -19,6 +23,10 @@ int Issue::getPriority() {
 
 int Issue::getAssignee() {
     return assignee;
+}
+
+int Issue::getCreator() {
+    return creator;
 }
 
 vector<string> Issue::getTags() {
@@ -47,6 +55,10 @@ void Issue::setPriority(int newPriority) {
 
 void Issue::setAssignee(int newAssignee) {
     assignee = newAssignee;
+}
+
+void Issue::setCreator(int id) {
+    creator = id;
 }
 
 void Issue::addTag(string newTag) {
