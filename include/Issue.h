@@ -58,6 +58,11 @@ class Issue {
     * @return The Status enum
     */
     Status getStatus();
+    /**
+    * @brief Getter for IssueId
+    * @return issueId, the ID number of the issue
+    */
+    int getIssueId();
 
     //Setters
     /**
@@ -84,13 +89,13 @@ class Issue {
     * @brief Adds a tag to the issue by pushing it to the tags vector
     * @param newTag The new tag you would like to add.
     */
-    void addTag(string);
 
  private:
     string title;
     string description;
     int priority;
     int assignee;
+    int issueId;
     vector<string> tags;
     Status status;
 };
