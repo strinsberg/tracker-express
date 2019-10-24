@@ -19,7 +19,7 @@ class Issue {
     /**
     * @brief The default constructor for the Issue class.
     */
-    Issue(int);
+    explicit Issue(int);
     //Issue(string, string, int, int, vector<string>, string, Status);
     //Getters
     /**

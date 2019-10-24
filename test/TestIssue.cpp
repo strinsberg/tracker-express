@@ -37,6 +37,11 @@ i.setPriority(1);
 EXPECT_EQ(1, i.getPriority());
 }
 
+TEST(TestIssue, testIdGetter) {
+Issue i(1);
+EXPECT_EQ(1, i.getIssueId());
+}
+
 /*
 TEST(TestIssue, testStatus) {
 Issue i;
