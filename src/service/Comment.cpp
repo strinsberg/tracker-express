@@ -3,31 +3,31 @@
 
 Comment::Comment(int comment_id) {
     //ctor
-    commentId = comment_id;
+    commentID = comment_id;
 }
 
-void Comment::setIssueId(int issue_id) {
-    issueId = issue_id;
+void Comment::setIssueID(int issue_id) {
+    issueID = issue_id;
 }
 
-void Comment::setUserId(int user_id) {
-    userId = user_id;
+void Comment::setUserID(int user_id) {
+    userID = user_id;
 }
 
 void Comment::setCommentText(string comment) {
     text = comment;
 }
 
-int Comment::getCommentId() {
-    return commentId;
+int Comment::getCommentID() {
+    return commentID;
 }
 
-int Comment::getIssueId() {
-    return issueId;
+int Comment::getIssueID() {
+    return issueID;
 }
 
-int Comment::getUserId() {
-    return userId;
+int Comment::getUserID() {
+    return userID;
 }
 
 string Comment::getCommentText() {
