@@ -4,6 +4,7 @@
 
 #include <restbed>
 #include <string>
+#include <memory>
 
 
 /**
@@ -17,21 +18,27 @@ class Server {
   /**
    * Create a new REST server.
    *
-   * @param hostAddress The server address.
+   * @param host The server address.
+   * @param port The port for the server.
    */
-  Server(std::string hostAddress);
-  
+  Server(std::string host, int port);
+
   virtual ~Server();
-  
+
+  /**
+   * Setup server endpoints and settings.
+   */
+  void setup();
+
   /**
    * Run the server.
    */
   void run();
 
  private:
-  std::string hostAddress;
   std::shared_ptr<restbed::Resource> resource;
   std::shared_ptr<restbed::Settings> settings;
+  restbed::Service service;
 };
 
 #endif
