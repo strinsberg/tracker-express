@@ -1,6 +1,5 @@
+#include <gtest/gtest.h>
 #include "Comment.h"
-#include "gtest/gtest.h"
-
 
 TEST(TestComment, testConstructor) {
     Comment c(1);

@@ -23,7 +23,6 @@ class Issue {
     * The default constructor for the Issue class.
     */
     explicit Issue(int);
-
     /**
     * Getter for the private title string
     * @return The title string

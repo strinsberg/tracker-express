@@ -20,7 +20,6 @@ class User {
     explicit User(int id);
     /**
      * Creates a user object.
-     *
      * @param id The user's id number
      * @param name The user's name
      * @param blurb The user's profile blurb
