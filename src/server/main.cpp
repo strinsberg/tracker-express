@@ -5,7 +5,7 @@
 
 
 int main() {
-    Server server("/localhost", 1234);
+    Server server("/trackEx", 1234);
     server.setup();
     server.run();
 

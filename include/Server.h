@@ -37,16 +37,10 @@ class Server {
    */
   void run();
 
- protected:
-  void get_issues_handler(const std::shared_ptr<restbed::Session>& session);
-  void create_issue_handler(const std::shared_ptr<restbed::Session>& session);
-  void create_issue_request(const std::shared_ptr<restbed::Session >& session,
-                            const restbed::Bytes & body);
-
  private:
   IssueSystem system;
   Handlers handler;
-  std::shared_ptr<restbed::Resource> resource;
+  std::shared_ptr<restbed::Resource> IssueResource;
   std::shared_ptr<restbed::Settings> settings;
   restbed::Service service;
 };
