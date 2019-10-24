@@ -10,7 +10,7 @@ string Issue::getTitle() {
 }
 
 int Issue::getIssueId() {
-   return issueID;
+   return issueId;
 }
 
 string Issue::getDescription() {

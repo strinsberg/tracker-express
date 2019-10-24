@@ -19,7 +19,7 @@ class Issue {
     /**
     * @brief The default constructor for the Issue class.
     */
-    Issue();
+    Issue(int);
     //Issue(string, string, int, int, vector<string>, string, Status);
     //Getters
     /**
@@ -89,6 +89,7 @@ class Issue {
     * @brief Adds a tag to the issue by pushing it to the tags vector
     * @param newTag The new tag you would like to add.
     */
+    void addTag(string);
 
  private:
     string title;
