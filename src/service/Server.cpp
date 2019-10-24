@@ -41,5 +41,38 @@ void Server::create_issue_handler(
 void Server::create_issue_request(
     const std::shared_ptr<restbed::Session >& session,
     const restbed::Bytes & body) {
-  //nothing
+
+  const auto request = session->get_request();
+  // for now just get all issues and add filtering later
+  nlohmann::json responseJSON = {
+    {"status", "ok"},
+    {"response", {}}
+  };
+
+  for (const auto & iss : system.getIssues()) {
+    std::string entry;
+    nlohmann::json entryJSON = {
+        {"id", iss.getId()},
+        {"title", iss.getTitle()},
+        {"created", iss.getCreated()},
+        {"priority", iss.getPriority()},
+    };
+    responseJSON["response"].push_back(entryJSON.dump());
+  }
+
+  std::string response = responsJSON.dump();
+  session->close(restbed::OK, response, {
+      ALLOW_ALL,
+      { "Content-Length", std::tostring(response.length()) },
+      CLOSE_CONNECTION
+  });
 }
+
+
+
+
+
+
+
+
+
