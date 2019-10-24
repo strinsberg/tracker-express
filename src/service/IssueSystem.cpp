@@ -15,27 +15,17 @@ int IssueSystem::createIssue() {
     //use issueCount in Issue CONSTR. - n/a yet
     issues.push_back(Issue()); //will be issueID = 1 to start
     //increment the issueCount for other issues created
-    issueCount++;
-    //return the id of the issue just created
-    return issueCount - 1;
+    return issueCount++;
 }
 
 int IssueSystem::createUser() {
-    //create a user with the id of the current userCount
     users.push_back(User(userCount));
-    //increment the userCount for further user creation
-    userCount++;
-    //return the count of the user just created
-    return userCount - 1;
+    return userCount++;
 }
 
 int IssueSystem::createComment() {
-    //create a comment with the id of the current commentCount
     comments.push_back(Comment(commentCount));
-    //increment the commentCount for further comment creation
-    commentCount++;
-    //return the count of the comment just created
-    return commentCount - 1;
+    return commentCount++;
 }
 
 std::vector<Issue>& IssueSystem::getIssues() {
@@ -51,13 +41,23 @@ std::vector<Comment>& IssueSystem::getComments() {
 }
 
 Issue& IssueSystem::getIssue(int id) {
-    //no userID implemented yet
+    //no issueID implemented yet
 }
 
 User& IssueSystem::getUser(int id) {
-    return users[id-1]; //IDs start at 1, vector has normal index
+    for (unsigned int i=0; i < users.size(); i++) {
+        if (i == id-1)
+            return users[i];
+    }
+    //shouldn't get here
+    //return User();
 }
 
 Comment& IssueSystem::getComment(int id) {
-    return comments[id-1];
+    for (unsigned int i=0; i < comments.size(); i++) {
+        if (i == id-1)
+            return comments[i];
+    }
+    //shouldn't get here
+    //return Comment();
 }

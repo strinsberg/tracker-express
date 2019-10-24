@@ -1,27 +1,31 @@
-#include "gtest/gtest.h"
 #include "IssueSystem.h"
 #include "Issue.h"
 #include "User.h"
 #include <vector>
+#include "gtest/gtest.h"
+
 
 TEST(TestIssueSystem, getIssues_CreateIssues_test) {
     IssueSystem IS;
     //create an issue that with id = 1
     EXPECT_EQ(1, IS.createIssue());
+    EXPECT_EQ(2, IS.createIssue());
+    EXPECT_EQ(3, IS.createIssue());
 }
 
 TEST(TestIssueSystem, getUsers_CreateUser_test) {
     IssueSystem IS;
-    //creates a single user with id = 1
     EXPECT_EQ(1, IS.createUser());
-    //separate test for this method??
+    EXPECT_EQ(2, IS.createUser());
+    EXPECT_EQ(3, IS.createUser());
     //EXPECT_EQ(IS.users, IS.getUsers());
 }
 
 TEST(TestIssueSystem, getComments_CreateComments_test) {
     IssueSystem IS;
-    //creates a single comment with id = 1
     EXPECT_EQ(1, IS.createComment());
+    EXPECT_EQ(2, IS.createComment());
+    EXPECT_EQ(3, IS.createComment());
 }
 
 TEST(TestIssueSystem, getIssue_by_Id) {
