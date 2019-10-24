@@ -3,14 +3,10 @@
 #include <vector>
 #include "Issue.h"
 
-Issue::Issue(int newIssue) : priority(0), assignee(0), issueId(newIssue) {}
+Issue::Issue() : priority(0), assignee(0) {}
 
 string Issue::getTitle() {
     return title;
-}
-
-int Issue::getIssueId() {
-   return issueId;
 }
 
 string Issue::getDescription() {
