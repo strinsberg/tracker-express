@@ -9,7 +9,7 @@ string Issue::getTitle() {
     return title;
 }
 
-int Issue::getIssueId() {
+int Issue::getId() {
    return issueId;
 }
 
