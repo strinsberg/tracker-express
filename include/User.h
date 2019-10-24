@@ -12,8 +12,15 @@ using std::string;
  */
 class User {
  public:
+     /**
+     * Creates a user object, id is set and all others set to default.
+     *
+     * @param id The user's id number
+    */
+     User(int id);
     /**
      * Creates a user object.
+     *
      * @param id The user's id number
      * @param name The user's name
      * @param blurb The user's profile blurb
@@ -24,49 +31,57 @@ class User {
 
     /**
      * Getter method for the id.
-     * @return id The user's id number
+     *
+     * @return id The user's id number.
     */
     int getId();
 
     /**
      * Setter method for the id.
-     * @param val The new value for the user id
+     *
+     * @param val The new value for the user id.
      */
     void setId(int val);
 
     /**
-     * Getter method for user name
-     * @return name The user's name
+     * Getter method for user name.
+     *
+     * @return name The user's name.
      */
     string getName();
 
     /**
-     * Setter method for user name
-     * @param val The new name for the user
+     * Setter method for user name.
+     *
+     * @param val The new name for the user.
      */
     void setName(string val);
 
     /**
-     * Getter for the user's blurb
-     * @return blurb The user's blurb
+     * Getter for the user's blurb.
+     *
+     * @return blurb The user's blurb.
      */
     string getBlurb();
 
     /**
-     * Setter method for the blurb
-     * @param val The new blurb for the user
+     * Setter method for the blurb.
+     *
+     * @param val The new blurb for the user.
      */
     void setBlurb(string val);
 
     /**
-     * Getter method for the pictureNum
-     * @return pictureNum The id that will correspond to a user photo
+     * Getter method for the pictureNum.
+     *
+     * @return pictureNum The id that will correspond to a user photo.
      */
     int getPictureNum();
 
     /**
-     * Setter method for the pictureNum
-     * @param val The id for the new user picture
+     * Setter method for the pictureNum.
+     *
+     * @param val The id for the new user picture.
      */
     void setPictureNum(int val);
 
