@@ -9,6 +9,7 @@ Server::Server(std::string host, int port)
       settings(std::make_shared<restbed::Settings>()) {
   issueResource->set_path(host + "/issues");
   settings->set_port(port);
+  //settings->set_default_header("Access-Control-Allow-Origin", "*");
 }
 
 

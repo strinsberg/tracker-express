@@ -30,11 +30,7 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
   }
 
   std::string response = responseJSON.dump();
-  session->close(restbed::OK, response, {
-      ALLOW_ALL,
-      { "Content-Length", std::to_string(response.length()) },
-      CLOSE_CONNECTION
-  });
+  session->close(restbed::OK, response, { ALLOW_ALL, { "Content-Length", std::to_string(response.length()) }, CLOSE_CONNECTION });
 }
 
 void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
