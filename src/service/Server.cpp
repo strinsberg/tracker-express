@@ -9,7 +9,6 @@ Server::Server(std::string host, int port)
       settings(std::make_shared<restbed::Settings>()) {
   issueResource->set_path(host + "/issues");
   settings->set_port(port);
-  //settings->set_default_header("Access-Control-Allow-Origin", "*");
 }
 
 
@@ -17,10 +16,10 @@ Server::~Server() {}
 
 
 void Server::setup() {
-  //issueResource->set_method_handler("GET",
-    //[this](const std::shared_ptr<restbed::Session>& session) {
-      //this->handler.get_issues(session, this->system);
-    //});
+  issueResource->set_method_handler("GET",
+    [this](const std::shared_ptr<restbed::Session>& session) {
+      this->handler.get_issues(session, this->system);
+    });
   issueResource->set_method_handler("POST",
     [this](const std::shared_ptr<restbed::Session>& session) {
       this->handler.create_issue(session, this->system);
