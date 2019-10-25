@@ -38,12 +38,13 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
 }
 
 void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
-                            const restbed::Bytes& body,
                             IssueSystem& system) {
   const auto request = session->get_request();
   size_t content_length = request->get_header("Content-Length", 0);
   
-  session->fetch(content_length, [&]() {
+  session->fetch(content_length,
+      [& system](const std::shared_ptr<restbed::Session>& session,
+          const restbed::Bytes& body) {
     int id = system.createIssue();
     Issue& iss = system.getIssue(id);
     
@@ -57,7 +58,7 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
     if (iss.getAssignee() == -1)
         iss.setStatus(Status::NEW);
     else
-        iss.setStatus("Assigned");
+        iss.setStatus(Status::ASSIGNED);
     
     nlohmann::json result = {
       {"status", "ok"},
@@ -71,4 +72,5 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
       },
       CLOSE_CONNECTION
     });
+  });
 }
