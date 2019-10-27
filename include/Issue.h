@@ -113,6 +113,8 @@ class Issue {
      */
     void setCreator(int id);
 
+    void setStatus(Status status);
+
  private:
     string title;
     string description;

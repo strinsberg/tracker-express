@@ -39,7 +39,7 @@ std::vector<Comment>& IssueSystem::getComments() {
 
 Issue& IssueSystem::getIssue(int id) {
     for (size_t i = 0; i < issues.size(); i++) {
-        if (id = issues.at(i).getId())
+        if (id == issues.at(i).getId())
             return issues.at(i);
     }
     throw std::invalid_argument("Error: Not a valid ID");

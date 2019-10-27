@@ -64,3 +64,7 @@ void Issue::setCreator(int id) {
 void Issue::addTag(string newTag) {
     tags.push_back(newTag);
 }
+
+void Issue::setStatus(Status s) {
+    status = s;
+}
