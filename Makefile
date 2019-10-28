@@ -17,7 +17,6 @@ TEST_INCLUDE = test
 SERVER_INCLUDE = -I include/server
 INCLUDE = -I ${SRC_INCLUDE} -I ${TEST_INCLUDE}
 
-GCOV_9 = gcov9.1
 GCOV = gcov
 LCOV = lcov
 COVERAGE_RESULTS = results.coverage
@@ -37,10 +36,9 @@ all: $(PROGRAM_SERVER) $(PROGRAM_TEST) memcheck-test coverage docs static style
 %.o: %.cpp
 	$(CXX_9) $(CXXFLAGS) $(LINKFLAGS) -c $< -o $@
 
-
 .PHONY: clean
 clean:
-	rm -rf *~ $(SRC)/*.o $(TEST_SRC)/*.o *.gcov *.gcda *.gcno $(COVERAGE_RESULTS) $(PROGRAM_SERVER) $(PROGRAM_TEST) $(COVERAGE_DIR)
+	rm -rf *~ $(SRC)/*.o $(TEST_SRC)/*.o *.gcov *.gcda *.gcno $(COVERAGE_RESULTS) $(PROGRAM) $(PROGRAM_TEST) $(COVERAGE_DIR)
 
 
 $(PROGRAM_SERVER):
@@ -50,7 +48,6 @@ $(PROGRAM_SERVER):
 $(PROGRAM_TEST):
 	$(CXX) $(CXXFLAGS) -o $(PROGRAM_TEST) $(INCLUDE) $(TEST_DIR)/*.cpp $(SRC_DIR)/*.cpp $(LINKFLAGS_TEST)
 	$(PROGRAM_TEST)
-
 
 memcheck-game: $(PROGRAM)
 	valgrind --tool=memcheck --leak-check=yes $(PROGRAM)
@@ -65,15 +62,10 @@ coverage: $(PROGRAM_TEST)
 	$(LCOV) --extract $(COVERAGE_RESULTS) "*/Aegir/src/*" -o $(COVERAGE_RESULTS)
 	genhtml $(COVERAGE_RESULTS) --output-directory $(COVERAGE_DIR)
 	rm -f *.gc*
-	#$(PROGRAM_TEST)
-	#$(GCOV) -b $(SRC_DIR_SERVICE)/*.cpp -o .
-	#rm -f *.gc*
-
 
 .PHONY: static
-static: ${SRC_DIR_SERVICE}
+static: ${SRC_DIR}
 	cppcheck --verbose --enable=all --xml ${SRC_DIR} ${TEST_DIR} ${INCLUDE} --suppress=missingInclude
-
 
 .PHONY: style
 style: ${TEST_DIR} ${SRC_INCLUDE} ${SRC_DIR_SERVICE}
