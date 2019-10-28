@@ -1,7 +1,9 @@
 # autosaves
 *~
 *.swp
+*.swo
 *.autosave
+*.orig
 
 # coverage artifacts
 *.gcda
@@ -24,3 +26,7 @@ html
 # codeblocks
 *.cbp
 *.layout
+*.depend
+bin
+debug
+obj

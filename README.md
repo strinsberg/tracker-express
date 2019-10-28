@@ -3,12 +3,15 @@
 3720 group project.
 
 #### Release
-Proposal Phase
-**Version** 1.0
+End of Sprint 1
+**Version** 1.1
+
+* Issues page
+* Add issue form
+* Submit test issues and view all issues
 
 #### Documentation
 * Project release documentation is in docs folder
-* Agile documentation is in docs/agile, with finalized sprint retrospectives in docs
 * Code documentation using doxygen is in docs/source
 * All design, planning, and team documentation is in docs/planning
 
@@ -16,6 +19,19 @@ Proposal Phase
 Lorenzo Conrad (Front-End Specialist)  
 Mathew Richards (Idea Specialist)  
 Steven Deutekom (Scrum Master)  
+
+
+# Compilation and Use
+
+* Compile and run the tests `$ make testTrackEx`
+* Compile the server `$ make trackEx`
+* Run the server `$ ./trackEx`
+* To see some basic initial functionality
+  1. open `$ src/web/index.html` in your browser.
+  2. Open issues page to see the current issue list (which is empty when the server starts).
+  3. You can view the add issue form. Submitting an issue currently only adds a test issue (does not use values in the form).
+  4. Refreshing the issue page will update the list of issues.
+
 
 # Contribution Guidlines
 
