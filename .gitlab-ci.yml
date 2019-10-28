@@ -17,7 +17,7 @@ build-test:
 test-rest:
    stage: test
    script:
-      - testRest
+      - testTrackEx
       - make memcheck-test
       - make static
       - make style
