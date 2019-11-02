@@ -3,7 +3,6 @@ async function postIssue() {
 
   const response = await fetch("http://localhost:1234/trackEx/issues", {
     method: "POST",
-    mode: "no-cors",
     headers: {
       "Accept": "*/*",
       "Content-Type": "text/plain"

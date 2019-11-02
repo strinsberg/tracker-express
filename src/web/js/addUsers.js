@@ -7,7 +7,7 @@ async function postUser() {
       "Accept": "*/*",
       "Content-Type": "text/plain"
     },
-    body: JSON.stringify({name: "Test BillyBob", blurb: "Some info about me",
+    body: JSON.stringify({name: "Test Billy Bob", blurb: "Some info about me",
       pic: 0})
   });
 

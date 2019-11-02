@@ -10,16 +10,16 @@
 <h1>Add A User</h1>
 <form>
 Name:<br>
-<input id="title" type="text" name="title" required>
+<input id="name" type="text" name="name" required>
 <br>Blurb:<br>
-<textarea id="description" name="description" rows="5" cols="20" required>
+<textarea id="blurb" name="blurb" rows="5" cols="20" required>
 Distinguish yourself.
 </textarea>
 <br></br>
 Picture:<br>
-<select id="priority" name="priority">
-  <option value="high">High Priority</option>
-  <option value="low">Low Priority</option>
+<select id="pic" name="picture_num">
+  <option value=0>Pic 1</option>
+  <option value=1>Pic 2</option>
 </select>
 <br>
 <input type="button" value="Submit" onclick="postUser();"/>

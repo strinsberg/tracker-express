@@ -54,6 +54,7 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
     int id = system->createIssue();
     Issue& iss = system->getIssue(id);
 
+    std::cout << "Body: " << body.data() << std::endl;
     auto data = nlohmann::json::parse(body.data());
 
     iss.setTitle(data["title"]);
@@ -120,18 +121,30 @@ void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
   const auto request = session->get_request();
   size_t content_length = request->get_header("Content-Length", 0);
 
+  // Fetch with lambda for dealing with the request
   session->fetch(content_length,
       [system](const std::shared_ptr<restbed::Session>& session,
           const restbed::Bytes& body) {
     int id = system->createUser();
     User& user = system->getUser(id);
 
-    auto data = nlohmann::json::parse(body.data());
+    nlohmann::json data;
+    std::string temp_body(reinterpret_cast<const char*>(body.data()));
 
+    // Hack to remove extra info from post body
+    // Don't know why it is there, but it should be fixed eventually
+    std::cout << "Body: " << temp_body.substr(0, temp_body.length() - 8) << std::endl;
+    if (temp_body.find("/users'") != std::string::npos)
+        data = nlohmann::json::parse(temp_body.substr(0, temp_body.length() - 8));
+    else
+        data = nlohmann::json::parse(temp_body);
+
+    // Setup user object
     user.setName(data["name"]);
     user.setBlurb(data["blurb"]);
     user.setPictureNum(data["pic"]);
 
+    // Create and send response
     nlohmann::json result = {
       {"status", "ok"},
       {"response", data}
@@ -139,7 +152,7 @@ void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
     std::string response = result.dump();
 
     std::cout << "POST: User: " << response << std::endl;
-    std::cout << "Number of Users: " << system->getIssues().size();
+    std::cout << "Number of Users: " << system->getUsers().size();
     std::cout << std::endl << std::endl;
 
     session->close(restbed::OK, response, {

@@ -8,6 +8,7 @@
 
 Server::Server(std::string host, int port)
     : issueResource(std::make_shared<restbed::Resource>()),
+      userResource(std::make_shared<restbed::Resource>()),
       settings(std::make_shared<restbed::Settings>()) {
   issueResource->set_path(host + "/issues");
   userResource->set_path(host + "/users");
@@ -42,6 +43,7 @@ void Server::setup() {
 
   // Publish resources
   service.publish(issueResource);
+  service.publish(userResource);
 }
 
 
