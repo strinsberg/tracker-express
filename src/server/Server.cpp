@@ -20,7 +20,6 @@ Server::~Server() {}
 
 
 void Server::setup() {
-
   // Set issue resources
   issueResource->set_method_handler("GET",
     [this](const std::shared_ptr<restbed::Session>& session) {

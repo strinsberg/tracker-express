@@ -38,7 +38,7 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
   std::cout << std::endl;
 
   session->close(restbed::OK, response,
-    { ALLOW_ALL, 
+    { ALLOW_ALL,
       { "Content-Length", std::to_string(response.length()) },
     CLOSE_CONNECTION });
 }
@@ -78,7 +78,7 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
     std::cout << std::endl << std::endl;
 
     session->close(restbed::OK, response, {
-      ALLOW_ALL, { 
+      ALLOW_ALL, {
         "Content-Length", std::to_string(response.length())
       },
       CLOSE_CONNECTION
@@ -111,7 +111,7 @@ void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
   std::cout << std::endl;
 
   session->close(restbed::OK, response,
-    { ALLOW_ALL, 
+    { ALLOW_ALL,
       { "Content-Length", std::to_string(response.length()) },
     CLOSE_CONNECTION });
 }
@@ -133,9 +133,11 @@ void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
 
     // Hack to remove extra info from post body
     // Don't know why it is there, but it should be fixed eventually
-    std::cout << "Body: " << temp_body.substr(0, temp_body.length() - 8) << std::endl;
+    std::cout << "Body: " << temp_body.substr(0, temp_body.length() - 8);
+    std::cout << std::endl;
     if (temp_body.find("/users'") != std::string::npos)
-        data = nlohmann::json::parse(temp_body.substr(0, temp_body.length() - 8));
+        data = nlohmann::json::parse(
+          temp_body.substr(0, temp_body.length() - 8));
     else
         data = nlohmann::json::parse(temp_body);
 
@@ -156,7 +158,7 @@ void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
     std::cout << std::endl << std::endl;
 
     session->close(restbed::OK, response, {
-      ALLOW_ALL, { 
+      ALLOW_ALL, {
         "Content-Length", std::to_string(response.length())
       },
       CLOSE_CONNECTION
