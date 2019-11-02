@@ -38,7 +38,7 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
   std::cout << std::endl;
 
   session->close(restbed::OK, response,
-    { { "Access-Control-Allow-Origin", "*" },
+    { ALLOW_ALL, 
       { "Content-Length", std::to_string(response.length()) },
     CLOSE_CONNECTION });
 }
@@ -77,10 +77,21 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
     std::cout << std::endl << std::endl;
 
     session->close(restbed::OK, response, {
-      { "Access-Control-Allow-Origin", "*" }, {
+      ALLOW_ALL, { 
         "Content-Length", std::to_string(response.length())
       },
       CLOSE_CONNECTION
     });
   });
+}
+
+
+void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
+                         IssueSystem* system) {
+
+}
+
+void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
+                           IssueSystem* system) {
+
 }
