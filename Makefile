@@ -38,7 +38,7 @@ all: $(PROGRAM_SERVER) $(PROGRAM_TEST) memcheck-test coverage docs static style
 
 .PHONY: clean
 clean:
-	rm -rf *~ $(SRC)/*.o $(TEST_SRC)/*.o *.gcov *.gcda *.gcno $(COVERAGE_RESULTS) $(PROGRAM) $(PROGRAM_TEST) $(COVERAGE_DIR)
+	rm -rf *~ $(SRC)/*.o $(TEST_SRC)/*.o *.gcov *.gcda *.gcno $(COVERAGE_RESULTS) $(PROGRAM_SERVER) $(PROGRAM_TEST) $(COVERAGE_DIR)
 
 
 $(PROGRAM_SERVER):
