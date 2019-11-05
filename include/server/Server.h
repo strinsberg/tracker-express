@@ -41,6 +41,7 @@ class Server {
   IssueSystem system;
   Handlers handler;
   std::shared_ptr<restbed::Resource> issueResource;
+  std::shared_ptr<restbed::Resource> userResource;
   std::shared_ptr<restbed::Settings> settings;
   restbed::Service service;
 };

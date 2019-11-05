@@ -1,14 +1,14 @@
-async function postIssue() {
-  console.log("Activate POST Issue!!");
+async function postUser() {
+  console.log("Activate POST User!!");
 
-  const response = await fetch("http://localhost:1234/trackEx/issues", {
+  const response = await fetch("http://localhost:1234/trackEx/users", {
     method: "POST",
     headers: {
       "Accept": "*/*",
       "Content-Type": "text/plain"
     },
-    body: JSON.stringify({title: "test issue", "description":"some long ideas",
-      "assignee": -1, "creator": -1, "priority": 1})
+    body: JSON.stringify({name: "Test Billy Bob", blurb: "Some info about me",
+      pic: 0})
   });
 
   // Not doing anything with the response as there is some issue with the
@@ -16,4 +16,3 @@ async function postIssue() {
   console.log('Success', response);
 
 }
-
