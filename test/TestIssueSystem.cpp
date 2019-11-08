@@ -2,6 +2,7 @@
 #include "Issue.h"
 #include "User.h"
 #include <vector>
+#include <stdexcept>
 #include "gtest/gtest.h"
 
 
@@ -50,3 +51,24 @@ TEST(TestIssueSystem, getComment_by_Id) {
     EXPECT_EQ(testId, iss.getComment(testId).getId());
 }
 
+TEST(TestIssueSystem, getIssues) {
+    IssueSystem iss;
+    iss.createIssue();
+
+    //EXPECT_EQ(iss.getIssues(), issueVec);
+}
+
+TEST(TestIssueSystem, getIssue_throw) {
+    IssueSystem iss;
+    EXPECT_THROW(iss.getIssue(-10), std::invalid_argument);
+}
+
+TEST(TestIssueSystem, getUser_throw) {
+    IssueSystem iss;
+    EXPECT_THROW(iss.getUser(-10), std::invalid_argument);
+}
+
+TEST(TestIssueSystem, getComment_throw) {
+    IssueSystem iss;
+    EXPECT_THROW(iss.getComment(-10), std::invalid_argument);
+}
