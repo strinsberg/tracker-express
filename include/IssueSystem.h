@@ -78,6 +78,14 @@ class IssueSystem {
     int createIssue();
 
     /**
+     * Create a new issue from a JSON string of an issue.
+     *
+     * @param json An json string of an issue object.
+     * @return the issue
+     */
+    Issue& createIssue(const char* json);
+
+    /**
      * Create a user.
      *
      * @return the id of the user.
@@ -85,11 +93,27 @@ class IssueSystem {
     int createUser();
 
     /**
+     * Create a user from a JSON string of a user.
+     *
+     * @param json An json string of a user object.
+     * @return the user.
+     */
+    User& createUser(const char* json);
+
+    /**
      * Create a new comment.
      *
      * @return the id of the comment.
      */
     int createComment();
+
+    /**
+     * Create a new comment from a JSON string of a comment.
+     *
+     * @param json A json string of a comment object.
+     * @return the id of the comment.
+     */
+    Comment& createComment(const char* json);
 
  private:
     std::vector<Issue> issues;
@@ -99,6 +123,17 @@ class IssueSystem {
     int issueCount;
     int commentCount;
     int userCount;
+
+    /**
+     * Clean any garbage from a string that is supposed to contain JSON.
+     * This is not going to be a perfect fix to the problem of the client
+     * sending JSON strings with garbage appended to them. It also does not
+     * make sure the string is valid JSON.
+     *
+     * @param str The string to clean.
+     * @return a string that should only contain a JSON object.
+     */
+    std::string clean(std::string str);
 };
 
 #endif
