@@ -48,12 +48,12 @@ TEST(TestIssue, testCreator) {
     EXPECT_EQ(42, i.getCreator());
 }
 
-/*
-TEST(TestIssue, testStatus) {
-Issue i;
-i.addStatus("Test");
-EXPECT_EQ("Test",i.getTagAtPosition(0));
-}
-*/
+
+//TEST(TestIssue, testStatus) {
+//Issue i(1);
+//i.setStatus("Test");
+//EXPECT_EQ("Test", i.getStatus());
+//}
+
 
 
