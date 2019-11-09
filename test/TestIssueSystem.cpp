@@ -1,9 +1,9 @@
 #include "IssueSystem.h"
 #include "Issue.h"
 #include "User.h"
+#include <nlohmann/json.hpp>
 #include <vector>
 #include <stdexcept>
-#include <nlohmann/json.hpp>
 #include "gtest/gtest.h"
 
 
@@ -32,11 +32,34 @@ TEST(TestIssueSystem, CreateComments_test) {
 }
 
 TEST(TestIssueSystem, createIssue_json) {
-    IssueSystem system;
-    const char* tempJson = "{\"title\" : \"meow\", \"description\" : \"description\", \"assignee\" : 18, \"creator\" : 12, \"priority\" : 132}";
+    IssueSystem system, sys1;
+    const char* tempJson =
+    "{\"title\" : \"meow\", \"description\" : \"description\","
+     "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
+    const char* tempJson1 =
+    "{\"title\" : \"meow\", \"description\" : \"description\", "
+    "\"assignee\" : 1, \"creator\" : 12, \"priority\" : 132 }";
     Issue& iss = system.createIssue(tempJson);
+    Issue& iss1 = sys1.createIssue(tempJson1);
+    iss1.getAssignee();
+    iss.getAssignee();
     EXPECT_EQ("meow", iss.getTitle());
 }
+
+TEST(TestIssueSystem, createUser_json) {
+    IssueSystem system;
+    const char* tempJson =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+    User& us = system.createUser(tempJson);
+    EXPECT_EQ("meow", us.getName());
+}
+
+/*TEST(TestIssueSystem, createComment_json) {
+    IssueSystem system;
+    const char* tempJson;
+    system.createComment(tempJson);
+    //EXPECT_EQ("meow", com.getId());
+}*/
 
 TEST(TestIssueSystem, getIssue_by_Id) {
     IssueSystem iss;

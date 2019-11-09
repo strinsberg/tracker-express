@@ -49,11 +49,11 @@ TEST(TestIssue, testCreator) {
 }
 
 
-//TEST(TestIssue, testStatus) {
-//Issue i(1);
-//i.setStatus("Test");
-//EXPECT_EQ("Test", i.getStatus());
-//}
+TEST(TestIssue, testStatus) {
+    Issue i(1);
+    i.setStatus(Status::NEW);
+    EXPECT_EQ(NEW, i.getStatus());
+}
 
 
 
