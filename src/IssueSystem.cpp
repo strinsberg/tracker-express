@@ -4,6 +4,7 @@
 #include "Comment.h"
 #include <vector>
 #include <stdexcept>
+#include <nlohmann/json.hpp>
 
 IssueSystem::IssueSystem() : issueCount(1), userCount(1),
 commentCount(1) {}
@@ -23,6 +24,51 @@ int IssueSystem::createUser() {
 int IssueSystem::createComment() {
     comments.push_back(Comment(commentCount));
     return commentCount++;
+}
+ 
+Issue& IssueSystem::createIssue(const char* json) {
+    issues.push_back(Issue(issueCount));
+    issueCount++;
+
+    Issue& iss = issues.back();
+
+    auto data = nlohmann::json::parse(clean(std::string(json)));
+
+    iss.setTitle(data["title"]);
+    iss.setDescription(data["description"]);
+    iss.setAssignee(data["assignee"]);
+    iss.setCreator(data["creator"]);
+    iss.setPriority(data["priority"]);
+
+    if (iss.getAssignee() == -1)
+        iss.setStatus(Status::NEW);
+    else
+        iss.setStatus(Status::ASSIGNED);
+
+    return iss;
+}
+
+User& IssueSystem::createUser(const char* json) {
+    users.push_back(User(userCount));
+    userCount++;
+
+    auto data = nlohmann::json::parse(clean(std::string(json)));
+
+    User& user = users.back();
+
+    user.setName(data["name"]);
+    user.setBlurb(data["blurb"]);
+    user.setPictureNum(data["pic"]);
+    
+    return user;
+}
+
+Comment& IssueSystem::createComment(const char* json) {
+    comments.push_back(Comment(commentCount));
+    commentCount++;
+    
+    Comment& com = comments.back();
+    return com;
 }
 
 std::vector<Issue>& IssueSystem::getIssues() {
@@ -59,4 +105,8 @@ Comment& IssueSystem::getComment(int id) {
             return comments[i];
     }
     throw std::invalid_argument("Error: Not a valid ID");
+}
+
+std::string IssueSystem::clean(std::string str) {
+    return str;
 }

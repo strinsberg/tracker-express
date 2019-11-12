@@ -1,11 +1,13 @@
 #include "IssueSystem.h"
 #include "Issue.h"
 #include "User.h"
+#include <nlohmann/json.hpp>
 #include <vector>
+#include <stdexcept>
 #include "gtest/gtest.h"
 
 
-TEST(TestIssueSystem, getIssues_CreateIssues_test) {
+TEST(TestIssueSystem, CreateIssues_test) {
     IssueSystem iss;
 
     EXPECT_EQ(1, iss.createIssue());
@@ -13,7 +15,7 @@ TEST(TestIssueSystem, getIssues_CreateIssues_test) {
     EXPECT_EQ(3, iss.createIssue());
 }
 
-TEST(TestIssueSystem, getUsers_CreateUser_test) {
+TEST(TestIssueSystem, CreateUser_test) {
     IssueSystem iss;
 
     EXPECT_EQ(1, iss.createUser());
@@ -21,13 +23,49 @@ TEST(TestIssueSystem, getUsers_CreateUser_test) {
     EXPECT_EQ(3, iss.createUser());
 }
 
-TEST(TestIssueSystem, getComments_CreateComments_test) {
+TEST(TestIssueSystem, CreateComments_test) {
     IssueSystem iss;
 
     EXPECT_EQ(1, iss.createComment());
     EXPECT_EQ(2, iss.createComment());
     EXPECT_EQ(3, iss.createComment());
 }
+
+TEST(TestIssueSystem, createIssue_json) {
+    IssueSystem system, sys1;
+
+    const char* tempJson =
+    "{\"title\" : \"meow\", \"description\" : \"description\","
+     "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
+
+    Issue& iss = system.createIssue(tempJson);
+
+    EXPECT_EQ("meow", iss.getTitle());
+    EXPECT_EQ("description", iss.getDescription());
+    EXPECT_EQ(-1, iss.getAssignee());
+    EXPECT_EQ(12, iss.getCreator());
+    EXPECT_EQ(132, iss.getPriority());
+}
+
+TEST(TestIssueSystem, createUser_json) {
+    IssueSystem system;
+
+    const char* tempJson =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+
+    User& us = system.createUser(tempJson);
+
+    EXPECT_EQ("meow", us.getName());
+    EXPECT_EQ("blurb", us.getBlurb());
+    EXPECT_EQ(1, us.getPictureNum());
+}
+
+/*TEST(TestIssueSystem, createComment_json) {
+    IssueSystem system;
+    const char* tempJson;
+    system.createComment(tempJson);
+    //EXPECT_EQ("meow", com.getId());
+}*/
 
 TEST(TestIssueSystem, getIssue_by_Id) {
     IssueSystem iss;
@@ -50,3 +88,43 @@ TEST(TestIssueSystem, getComment_by_Id) {
     EXPECT_EQ(testId, iss.getComment(testId).getId());
 }
 
+TEST(TestIssueSystem, getIssues) {
+    IssueSystem iss;
+    vector<Issue> tempIssues;
+    iss.createIssue();
+    tempIssues = iss.getIssues();
+    //don't compare issue directly, compare ID??
+    EXPECT_EQ(tempIssues[0].getId(), iss.getIssue(1).getId());
+}
+
+TEST(TestIssueSystem, getUsers) {
+    IssueSystem iss;
+    vector<User> tempUsers;
+    iss.createUser();
+    tempUsers = iss.getUsers();
+    EXPECT_EQ(tempUsers[0].getId(), iss.getUser(1).getId());
+}
+
+TEST(TestIssueSystem, getComments) {
+    IssueSystem iss;
+    vector<Comment> tempComments;
+    iss.createComment();
+    tempComments = iss.getComments();
+    //don't compare issue directly, compare ID??
+    EXPECT_EQ(tempComments[0].getId(), iss.getComment(1).getId());
+}
+
+TEST(TestIssueSystem, getIssue_throw) {
+    IssueSystem iss;
+    EXPECT_THROW(iss.getIssue(-10), std::invalid_argument);
+}
+
+TEST(TestIssueSystem, getUser_throw) {
+    IssueSystem iss;
+    EXPECT_THROW(iss.getUser(-10), std::invalid_argument);
+}
+
+TEST(TestIssueSystem, getComment_throw) {
+    IssueSystem iss;
+    EXPECT_THROW(iss.getComment(-10), std::invalid_argument);
+}
