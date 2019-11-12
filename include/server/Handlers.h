@@ -15,6 +15,9 @@ class Handlers {
                   IssueSystem* system);
   void create_user(const std::shared_ptr<restbed::Session>& session,
                     IssueSystem* system);
+ private:
+  void closeSessionOk(const std::shared_ptr<restbed::Session>& session,
+                      std::string& response);
 };
 
 #endif

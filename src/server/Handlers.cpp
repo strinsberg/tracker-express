@@ -32,10 +32,7 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
 
   std::cout << std::endl;
 
-  session->close(restbed::OK, response,
-    { ALLOW_ALL,
-      { "Content-Length", std::to_string(response.length()) },
-    CLOSE_CONNECTION });
+  closeSessionOk(session, response);
 }
 
 void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
@@ -44,7 +41,7 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
   size_t content_length = request->get_header("Content-Length", 0);
 
   session->fetch(content_length,
-      [system](const std::shared_ptr<restbed::Session>& session,
+      [this, system](const std::shared_ptr<restbed::Session>& session,
           const restbed::Bytes& body) {
     Issue& iss = system->createIssue(reinterpret_cast<const char*>(body.data()));
 
@@ -58,13 +55,8 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
     std::cout << "Number of Issues: " << system->getIssues().size();
     std::cout << std::endl << std::endl;
 
-    session->close(restbed::OK, response, {
-      ALLOW_ALL, {
-        "Content-Length", std::to_string(response.length())
-      },
-      CLOSE_CONNECTION
+    this->closeSessionOk(session, response);
     });
-  });
 }
 
 
@@ -83,13 +75,9 @@ void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
   }
 
   std::string response = responseJSON.dump();
-
   std::cout << std::endl;
 
-  session->close(restbed::OK, response,
-    { ALLOW_ALL,
-      { "Content-Length", std::to_string(response.length()) },
-    CLOSE_CONNECTION });
+  closeSessionOk(session, response);
 }
 
 void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
@@ -99,7 +87,7 @@ void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
 
   // Fetch with lambda for dealing with the request
   session->fetch(content_length,
-      [system](const std::shared_ptr<restbed::Session>& session,
+      [this, system](const std::shared_ptr<restbed::Session>& session,
           const restbed::Bytes& body) {
     User& user = system->createUser(reinterpret_cast<const char*>(body.data()));
 
@@ -114,11 +102,21 @@ void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
     std::cout << "Number of Users: " << system->getUsers().size();
     std::cout << std::endl << std::endl;
 
-    session->close(restbed::OK, response, {
-      ALLOW_ALL, {
+    this->closeSessionOk(session, response);
+    });
+}
+
+
+// Private //
+
+void Handlers::closeSessionOk(const std::shared_ptr<restbed::Session>& session,
+        std::string& response) {
+    session->close(restbed::OK, response,
+    {
+      ALLOW_ALL,
+      {
         "Content-Length", std::to_string(response.length())
       },
       CLOSE_CONNECTION
     });
-  });
 }
