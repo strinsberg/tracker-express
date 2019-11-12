@@ -3,12 +3,13 @@
 3720 group project.
 
 #### Release
-End of Sprint 1
-**Version** 1.1
+End of Sprint 2
+**Version** 1.2
 
-* Issues page
-* Add issue form
-* Submit test issues and view all issues
+* Issues, Users pages
+* Add issue, users forms
+* Submit proper form data for Issues and Users
+* List all Issues and Users
 
 #### Documentation
 * Project release documentation is in docs folder
@@ -29,8 +30,9 @@ Steven Deutekom (Scrum Master)
 * To see some basic initial functionality
   1. open `$ src/web/index.html` in your browser.
   2. Open issues page to see the current issue list (which is empty when the server starts).
-  3. You can view the add issue form. Submitting an issue currently only adds a test issue (does not use values in the form).
+  3. You can add custom issues.
   4. Refreshing the issue page will update the list of issues.
+  5. Users page will work same as Issues.
 
 
 # Contribution Guidlines
