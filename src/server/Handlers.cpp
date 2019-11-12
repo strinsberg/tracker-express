@@ -29,7 +29,6 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
   }
 
   std::string response = responseJSON.dump();
-
   std::cout << std::endl;
 
   closeSessionOk(session, response);
@@ -120,3 +119,4 @@ void Handlers::closeSessionOk(const std::shared_ptr<restbed::Session>& session,
       CLOSE_CONNECTION
     });
 }
+
