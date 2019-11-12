@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "Issue.h"
+#include "Status.h"
 
 TEST(TestIssue, testTitle) {
     Issue i(1);
@@ -52,8 +53,6 @@ TEST(TestIssue, testCreator) {
 TEST(TestIssue, testStatus) {
     Issue i(1);
     i.setStatus(Status::NEW);
-    EXPECT_EQ(NEW, i.getStatus());
+    EXPECT_EQ(Status::NEW, i.getStatus());
 }
-
-
 
