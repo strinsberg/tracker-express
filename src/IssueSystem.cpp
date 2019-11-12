@@ -66,8 +66,15 @@ User& IssueSystem::createUser(const char* json) {
 Comment& IssueSystem::createComment(const char* json) {
     comments.push_back(Comment(commentCount));
     commentCount++;
-    
+
+    auto data = nlohmann::json::parse(clean(std::string(json)));
+
     Comment& com = comments.back();
+
+    com.setIssueId(data["issue_id"]);
+    com.setUserId(data["user_id"]);
+    com.setCommentText(data["text"]);
+
     return com;
 }
 
