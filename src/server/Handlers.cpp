@@ -42,7 +42,8 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
   session->fetch(content_length,
       [this, system](const std::shared_ptr<restbed::Session>& session,
           const restbed::Bytes& body) {
-    Issue& iss = system->createIssue(reinterpret_cast<const char*>(body.data()));
+    Issue& iss = system->createIssue(
+        reinterpret_cast<const char*>(body.data()));
 
     nlohmann::json result = {
       {"status", "ok"},
@@ -109,7 +110,7 @@ void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
 // Private //
 
 void Handlers::closeSessionOk(const std::shared_ptr<restbed::Session>& session,
-        std::string& response) {
+        const std::string& response) {
     session->close(restbed::OK, response,
     {
       ALLOW_ALL,

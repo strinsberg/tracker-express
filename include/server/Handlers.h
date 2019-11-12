@@ -1,6 +1,7 @@
 #ifndef HANDLERS_H
 #define HANDLERS_H
 
+#include <string>
 #include <memory>
 #include "IssueSystem.h"
 
@@ -17,7 +18,7 @@ class Handlers {
                     IssueSystem* system);
  private:
   void closeSessionOk(const std::shared_ptr<restbed::Session>& session,
-                      std::string& response);
+                      const std::string& response);
 };
 
 #endif
