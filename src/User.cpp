@@ -49,5 +49,11 @@ void User::setPictureNum(int val) {
 
 nlohmann::json User::toJson() {
     nlohmann::json data;
+
+    data["id"] = id;
+    data["name"] = name;
+    data["blurb"] = blurb;
+    data["pic"] = pictureNum;
+
     return data;
 }
