@@ -1,4 +1,5 @@
 #include "User.h"
+#include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
 
@@ -46,3 +47,7 @@ void User::setPictureNum(int val) {
     pictureNum = val;
 }
 
+nlohmann::json User::toJson() {
+    nlohmann::json data;
+    return data;
+}
