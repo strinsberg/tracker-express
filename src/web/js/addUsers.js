@@ -1,5 +1,10 @@
 async function postUser() {
-  console.log("Activate POST User!!");
+  values = {
+    "name": document.getElementById("name").value,
+    "blurb": document.getElementById("blurb").value,
+    "pic": parseInt(document.getElementById("pic").value),
+  };
+  console.log(values);
 
   const response = await fetch("http://localhost:1234/trackEx/users", {
     method: "POST",
@@ -7,8 +12,7 @@ async function postUser() {
       "Accept": "*/*",
       "Content-Type": "text/plain"
     },
-    body: JSON.stringify({name: "Test Billy Bob", blurb: "Some info about me",
-      pic: 0})
+    body: JSON.stringify(values),
   });
 
   // Not doing anything with the response as there is some issue with the

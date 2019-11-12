@@ -1,5 +1,14 @@
 async function postIssue() {
-  console.log("Activate POST Issue!!");
+  values = {
+    "title": document.getElementById("title").value,
+    "description": document.getElementById("description").value,
+    "assignee": parseInt(document.getElementById("assignee").value),
+    "creator": parseInt(document.getElementById("creator").value),
+    "priority": parseInt(document.getElementById("priority").value),
+    "tags": document.getElementById("tags").value.split(',').map(
+        item => {return item.trim()}),
+  }
+  console.log('values', values);
 
   const response = await fetch("http://localhost:1234/trackEx/issues", {
     method: "POST",
@@ -7,13 +16,10 @@ async function postIssue() {
       "Accept": "*/*",
       "Content-Type": "text/plain"
     },
-    body: JSON.stringify({title: "test issue", "description":"some long ideas",
-      "assignee": -1, "creator": -1, "priority": 1})
+    body: JSON.stringify(values),
   });
 
-  // Not doing anything with the response as there is some issue with the
-  // Service not returning an actual response for the POST methods.
+  // still need to do something to deal with the response properly
   console.log('Success', response);
-
 }
 

@@ -17,21 +17,21 @@ Type your description here.
 <br></br>
 Priority:<br>
 <select id="priority" name="priority">
-  <option value="high">High Priority</option>
-  <option value="low">Low Priority</option>
+  <option value=10>High Priority</option>
+  <option value=2>Low Priority</option>
 </select>
 <br>Created By:<br>
 <select id="creator" name="createdBy">
-  <option value="mat">Mathew Richards</option>
-  <option value="steve">Steven Deutekom</option>
+  <option value=1>Mathew Richards</option>
+  <option value=2>Steven Deutekom</option>
 </select>
 <br>Assigned To:<br>
 <select id="assignee" name="assignedTo">
-  <option value="">Unassigned</option>
-  <option value="lorenzo">Lorenzo Conrad</option>
+  <option value=-1>Unassigned</option>
+  <option value=3>Lorenzo Conrad</option>
 </select>
 <br>Tags (separate by comma):<br>
-<input type="text" name="tags" required>
+<input id="tags" type="text" name="tags" required>
 <br>
 <input type="button" value="Submit" onclick="postIssue();"/>
 </form>
