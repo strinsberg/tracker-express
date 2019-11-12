@@ -108,5 +108,9 @@ Comment& IssueSystem::getComment(int id) {
 }
 
 std::string IssueSystem::clean(std::string str) {
+    size_t pos = str.rfind('}'); 
+    if (pos != std::string::npos)
+        return str.substr(0, pos+1);
+
     return str;
 }
