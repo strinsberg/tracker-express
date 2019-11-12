@@ -3,6 +3,7 @@
 #include <vector>
 #include "Issue.h"
 #include "Status.h"
+#include <nlohmann/json.hpp>
 
 Issue::Issue(int newIssue) : priority(-1), assignee(-1), issueId(newIssue),
     creator(-1), status(Status::NEW) {}
@@ -69,4 +70,9 @@ void Issue::addTag(string newTag) {
 
 void Issue::setStatus(Status s) {
     status = s;
+}
+
+nlohmann::json Issue::toJson() {
+    nlohmann::json data;
+    return data;
 }

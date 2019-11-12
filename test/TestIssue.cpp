@@ -56,3 +56,7 @@ TEST(TestIssue, testStatus) {
     EXPECT_EQ(Status::NEW, i.getStatus());
 }
 
+TEST(TestIssue, test_to_json_string) {
+
+
+}
