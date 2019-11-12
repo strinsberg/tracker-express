@@ -1,5 +1,8 @@
-#include<string>
+#include <nlohmann/json.hpp>
+#include <string>
 #include "Comment.h"
+
+using std::string;
 
 Comment::Comment(int comment_id) : commentId(comment_id), issueId(-1),
         userId(-1), text("empty text") {}
@@ -34,4 +37,15 @@ string Comment::getCommentText() {
 
 Comment::~Comment() {
     //dtor
+}
+
+nlohmann::json Comment::toJson() {
+    nlohmann::json data;
+
+    data["id"] = commentId;
+    data["issue_id"] = issueId;
+    data["user_id"] = userId;
+    data["text"] = "nothing";
+
+    return data;
 }

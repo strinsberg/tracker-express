@@ -1,6 +1,7 @@
 #ifndef ISSUE_H
 #define ISSUE_H
 
+#include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -110,10 +111,24 @@ class Issue {
 
     /**
      * Sets the Id of the creator.
+     *
+     * @param id The id of the issue creator.
      */
     void setCreator(int id);
 
+    /**
+     * Sets the issues status.
+     *
+     * @param status The status of the issue.
+     */
     void setStatus(Status status);
+
+    /**
+     * Returns a JSON representation of the Issue.
+     *
+     * @return the issue in JSON form.
+     */
+    nlohmann::json toJson();
 
  private:
     string title;

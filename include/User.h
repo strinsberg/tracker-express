@@ -1,5 +1,6 @@
 #ifndef USER_H
 #define USER_H
+#include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
 
@@ -83,6 +84,13 @@ class User {
      * @param val The id for the new user picture.
      */
     void setPictureNum(int val);
+
+    /**
+     * Return a JSON representation of the User.
+     *
+     * @return the user as a JSON object.
+     */
+    nlohmann::json toJson();
 
  protected:
     //prevent style error

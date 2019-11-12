@@ -23,3 +23,14 @@ TEST(TestComment, testCommentText) {
     c.setCommentText("Hello");
     EXPECT_EQ("Hello", c.getCommentText());
 }
+
+TEST(TestComment, to_json) {
+    Comment com(3);
+
+    auto data = com.toJson();
+
+    EXPECT_EQ(3, data["id"]);
+    EXPECT_EQ(-1, data["issue_id"]);
+    EXPECT_EQ(-1, data["user_id"]);
+    EXPECT_EQ("nothing", data["text"]);
+}

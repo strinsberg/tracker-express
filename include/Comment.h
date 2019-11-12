@@ -1,8 +1,11 @@
 #ifndef COMMENT_H
 #define COMMENT_H
 
-#include<string>
+#include <nlohmann/json.hpp>
+#include <string>
+
 using std::string;
+
 class Comment{
  public:
      /**
@@ -49,6 +52,13 @@ class Comment{
      * @brief Destructor for Comment class.
      */
      ~Comment();
+
+     /**
+      * Returns a JSON representation of the comment.
+      *
+      * @return the comment object as a JSON object.
+      */
+     nlohmann::json toJson();
 
  private:
     int commentId;
