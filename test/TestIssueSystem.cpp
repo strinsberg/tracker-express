@@ -134,6 +134,24 @@ TEST(TestIssueSystem, getComments) {
     EXPECT_EQ(tempComments[0].getId(), iss.getComment(1).getId());
 }
 
+TEST(TestIssueSystem, to_json) {
+    IssueSystem system;
+
+    system.createIssue();
+    system.createUser();
+    system.createComment();
+
+    auto data = system.toJson();
+
+    EXPECT_EQ(1, data["issues"][0]["id"]);
+    EXPECT_EQ(1, data["users"][0]["id"]);
+    EXPECT_EQ(1, data["comments"][0]["id"]);
+
+    EXPECT_EQ(2, data["issue_count"]);
+    EXPECT_EQ(2, data["user_count"]);
+    EXPECT_EQ(2, data["comment_count"]);
+}
+
 TEST(TestIssueSystem, getIssue_throw) {
     IssueSystem iss;
     EXPECT_THROW(iss.getIssue(-10), std::invalid_argument);

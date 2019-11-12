@@ -4,6 +4,7 @@
 #include "User.h"
 #include "Issue.h"
 #include "Comment.h"
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
@@ -114,6 +115,13 @@ class IssueSystem {
      * @return the id of the comment.
      */
     Comment& createComment(const char* json);
+
+    /**
+     * Returns a JSON representation of the IssueSystem.
+     *
+     * @return the system as a JSON object.
+     */
+    nlohmann::json toJson();
 
  private:
     std::vector<Issue> issues;

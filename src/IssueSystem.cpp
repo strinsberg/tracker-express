@@ -114,6 +114,30 @@ Comment& IssueSystem::getComment(int id) {
     throw std::invalid_argument("Error: Not a valid ID");
 }
 
+nlohmann::json IssueSystem::toJson() {
+    nlohmann::json data = {
+        {"issues", {}},
+        {"users", {}},
+        {"comments", {}},
+        {"issue_count", issueCount},
+        {"user_count", userCount},
+        {"comment_count", commentCount}
+    };
+    
+    for (auto& iss : issues)
+        data["issues"].push_back(iss.toJson());
+
+    for (auto& user : users)
+        data["users"].push_back(user.toJson());
+
+    for (auto& com : comments)
+        data["comments"].push_back(com.toJson());
+
+    return data;
+}
+
+// private //
+
 std::string IssueSystem::clean(std::string str) {
     size_t pos = str.rfind('}'); 
     if (pos != std::string::npos)
