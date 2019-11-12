@@ -14,7 +14,7 @@ fetch("http://localhost:1234/trackEx/issues")
             var prior = row.insertCell(2);
             
             title.innerHTML = iss.title;
-            create.innerHTML = iss.created;
+            create.innerHTML = iss.creator;
             prior.innerHTML = iss.priority;
         })
     })
