@@ -60,12 +60,32 @@ TEST(TestIssueSystem, createUser_json) {
     EXPECT_EQ(1, us.getPictureNum());
 }
 
-/*TEST(TestIssueSystem, createComment_json) {
+TEST(TestIssueSystem, createUser_json_with_clean_string) {
     IssueSystem system;
-    const char* tempJson;
-    system.createComment(tempJson);
-    //EXPECT_EQ("meow", com.getId());
-}*/
+
+    const char* tempJson =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }some'/ garbage";
+
+    User& us = system.createUser(tempJson);
+
+    EXPECT_EQ("meow", us.getName());
+    EXPECT_EQ("blurb", us.getBlurb());
+    EXPECT_EQ(1, us.getPictureNum());
+}
+
+TEST(TestIssueSystem, createComment_json) {
+    IssueSystem system;
+
+    const char* tempJson =
+    "{\"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
+
+    Comment& com = system.createComment(tempJson);
+
+    EXPECT_EQ(1, com.getId());
+    EXPECT_EQ(12, com.getIssueId());
+    EXPECT_EQ(45, com.getUserId());
+    EXPECT_EQ("a comment", com.getCommentText());
+}
 
 TEST(TestIssueSystem, getIssue_by_Id) {
     IssueSystem iss;
