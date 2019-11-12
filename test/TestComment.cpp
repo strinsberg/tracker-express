@@ -1,4 +1,3 @@
-#include <nlohmann/json.hpp>
 #include <gtest/gtest.h>
 #include "Comment.h"
 
@@ -33,5 +32,5 @@ TEST(TestComment, to_json) {
     EXPECT_EQ(3, data["id"]);
     EXPECT_EQ(-1, data["issue_id"]);
     EXPECT_EQ(-1, data["user_id"]);
-    EXPECT_EQ("emtpy text", data["text"]);
+    EXPECT_EQ("nothing", data["text"]);
 }
