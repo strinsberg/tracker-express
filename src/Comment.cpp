@@ -1,4 +1,5 @@
-#include<string>
+#include <nlohmann/json.hpp>
+#include <string>
 #include "Comment.h"
 
 Comment::Comment(int comment_id) : commentId(comment_id), issueId(-1),
@@ -34,4 +35,9 @@ string Comment::getCommentText() {
 
 Comment::~Comment() {
     //dtor
+}
+
+nlohmann::json Comment::toJson() {
+    nlohmann::json data;
+    return data;
 }
