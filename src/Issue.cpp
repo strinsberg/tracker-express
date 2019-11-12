@@ -2,8 +2,10 @@
 #include <string>
 #include <vector>
 #include "Issue.h"
+#include "Status.h"
 
-Issue::Issue(int newIssue) : priority(0), assignee(0), issueId(newIssue) {}
+Issue::Issue(int newIssue) : priority(-1), assignee(-1), issueId(newIssue),
+    creator(-1), status(Status::NEW) {}
 
 string Issue::getTitle() {
     return title;

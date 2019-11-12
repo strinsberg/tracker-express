@@ -1,10 +1,8 @@
 #include<string>
 #include "Comment.h"
 
-Comment::Comment(int comment_id) {
-    //ctor
-    commentId = comment_id;
-}
+Comment::Comment(int comment_id) : commentId(comment_id), issueId(-1),
+        userId(-1), text("empty text") {}
 
 void Comment::setIssueId(int issue_id) {
     issueId = issue_id;
