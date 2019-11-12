@@ -6,7 +6,7 @@
 #include <nlohmann/json.hpp>
 
 Issue::Issue(int newIssue) : priority(-1), assignee(-1), issueId(newIssue),
-    creator(-1), status(Status::NEW) {}
+    creator(-1), status(Status::NEW), title("empty"), description("empty") {}
 
 string Issue::getTitle() {
     return title;
@@ -74,5 +74,15 @@ void Issue::setStatus(Status s) {
 
 nlohmann::json Issue::toJson() {
     nlohmann::json data;
+
+    data["id"] = issueId;
+    data["title"] = title;
+    data["description"] = description;
+    data["priority"] = priority;
+    data["assignee"] = assignee;
+    data["creator"] = creator;
+    data["status"] = status;
+    //data["tags"] = nlohmann::json::j_vec(tags);
+
     return data;
 }

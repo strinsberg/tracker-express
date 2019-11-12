@@ -1,11 +1,11 @@
 #ifndef ISSUE_H
 #define ISSUE_H
 
+#include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
 #include <vector>
 #include "Status.h"
-#include <nlohmann/json.hpp>
 
 
 using std::string;

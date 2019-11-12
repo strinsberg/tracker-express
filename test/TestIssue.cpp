@@ -57,6 +57,15 @@ TEST(TestIssue, testStatus) {
 }
 
 TEST(TestIssue, test_to_json_string) {
+    Issue iss(1);
 
+    auto data = iss.toJson();
 
+    EXPECT_EQ(1, data["id"]);
+    EXPECT_EQ("empty", data["title"]);
+    EXPECT_EQ("empty", data["description"]);
+    EXPECT_EQ(-1, data["assignee"]);
+    EXPECT_EQ(-1, data["creator"]);
+    EXPECT_EQ(-1, data["priority"]);
+    // add tags when they are ready
 }
