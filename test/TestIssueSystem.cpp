@@ -166,3 +166,17 @@ TEST(TestIssueSystem, getComment_throw) {
     IssueSystem iss;
     EXPECT_THROW(iss.getComment(-10), std::invalid_argument);
 }
+
+TEST(TestIssueSystem, remove_issue) {
+    IssueSystem iss;
+    iss.createIssue();
+    EXPECT_EQ(1, iss.getIssues().size());
+    iss.removeIssue(1);
+    EXPECT_EQ(0, iss.getIssues().size());
+}
+
+TEST(TestIssueSystem, remove_issue_throw) {
+    IssueSystem iss;
+    iss.createIssue();
+    EXPECT_THROW(iss.getIssue(2), std::invalid_argument);
+}

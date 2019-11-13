@@ -60,9 +60,9 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
       {"status", "ok"},
       {"response", ""}
     };
-    
+
     const char* bodyInfo = reinterpret_cast<const char*>(body.data());
-    
+
     if (request->has_query_parameter("id")) {
       int id = request->get_query_parameter<int>("id", -1);
 
