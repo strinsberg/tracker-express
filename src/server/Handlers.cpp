@@ -12,23 +12,37 @@
 #define CLOSE_CONNECTION { "Connection", "close" }
 
 
+// Issues //
+
 void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
                           IssueSystem* system) {
   const auto request = session->get_request();
-  // for now just get all issues and add filtering later
-  nlohmann::json responseJSON = {
+
+  nlohmann::json result = {
     {"status", "ok"},
     {"response", {}}
   };
 
-  std::cout << "GET: Issues:" << std::endl;
-  for (auto & iss : system->getIssues()) {
-    std::string json(iss.toJson().dump());
-    responseJSON["response"].push_back(json);
-    std::cout << json << std::endl;
+  if (request->has_query_parameter("id")) {
+      int id = request->get_query_parameter<int>("id", -1);
+
+      try {
+        Issue& iss = system->getIssue(id);
+        result["response"] = iss.toJson().dump();
+      } catch (const std::invalid_argument& e) {
+        result["status"] = "fail";
+        result["response"] = "invalid id";
+      }
+
+  } else {
+      for (auto & iss : system->getIssues()) {
+        std::string json(iss.toJson().dump());
+        result["response"].push_back(json);
+      }
   }
 
-  std::string response = responseJSON.dump();
+  std::string response = result.dump();
+  std::cout << "GET: Issues: " << response << std::endl;
   std::cout << std::endl;
 
   closeSessionOk(session, response);
@@ -60,21 +74,37 @@ void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
 }
 
 
+// Users //
+
 void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
                          IssueSystem* system) {
-  nlohmann::json responseJSON = {
+  const auto request = session->get_request();
+
+  nlohmann::json result = {
     {"status", "ok"},
     {"response", {}}
   };
 
-  std::cout << "GET: Users:" << std::endl;
-  for (auto & user : system->getUsers()) {
-    std::string json(user.toJson().dump());
-    responseJSON["response"].push_back(json);
-    std::cout << json << std::endl;
+  if (request->has_query_parameter("id")) {
+      int id = request->get_query_parameter<int>("id", -1);
+
+      try {
+        User& user = system->getUser(id);
+        result["response"] = user.toJson().dump();
+      } catch (const std::invalid_argument& e) {
+        result["status"] = "fail";
+        result["response"] = "invalid id";
+      }
+
+  } else {
+      for (auto & user : system->getUsers()) {
+        std::string json(user.toJson().dump());
+        result["response"].push_back(json);
+      }
   }
 
-  std::string response = responseJSON.dump();
+  std::string response = result.dump();
+  std::cout << "GET: Users: " << response << std::endl;
   std::cout << std::endl;
 
   closeSessionOk(session, response);
