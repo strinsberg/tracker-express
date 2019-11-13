@@ -10,11 +10,11 @@ class Handlers {
  public:
   void get_issues(const std::shared_ptr<restbed::Session>& session,
                   IssueSystem* system);
-  void create_issue(const std::shared_ptr<restbed::Session>& session,
+  void post_issue(const std::shared_ptr<restbed::Session>& session,
                     IssueSystem* system);
   void get_users(const std::shared_ptr<restbed::Session>& session,
                   IssueSystem* system);
-  void create_user(const std::shared_ptr<restbed::Session>& session,
+  void post_user(const std::shared_ptr<restbed::Session>& session,
                     IssueSystem* system);
  private:
   void closeSessionOk(const std::shared_ptr<restbed::Session>& session,

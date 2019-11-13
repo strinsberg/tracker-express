@@ -48,7 +48,7 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
   closeSessionOk(session, response);
 }
 
-void Handlers::create_issue(const std::shared_ptr<restbed::Session>& session,
+void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
                             IssueSystem* system) {
   const auto request = session->get_request();
   size_t content_length = request->get_header("Content-Length", 0);
@@ -110,7 +110,7 @@ void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
   closeSessionOk(session, response);
 }
 
-void Handlers::create_user(const std::shared_ptr<restbed::Session>& session,
+void Handlers::post_user(const std::shared_ptr<restbed::Session>& session,
                            IssueSystem* system) {
   const auto request = session->get_request();
   size_t content_length = request->get_header("Content-Length", 0);
