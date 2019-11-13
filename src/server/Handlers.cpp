@@ -54,15 +54,32 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
   size_t content_length = request->get_header("Content-Length", 0);
 
   session->fetch(content_length,
-      [this, system](const std::shared_ptr<restbed::Session>& session,
+      [this, system, request](const std::shared_ptr<restbed::Session>& session,
           const restbed::Bytes& body) {
-    Issue& iss = system->createIssue(
-        reinterpret_cast<const char*>(body.data()));
-
     nlohmann::json result = {
       {"status", "ok"},
-      {"response", iss.toJson().dump()}
+      {"response", ""}
     };
+    
+    const char* bodyInfo = reinterpret_cast<const char*>(body.data());
+    
+    if (request->has_query_parameter("id")) {
+      int id = request->get_query_parameter<int>("id", -1);
+
+      try {
+        Issue& iss = system->getIssue(id);
+        iss.update(bodyInfo);
+        result["response"] = iss.toJson().dump();
+      } catch (const std::invalid_argument& e) {
+        result["status"] = "fail";
+        result["response"] = "invalid id";
+      }
+
+    } else {
+        Issue& iss = system->createIssue(bodyInfo);
+        result["response"] = iss.toJson().dump();
+    }
+
     std::string response = result.dump();
 
     std::cout << "POST: Issue: " << response << std::endl;

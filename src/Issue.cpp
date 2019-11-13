@@ -72,6 +72,10 @@ void Issue::setStatus(Status s) {
     status = s;
 }
 
+void Issue::update(const char* json) {
+    // set fields if they are present
+}
+
 nlohmann::json Issue::toJson() {
     nlohmann::json data;
 
