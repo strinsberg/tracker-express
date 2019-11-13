@@ -179,6 +179,32 @@ void Handlers::post_user(const std::shared_ptr<restbed::Session>& session,
     });
 }
 
+void Handlers::delete_user(const std::shared_ptr<restbed::Session>& session,
+                           IssueSystem* system) {
+    const auto request = session->get_request();
+
+    int id = request->get_path_parameter<int>("id", -1);
+
+    nlohmann::json result = {
+      {"status", "fail"},
+      {"response", "invalid id"}
+    };
+
+    try {
+        User& user = system->getUser(id);
+        system->removeUser(id);
+        result["response"] = "{\"deleted\": " + user.toJson().dump() + "}";
+        result["status"] = "ok";
+    } catch (const std::invalid_argument& e) {}
+
+    std::string response = result.dump();
+
+    std::cout << "DELETE: user: " << id << std::endl;
+    std::cout << response << std::endl << std::endl;
+
+    closeSessionOk(session, response);
+}
+
 
 // Private //
 

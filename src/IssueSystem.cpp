@@ -128,6 +128,17 @@ void IssueSystem::removeIssue(int id) {
     throw std::invalid_argument("Error: Not a valid ID");
 }
 
+void IssueSystem::removeUser(int id) {
+    for (size_t i = 0; i < users.size(); i++) {
+        if (id == users.at(i).getId()) {
+            users.erase(users.begin() + i);
+            userCount--;
+            return;
+        }
+    }
+    throw std::invalid_argument("Error: Not a valid ID");
+}
+
 nlohmann::json IssueSystem::toJson() {
     nlohmann::json data = {
         {"issues", {}},

@@ -20,6 +20,9 @@ class Handlers {
                   IssueSystem* system);
   void post_user(const std::shared_ptr<restbed::Session>& session,
                     IssueSystem* system);
+  void delete_user(const std::shared_ptr<restbed::Session>& session,
+                    IssueSystem* system);
+
  private:
   void closeSessionOk(const std::shared_ptr<restbed::Session>& session,
                       const std::string& response);

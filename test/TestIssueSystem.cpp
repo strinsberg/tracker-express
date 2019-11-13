@@ -178,5 +178,19 @@ TEST(TestIssueSystem, remove_issue) {
 TEST(TestIssueSystem, remove_issue_throw) {
     IssueSystem iss;
     iss.createIssue();
-    EXPECT_THROW(iss.getIssue(2), std::invalid_argument);
+    EXPECT_THROW(iss.removeIssue(2), std::invalid_argument);
+}
+
+TEST(TestIssueSystem, remove_user) {
+    IssueSystem iss;
+    iss.createUser();
+    EXPECT_EQ(1, iss.getUsers().size());
+    iss.removeUser(1);
+    EXPECT_EQ(0, iss.getUsers().size());
+}
+
+TEST(TestIssueSystem, remove_user_throw) {
+    IssueSystem iss;
+    iss.createUser();
+    EXPECT_THROW(iss.removeUser(2), std::invalid_argument);
 }
