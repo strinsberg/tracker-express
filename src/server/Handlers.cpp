@@ -103,9 +103,9 @@ void Handlers::delete_issue(const std::shared_ptr<restbed::Session>& session,
 
     try {
         Issue& iss = system->getIssue(id);
-        system->removeIssue(id);
-        result["response"] = "{\"deleted\": " + iss.toJson().dump() + "}";
+        result["response"] = iss.toJson().dump();
         result["status"] = "ok";
+        system->removeIssue(id);
     } catch (const std::invalid_argument& e) {}
 
     std::string response = result.dump();
@@ -193,7 +193,7 @@ void Handlers::delete_user(const std::shared_ptr<restbed::Session>& session,
     try {
         User& user = system->getUser(id);
         system->removeUser(id);
-        result["response"] = "{\"deleted\": " + user.toJson().dump() + "}";
+        result["response"] = user.toJson().dump();
         result["status"] = "ok";
     } catch (const std::invalid_argument& e) {}
 
