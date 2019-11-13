@@ -39,6 +39,9 @@ Issue& IssueSystem::createIssue(const char* json) {
     iss.setAssignee(data["assignee"]);
     iss.setCreator(data["creator"]);
     iss.setPriority(data["priority"]);
+    
+    for (auto& t : data["tags"])
+        iss.addTag(t);
 
     if (iss.getAssignee() == -1)
         iss.setStatus(Status::NEW);
@@ -110,6 +113,17 @@ Comment& IssueSystem::getComment(int id) {
     for (size_t i = 0; i < comments.size(); i++) {
         if (id == comments.at(i).getId())
             return comments[i];
+    }
+    throw std::invalid_argument("Error: Not a valid ID");
+}
+
+void IssueSystem::removeIssue(int id) {
+    for (size_t i = 0; i < issues.size(); i++) {
+        if (id == issues.at(i).getId()) {
+            issues.erase(issues.begin() + i);
+            issueCount--;
+            return;
+        }
     }
     throw std::invalid_argument("Error: Not a valid ID");
 }

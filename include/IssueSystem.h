@@ -116,6 +116,8 @@ class IssueSystem {
      */
     Comment& createComment(const char* json);
 
+    void removeIssue(int id);
+
     /**
      * Returns a JSON representation of the IssueSystem.
      *

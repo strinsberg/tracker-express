@@ -90,6 +90,32 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
     });
 }
 
+void Handlers::delete_issue(const std::shared_ptr<restbed::Session>& session,
+                            IssueSystem* system) {
+    const auto request = session->get_request();
+
+    int id = request->get_query_parameter<int>("id", -1);
+
+    nlohmann::json result = {
+      {"status", "fail"},
+      {"response", "invalid id"}
+    };
+
+    try {
+        Issue& iss = system->getIssue(id);
+        system->removeIssue(id);
+        result["response"] = "{\"deleted\": " + iss.toJson().dump() + "}";
+        result["status"] = "ok";
+    } catch (const std::invalid_argument& e) {}
+
+    std::string response = result.dump();
+
+    std::cout << "DELETE: issue: " << id << std::endl;
+    std::cout << response << std::endl << std::endl;
+
+    closeSessionOk(session, response);
+}
+
 
 // Users //
 
