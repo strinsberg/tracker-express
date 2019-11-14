@@ -68,7 +68,7 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
 
       try {
         Issue& iss = system->getIssue(id);
-        iss.update(bodyInfo);
+        iss.update(system->clean(bodyInfo));
         result["response"] = iss.toJson().dump();
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
@@ -174,7 +174,7 @@ void Handlers::post_user(const std::shared_ptr<restbed::Session>& session,
 
       try {
         User& user = system->getUser(id);
-        user.update(std::string(bodyInfo));
+        user.update(system->clean(bodyInfo));
         result["response"] = user.toJson().dump();
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";

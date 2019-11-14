@@ -126,15 +126,6 @@ class IssueSystem {
      */
     nlohmann::json toJson();
 
- private:
-    std::vector<Issue> issues;
-    std::vector<User> users;
-    std::vector<Comment> comments;
-
-    int issueCount;
-    int commentCount;
-    int userCount;
-
     /**
      * Clean any garbage from a string that is supposed to contain JSON.
      * This is not going to be a perfect fix to the problem of the client
@@ -145,6 +136,15 @@ class IssueSystem {
      * @return a string that should only contain a JSON object.
      */
     std::string clean(std::string str);
+
+ private:
+    std::vector<Issue> issues;
+    std::vector<User> users;
+    std::vector<Comment> comments;
+
+    int issueCount;
+    int commentCount;
+    int userCount;
 };
 
 #endif

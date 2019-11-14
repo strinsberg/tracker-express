@@ -17,6 +17,7 @@ body1 = {
     "assignee": 2,
     "creator": 1,
     "status": 1,
+    "tags": ["minor"],
 }
 
 body2 = {
@@ -26,6 +27,7 @@ body2 = {
     "assignee": 1,
     "creator": 2,
     "status": 1,
+    "tags": ["OS", "Critical"],
 }
 
 r_add1 = requests.post(issue_url, data = json.dumps(body1))
@@ -44,6 +46,8 @@ r_invalid_issue = requests.get(issue_url + "?id=20")
 r_delete_issue = requests.delete(issue_url + "?id=2");
 r_all_issues = requests.get(issue_url)
 
+# update an issue
+r_update_issue = requests.post(issue_url + "?id=1", data = json.dumps(body2));
 
 ## USERS #######################################################
 
@@ -76,3 +80,5 @@ r_invalid_user = requests.get(user_url + "?id=20")
 r_delete_user = requests.delete(user_url + "?id=2");
 r_all_user = requests.get(user_url)
 
+# update user
+r_update_user = requests.post(user_url + "?id=1", data = json.dumps(body4));
