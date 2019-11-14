@@ -200,7 +200,7 @@ void Handlers::delete_user(const std::shared_ptr<restbed::Session>& session,
                            IssueSystem* system) {
     const auto request = session->get_request();
 
-    int id = request->get_path_parameter<int>("id", -1);
+    int id = request->get_query_parameter<int>("id", -1);
 
     nlohmann::json result = {
       {"status", "fail"},
@@ -209,9 +209,9 @@ void Handlers::delete_user(const std::shared_ptr<restbed::Session>& session,
 
     try {
         User& user = system->getUser(id);
-        system->removeUser(id);
         result["response"] = user.toJson().dump();
         result["status"] = "ok";
+        system->removeUser(id);
     } catch (const std::invalid_argument& e) {}
 
     std::string response = result.dump();
