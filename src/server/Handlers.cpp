@@ -41,8 +41,9 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
       }
   }
 
-  std::string response = result.dump();
-  std::cout << "GET: Issues: " << response << std::endl;
+  std::string response = result.dump(4);
+  std::cout << "=== GET Issues ===========================================";
+  std::cout <<std::endl << response << std::endl;
   std::cout << std::endl;
 
   closeSessionOk(session, response);
@@ -80,9 +81,10 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
         result["response"] = iss.toJson().dump();
     }
 
-    std::string response = result.dump();
+    std::string response = result.dump(4);
 
-    std::cout << "POST: Issue: " << response << std::endl;
+    std::cout << "=== POST Issue =========================================";
+    std::cout << std::endl << response << std::endl;
     std::cout << "Number of Issues: " << system->getIssues().size();
     std::cout << std::endl << std::endl;
 
@@ -108,9 +110,10 @@ void Handlers::delete_issue(const std::shared_ptr<restbed::Session>& session,
         system->removeIssue(id);
     } catch (const std::invalid_argument& e) {}
 
-    std::string response = result.dump();
+    std::string response = result.dump(4);
 
-    std::cout << "DELETE: issue: " << id << std::endl;
+    std::cout << "=== DELETE Issue ======================================= ";
+    std::cout << std::endl << "ID: " << id << std::endl;
     std::cout << response << std::endl << std::endl;
 
     closeSessionOk(session, response);
@@ -146,8 +149,9 @@ void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
       }
   }
 
-  std::string response = result.dump();
-  std::cout << "GET: Users: " << response << std::endl;
+  std::string response = result.dump(4);
+  std::cout << "=== GET Users ============================================";
+  std::cout << std::endl << response << std::endl;
   std::cout << std::endl;
 
   closeSessionOk(session, response);
@@ -186,9 +190,10 @@ void Handlers::post_user(const std::shared_ptr<restbed::Session>& session,
         result["response"] = user.toJson().dump();
     }
 
-    std::string response = result.dump();
+    std::string response = result.dump(4);
 
-    std::cout << "POST: Users: " << response << std::endl;
+    std::cout << "=== POST User ==========================================";
+    std::cout << std::endl << response << std::endl;
     std::cout << "Number of Users: " << system->getUsers().size();
     std::cout << std::endl << std::endl;
 
@@ -214,9 +219,10 @@ void Handlers::delete_user(const std::shared_ptr<restbed::Session>& session,
         system->removeUser(id);
     } catch (const std::invalid_argument& e) {}
 
-    std::string response = result.dump();
+    std::string response = result.dump(4);
 
-    std::cout << "DELETE: user: " << id << std::endl;
+    std::cout << "=== DELETE User ========================================";
+    std::cout << std::endl << "ID: " << id << std::endl;
     std::cout << response << std::endl << std::endl;
 
     closeSessionOk(session, response);
