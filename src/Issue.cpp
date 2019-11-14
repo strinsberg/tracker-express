@@ -99,7 +99,8 @@ nlohmann::json Issue::toJson() {
     data["assignee"] = assignee;
     data["creator"] = creator;
     data["status"] = status;
-    //data["tags"] = nlohmann::json::j_vec(tags);
+    nlohmann::json j_vec(tags);
+    data["tags"] = j_vec.dump();
 
     return data;
 }

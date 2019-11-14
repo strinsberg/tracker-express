@@ -50,6 +50,22 @@ TEST(TestUser, pictureNum_setter_Test) {
     EXPECT_EQ(4, u.getPictureNum());
 }
 
+TEST(TestUser, update_all) {
+    User user(23, "name", "blurb", 2);
+
+    nlohmann::json data = {
+        {"name", "steve"},
+        {"blurb", "something about steve"},
+        {"pic", 5},
+    };
+
+    user.update(data.dump());
+
+    EXPECT_EQ("steve", user.getName());
+    EXPECT_EQ("something about steve", user.getBlurb());
+    EXPECT_EQ(5, user.getPictureNum());
+}
+
 TEST(TestUser, to_json) {
     User user(23, "name", "blurb", 2);
 
