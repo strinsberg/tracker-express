@@ -87,7 +87,7 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
     std::cout << std::endl << std::endl;
 
     this->closeSessionOk(session, response);
-    });
+  });
 }
 
 void Handlers::delete_issue(const std::shared_ptr<restbed::Session>& session,
@@ -160,23 +160,40 @@ void Handlers::post_user(const std::shared_ptr<restbed::Session>& session,
 
   // Fetch with lambda for dealing with the request
   session->fetch(content_length,
-      [this, system](const std::shared_ptr<restbed::Session>& session,
+      [this, system, request](const std::shared_ptr<restbed::Session>& session,
           const restbed::Bytes& body) {
-    User& user = system->createUser(reinterpret_cast<const char*>(body.data()));
-
-    // Create and send response
     nlohmann::json result = {
       {"status", "ok"},
-      {"response", user.toJson().dump()}
+      {"response", ""}
     };
+
+    const char* bodyInfo = reinterpret_cast<const char*>(body.data());
+
+    if (request->has_query_parameter("id")) {
+      int id = request->get_query_parameter<int>("id", -1);
+
+      try {
+        User& user = system->getUser(id);
+        user.update(std::string(bodyInfo));
+        result["response"] = user.toJson().dump();
+      } catch (const std::invalid_argument& e) {
+        result["status"] = "fail";
+        result["response"] = "invalid id";
+      }
+
+    } else {
+        User& user = system->createUser(bodyInfo);
+        result["response"] = user.toJson().dump();
+    }
+
     std::string response = result.dump();
 
-    std::cout << "POST: User: " << response << std::endl;
+    std::cout << "POST: Users: " << response << std::endl;
     std::cout << "Number of Users: " << system->getUsers().size();
     std::cout << std::endl << std::endl;
 
     this->closeSessionOk(session, response);
-    });
+  });
 }
 
 void Handlers::delete_user(const std::shared_ptr<restbed::Session>& session,
