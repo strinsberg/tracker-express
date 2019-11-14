@@ -123,7 +123,7 @@ class Issue {
      */
     void setStatus(Status status);
 
-    void update(const char* json);
+    void update(std::string json);
 
     /**
      * Returns a JSON representation of the Issue.
