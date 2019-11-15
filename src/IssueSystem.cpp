@@ -139,6 +139,55 @@ void IssueSystem::removeUser(int id) {
     throw std::invalid_argument("Error: Not a valid ID");
 }
 
+void IssueSystem::removeComment(int id) {
+    for (size_t i = 0; i < comments.size(); i++) {
+        if (id == comments.at(i).getId()) {
+            comments.erase(comments.begin() + i);
+            commentCount--;
+            return;
+        }
+    }
+    throw std::invalid_argument("Error: Not a valid ID");
+}
+
+std::vector<Comment> IssueSystem::filterComments(int id) {
+    std::vector<Comment> coms;
+
+    for (auto com : comments) {
+        if (com.getUserId() == id)
+            coms.push_back(com);
+    }
+    return coms;
+}
+
+std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag) {
+    std::vector<Issue> filtered;
+
+    if (priority != -1 && tag != "") {
+        for (auto iss : issues) {
+            std::vector<std::string> tags = iss.getTags();
+            if (iss.getPriority() == priority &&
+                    std::find(tags.begin(), tags.end(), tag) != tags.end())
+                filtered.push_back(iss);
+        }
+
+    } else if (priority != -1) {
+        for (auto iss : issues) {
+            if (iss.getPriority() == priority)
+                filtered.push_back(iss);
+        }
+        
+    } else if (tag != "") {
+        for (auto iss : issues) {
+            std::vector<std::string> tags = iss.getTags();
+            if (std::find(tags.begin(), tags.end(), tag) != tags.end())
+                filtered.push_back(iss);
+        }
+    }
+
+    return filtered;
+}
+
 nlohmann::json IssueSystem::toJson() {
     nlohmann::json data = {
         {"issues", {}},

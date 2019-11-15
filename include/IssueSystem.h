@@ -118,6 +118,9 @@ class IssueSystem {
 
     void removeIssue(int id);
     void removeUser(int id);
+    void removeComment(int id);
+    std::vector<Comment> filterComments(int id);
+    std::vector<Issue> filterIssues(int priority = -1, std::string tag = "");
 
     /**
      * Returns a JSON representation of the IssueSystem.

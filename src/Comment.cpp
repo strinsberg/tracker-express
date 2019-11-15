@@ -39,6 +39,13 @@ Comment::~Comment() {
     //dtor
 }
 
+void Comment::update(std::string json) {
+    auto data = nlohmann::json::parse(json);
+
+    if (data.find("text") != data.end())
+        text = data["text"];
+}
+
 nlohmann::json Comment::toJson() {
     nlohmann::json data;
 
