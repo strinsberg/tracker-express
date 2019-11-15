@@ -56,6 +56,38 @@ TEST(TestIssue, testStatus) {
     EXPECT_EQ(Status::NEW, i.getStatus());
 }
 
+TEST(TestIssue, test_update_title_desc_priority) {
+    Issue iss(1);
+
+    nlohmann::json data = {
+        {"title", "some new title"},
+        {"description", "trying to figure it out"},
+        {"priority", 30},
+    };
+
+    iss.update(data.dump());
+
+    EXPECT_EQ("some new title", iss.getTitle());
+    EXPECT_EQ("trying to figure it out", iss.getDescription());
+    EXPECT_EQ(30, iss.getPriority());
+}
+
+TEST(TestIssue, test_update_assignee_creator_status) {
+    Issue iss(1);
+
+    nlohmann::json data = {
+        {"assignee", 3},
+        {"creator", 2},
+        {"status", 1},
+    };
+
+    iss.update(data.dump());
+
+    EXPECT_EQ(3, iss.getAssignee());
+    EXPECT_EQ(2, iss.getCreator());
+    EXPECT_EQ(Status::ASSIGNED, iss.getStatus());
+}
+
 TEST(TestIssue, test_to_json_string) {
     Issue iss(1);
 

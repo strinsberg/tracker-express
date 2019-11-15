@@ -85,6 +85,8 @@ class User {
      */
     void setPictureNum(int val);
 
+    void update(std::string json);
+
     /**
      * Return a JSON representation of the User.
      *

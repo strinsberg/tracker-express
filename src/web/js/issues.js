@@ -13,7 +13,7 @@ fetch("http://localhost:1234/trackEx/issues")
             var create = row.insertCell(1);
             var prior = row.insertCell(2);
             
-            title.innerHTML = iss.title;
+            title.innerHTML = '<a href="singleIssue.html?id=' + iss.id + '">' + iss.title + '</a>';
             create.innerHTML = iss.creator;
             prior.innerHTML = iss.priority;
         })
@@ -21,3 +21,4 @@ fetch("http://localhost:1234/trackEx/issues")
     .catch(err => {
     console.error("Error:", err);
 });
+

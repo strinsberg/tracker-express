@@ -21,5 +21,6 @@ async function postIssue() {
 
   // still need to do something to deal with the response properly
   console.log('Success', response);
+  window.open("issues.html","_self");
 }
 

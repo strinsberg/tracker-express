@@ -3,10 +3,11 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
   <link href="style/main-style.css" rel="stylesheet">
-  <script src="js/users.js"></script>
+  <script src="js/singleIssue.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Issue Tracker Express</title>
 </head>
+
 <body>
   <div class="header">
     <div class="logo-bar">
@@ -17,27 +18,30 @@
         <div class="menu-options">
           <a href="index.html" class="menu-option">Home</a>
           <a href="issues.html" class="menu-option">Issues</a>
-          <a href="#" class="menu-option">Users</a>
+          <a href="users.html" class="menu-option">Users</a>
 		</div>
     </div>
   </div>
+
   <div class="page-body">
     <div class="sidenav">
-		<p>User Options</p>
-		<a href="javascript:void(0);" NAME="Add An User"  title="finduser" onClick=window.open("addUser.html","_self");>Add A User</a><br>
+		<p>Issue Options</p>
+		<a href="javascript:void(0);" NAME="Add An Issue"  title="findIssue" onClick=window.open("addIssue.html","_self");>Add an Issue</a>
+		<a href="javascript:void(0);" onClick="deleteIssue();" NAME="Delete"  title="deleteIssue">Delete Issue</a><br>
 	</div>
-      <h1>Users</h1>
-      <p><table id="user_table">
-  <tr>
-    <th>User ID</th>
-    <th>User Name</th>
-    <th>Picture</th>
-  </tr>
-</table>
+      <h1>Issue</h1>
+      <h3 id="title"></h3>
+      <p id="description"></p>
+      <p id="status"></p>
+      <p id="assignee"></p>
+      <p id="creator"></p>
+      <p id="priority"></p>
+      <p id="tags"></p>
   </div>
   <div class="footer">
     <div class="footer-text">
         <div class="footer-copyright">Copyright &copy; 2019 Lorenzo Conrad, Steven Deutekom, and Mathew Richards.</div>
+        </div>
     </div>
   </div>
 </body>

@@ -116,21 +116,18 @@ class IssueSystem {
      */
     Comment& createComment(const char* json);
 
+    void removeIssue(int id);
+    void removeUser(int id);
+    void removeComment(int id);
+    std::vector<Comment> filterComments(int id);
+    std::vector<Issue> filterIssues(int priority = -1, std::string tag = "");
+
     /**
      * Returns a JSON representation of the IssueSystem.
      *
      * @return the system as a JSON object.
      */
     nlohmann::json toJson();
-
- private:
-    std::vector<Issue> issues;
-    std::vector<User> users;
-    std::vector<Comment> comments;
-
-    int issueCount;
-    int commentCount;
-    int userCount;
 
     /**
      * Clean any garbage from a string that is supposed to contain JSON.
@@ -142,6 +139,15 @@ class IssueSystem {
      * @return a string that should only contain a JSON object.
      */
     std::string clean(std::string str);
+
+ private:
+    std::vector<Issue> issues;
+    std::vector<User> users;
+    std::vector<Comment> comments;
+
+    int issueCount;
+    int commentCount;
+    int userCount;
 };
 
 #endif

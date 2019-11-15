@@ -48,6 +48,7 @@ class Comment{
      * @return The Comment string
      */
      string getCommentText();
+     void update(std::string json);
      /**
      * @brief Destructor for Comment class.
      */

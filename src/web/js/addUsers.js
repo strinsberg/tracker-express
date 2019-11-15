@@ -18,5 +18,5 @@ async function postUser() {
   // Not doing anything with the response as there is some issue with the
   // Service not returning an actual response for the POST methods.
   console.log('Success', response);
-
+  window.open("users.html","_self");
 }
