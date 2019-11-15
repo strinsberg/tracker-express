@@ -24,6 +24,6 @@ async function deleteIssue() {
       "Accept": "*/*",
       "Content-Type": "text/plain"
     },
-    body: "",
+  body: "",
   });
 }
