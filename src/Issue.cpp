@@ -72,9 +72,7 @@ void Issue::setStatus(Status s) {
     status = s;
 }
 
-void Issue::update(std::string json) {
-    auto data = nlohmann::json::parse(json);
-
+void Issue::update(nlohmann::json data) {
     if (data.find("title") != data.end())
         title = data["title"];
     if (data.find("description") != data.end())
@@ -87,6 +85,11 @@ void Issue::update(std::string json) {
         creator = data["creator"];
     if (data.find("status") != data.end())
         status = static_cast<Status>(data["status"]);
+}
+
+void Issue::update(std::string json) {
+    auto data = nlohmann::json::parse(json);
+    update(data);
 }
 
 nlohmann::json Issue::toJson() {

@@ -27,26 +27,22 @@ int IssueSystem::createComment() {
 }
  
 Issue& IssueSystem::createIssue(const char* json) {
-    issues.push_back(Issue(issueCount));
-    issueCount++;
-
-    Issue& iss = issues.back();
-
     auto data = nlohmann::json::parse(clean(std::string(json)));
 
-    iss.setTitle(data["title"]);
-    iss.setDescription(data["description"]);
-    iss.setAssignee(data["assignee"]);
-    iss.setCreator(data["creator"]);
-    iss.setPriority(data["priority"]);
-    
-    for (auto& t : data["tags"])
-        iss.addTag(t);
+    // For loading state set a different newId
+    int newId = issueCount;
+    if (data.find("id") != data.end()) {
+        newId = data["id"];
+        if (issueCount <= newId)
+            issueCount = newId + 1;
+    } else {
+        issueCount++;
+    }
 
-    if (iss.getAssignee() == -1)
-        iss.setStatus(Status::NEW);
-    else
-        iss.setStatus(Status::ASSIGNED);
+    // create the issue and set all its fields with update
+    issues.push_back(Issue(newId));
+    Issue& iss = issues.back();
+    iss.update(data);
 
     return iss;
 }
