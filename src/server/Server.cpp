@@ -13,7 +13,7 @@ Server::Server(std::string host, int port)
       settings(std::make_shared<restbed::Settings>()) {
   issueResource->set_path(host + "/issues");
   userResource->set_path(host + "/users");
-  commentResource->set_path(host + "/comment");
+  commentResource->set_path(host + "/comments");
   settings->set_port(port);
 }
 

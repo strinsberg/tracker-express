@@ -311,7 +311,7 @@ void Handlers::post_comment(const std::shared_ptr<restbed::Session>& session,
       }
 
     } else {
-        Comment& com = system->createComment(bodyInfo);
+        Comment& com = system->createComment(system->clean(bodyInfo));
         result["response"] = com.toJson().dump();
     }
 
@@ -319,7 +319,7 @@ void Handlers::post_comment(const std::shared_ptr<restbed::Session>& session,
 
     std::cout << "=== POST Comment ==========================================";
     std::cout << std::endl << response << std::endl;
-    std::cout << "Number of Users: " << system->getUsers().size();
+    std::cout << "Number of Comments: " << system->getComments().size();
     std::cout << std::endl << std::endl;
 
     this->closeSessionOk(session, response);

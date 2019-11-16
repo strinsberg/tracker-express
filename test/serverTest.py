@@ -5,6 +5,7 @@ import json
 base_url = "http://localhost:1234/trackEx"
 issue_url = base_url + "/issues"
 user_url = base_url + "/users"
+comments_url = base_url + "/comments"
 
 
 ## ISSUES ######################################################
@@ -82,3 +83,39 @@ r_all_user = requests.get(user_url)
 
 # update user
 r_update_user = requests.post(user_url + "?id=1", data = json.dumps(body4));
+
+
+## Comments ####################################################
+
+# create some comments
+body5 = {
+    "issue_id": 1,
+    "user_id": 1,
+    "text": "I don't think this Issue is necessary.",
+}
+
+body6 = {
+    "issue_id": 1,
+    "user_id": 1,
+    "text": "Why have we not deleted this yet",
+}
+
+r_comment1 = requests.post(comments_url, json.dumps(body5))
+r_comment2 = requests.post(comments_url, json.dumps(body6))
+
+# get all comments
+r_all_comments = requests.get(comments_url);
+
+# get a comment
+r_single_comment = requests.get(comments_url + "?id=1")
+
+# get an invalid comment
+r_invalid_comment = requests.get(comments_url + "id?=20")
+
+# delete a comment
+r_delete_comment = requests.delete(comments_url + "?id=2")
+r_all_comments = requests.get(comments_url)
+
+# update a comment
+r_update_comment = requests.post(comments_url + "?id=1", json.dumps(body6))
+

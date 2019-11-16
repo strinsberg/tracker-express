@@ -90,6 +90,11 @@ void Issue::update(nlohmann::json data) {
         creator = data["creator"];
     if (data.find("status") != data.end())
         status = static_cast<Status>(data["status"]);
+
+    if (data.find("tags") != data.end()) {
+        for (auto & t : data["tags"])
+            tags.push_back(t);
+    }
 }
 
 void Issue::update(std::string json) {

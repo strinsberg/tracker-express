@@ -1,4 +1,5 @@
 #include <nlohmann/json.hpp>
+#include <iostream>
 #include <string>
 #include "Comment.h"
 
@@ -59,7 +60,7 @@ nlohmann::json Comment::toJson() {
     data["id"] = commentId;
     data["issue_id"] = issueId;
     data["user_id"] = userId;
-    data["text"] = "nothing";
+    data["text"] = text;
 
     return data;
 }
