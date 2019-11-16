@@ -73,14 +73,19 @@ void Issue::setStatus(Status s) {
 }
 
 void Issue::update(nlohmann::json data) {
-    if (data.find("title") != data.end())
+    if (data.find("title") != data.end() && data["title"] != "")
         title = data["title"];
     if (data.find("description") != data.end())
         description = data["description"];
     if (data.find("priority") != data.end())
         priority = data["priority"];
-    if (data.find("assignee") != data.end())
+    if (data.find("assignee") != data.end()) {
         assignee = data["assignee"];
+        if (status == Status::NEW && assignee != -1)
+            status = Status::ASSIGNED;
+        else if (status == Status::ASSIGNED && assignee == -1)
+            status = Status::NEW;
+    }
     if (data.find("creator") != data.end())
         creator = data["creator"];
     if (data.find("status") != data.end())

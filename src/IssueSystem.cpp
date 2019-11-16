@@ -11,6 +11,9 @@ commentCount(1) {}
 
 IssueSystem::~IssueSystem() {}
 
+
+// Object creation ///////////////////////////////////////////////////////
+
 int IssueSystem::createIssue() {
     issues.push_back(Issue(issueCount));
     return issueCount++;
@@ -48,34 +51,49 @@ Issue& IssueSystem::createIssue(const char* json) {
 }
 
 User& IssueSystem::createUser(const char* json) {
-    users.push_back(User(userCount));
-    userCount++;
-
     auto data = nlohmann::json::parse(clean(std::string(json)));
 
-    User& user = users.back();
+    // If loading a user set the newId accordingly
+    int newId = userCount;
+    if (data.find("id") != data.end()) {
+        newId = data["id"];
+        if (userCount <= newId)
+            userCount = newId + 1;
+    } else {
+        userCount++;
+    }
 
-    user.setName(data["name"]);
-    user.setBlurb(data["blurb"]);
-    user.setPictureNum(data["pic"]);
-    
+    // Create user and set it up
+    users.push_back(User(newId));
+    User& user = users.back();
+    user.update(data);
+
     return user;
 }
 
 Comment& IssueSystem::createComment(const char* json) {
-    comments.push_back(Comment(commentCount));
-    commentCount++;
-
     auto data = nlohmann::json::parse(clean(std::string(json)));
 
-    Comment& com = comments.back();
+    // If loading a comment set the newId properly
+    int newId = commentCount;
+    if (data.find("id") != data.end()) {
+        newId = data["id"];
+        if (commentCount <= newId)
+            commentCount = newId + 1;
+    } else {
+        commentCount++;
+    }
 
-    com.setIssueId(data["issue_id"]);
-    com.setUserId(data["user_id"]);
-    com.setCommentText(data["text"]);
+    // Create and setup comment
+    comments.push_back(Comment(newId));
+    Comment& com = comments.back();
+    com.update(data);
 
     return com;
 }
+
+
+// Getters ///////////////////////////////////////////////////////////////
 
 std::vector<Issue>& IssueSystem::getIssues() {
     return issues;
@@ -113,6 +131,9 @@ Comment& IssueSystem::getComment(int id) {
     throw std::invalid_argument("Error: Not a valid ID");
 }
 
+
+// Object Removal ////////////////////////////////////////////////////////
+
 void IssueSystem::removeIssue(int id) {
     for (size_t i = 0; i < issues.size(); i++) {
         if (id == issues.at(i).getId()) {
@@ -145,6 +166,9 @@ void IssueSystem::removeComment(int id) {
     }
     throw std::invalid_argument("Error: Not a valid ID");
 }
+
+
+// Object list filters ///////////////////////////////////////////////////
 
 std::vector<Comment> IssueSystem::filterComments(int id) {
     std::vector<Comment> coms;
@@ -184,6 +208,9 @@ std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag) {
     return filtered;
 }
 
+
+// Serialization /////////////////////////////////////////////////////////
+
 nlohmann::json IssueSystem::toJson() {
     nlohmann::json data = {
         {"issues", {}},
@@ -206,7 +233,7 @@ nlohmann::json IssueSystem::toJson() {
     return data;
 }
 
-// private //
+// private ///////////////////////////////////////////////////////////////
 
 std::string IssueSystem::clean(std::string str) {
     size_t pos = str.rfind('}'); 

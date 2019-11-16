@@ -47,15 +47,18 @@ void User::setPictureNum(int val) {
     pictureNum = val;
 }
 
-void User::update(std::string json) {
-    auto data = nlohmann::json::parse(json);
-
-    if (data.find("name") != data.end())
+void User::update(nlohmann::json data) {
+    if (data.find("name") != data.end() && data["name"] != "")
         name = data["name"];
     if (data.find("blurb") != data.end())
         blurb = data["blurb"];
     if (data.find("pic") != data.end())
         pictureNum = data["pic"];
+}
+
+void User::update(std::string json) {
+    auto data = nlohmann::json::parse(json);
+    update(data);
 }
 
 nlohmann::json User::toJson() {
