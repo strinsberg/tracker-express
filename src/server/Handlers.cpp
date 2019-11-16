@@ -16,7 +16,7 @@
 #define CLOSE_CONNECTION { "Connection", "close" }
 
 
-// Issues //
+// Issues ////////////////////////////////////////////////////////////////
 
 void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
                           IssueSystem* system) {
@@ -124,7 +124,7 @@ void Handlers::delete_issue(const std::shared_ptr<restbed::Session>& session,
 }
 
 
-// Users //
+// Users /////////////////////////////////////////////////////////////////
 
 void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
                          IssueSystem* system) {
@@ -232,7 +232,8 @@ void Handlers::delete_user(const std::shared_ptr<restbed::Session>& session,
     closeSessionOk(session, response);
 }
 
-// COMMENTS //
+
+// COMMENTS //////////////////////////////////////////////////////////////
 
 void Handlers::get_comments(const std::shared_ptr<restbed::Session>& session,
                 IssueSystem* system) {
@@ -352,7 +353,8 @@ void Handlers::delete_comment(const std::shared_ptr<restbed::Session>& session,
     closeSessionOk(session, response);
 }
 
-// Private //
+
+// Private ///////////////////////////////////////////////////////////////
 
 void Handlers::closeSessionOk(const std::shared_ptr<restbed::Session>& session,
         const std::string& response) {
