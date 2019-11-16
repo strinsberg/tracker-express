@@ -29,8 +29,8 @@ int IssueSystem::createComment() {
     return commentCount++;
 }
  
-Issue& IssueSystem::createIssue(const char* json) {
-    auto data = nlohmann::json::parse(clean(std::string(json)));
+Issue& IssueSystem::createIssue(const std::string& json) {
+    auto data = nlohmann::json::parse(clean(json));
 
     // For loading state set a different newId
     int newId = issueCount;
@@ -50,8 +50,8 @@ Issue& IssueSystem::createIssue(const char* json) {
     return iss;
 }
 
-User& IssueSystem::createUser(const char* json) {
-    auto data = nlohmann::json::parse(clean(std::string(json)));
+User& IssueSystem::createUser(const std::string& json) {
+    auto data = nlohmann::json::parse(clean(json));
 
     // If loading a user set the newId accordingly
     int newId = userCount;
@@ -71,8 +71,8 @@ User& IssueSystem::createUser(const char* json) {
     return user;
 }
 
-Comment& IssueSystem::createComment(const char* json) {
-    auto data = nlohmann::json::parse(clean(std::string(json)));
+Comment& IssueSystem::createComment(const std::string& json) {
+    auto data = nlohmann::json::parse(clean(json));
 
     // If loading a comment set the newId properly
     int newId = commentCount;
@@ -211,7 +211,7 @@ std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag) {
 
 // Serialization /////////////////////////////////////////////////////////
 
-nlohmann::json IssueSystem::toJson() {
+std::string IssueSystem::serialize() {
     nlohmann::json data = {
         {"issues", {}},
         {"users", {}},
@@ -222,15 +222,32 @@ nlohmann::json IssueSystem::toJson() {
     };
     
     for (auto& iss : issues)
-        data["issues"].push_back(iss.toJson());
+        data["issues"].push_back(iss.toJson().dump());
 
     for (auto& user : users)
-        data["users"].push_back(user.toJson());
+        data["users"].push_back(user.toJson().dump());
 
     for (auto& com : comments)
-        data["comments"].push_back(com.toJson());
+        data["comments"].push_back(com.toJson().dump());
 
-    return data;
+    return data.dump(4);
+}
+
+void IssueSystem::deserialize(const std::string& json) {
+    auto system = nlohmann::json::parse(json);
+
+    for (auto& iss : system["issues"])
+        createIssue(iss.dump());
+
+    for (auto& user : system["users"])
+        createUser(user.dump());
+
+    for (auto& com : system["comments"])
+        createComment(com.dump());
+
+    issueCount = system["issue_count"];
+    userCount = system["user_count"];
+    commentCount = system["comment_count"];
 }
 
 // private ///////////////////////////////////////////////////////////////
