@@ -6,10 +6,11 @@
 End of Sprint 2
 **Version** 1.2
 
-* Issues, Users pages
+* Single Issue, User pages
 * Add issue, users forms
-* Submit proper form data for Issues and Users
+* Submit custom form data for Issues and Users
 * List all Issues and Users
+* Forms return to previous pages and refresh lists
 
 #### Documentation
 * Project release documentation is in docs folder
@@ -32,7 +33,8 @@ Steven Deutekom (Scrum Master)
   2. Open issues page to see the current issue list (which is empty when the server starts).
   3. You can add custom issues.
   4. Refreshing the issue page will update the list of issues.
-  5. Users page will work same as Issues.
+  5. Selecting the issue title will bring up a page for just that issue.
+  6. Users page will work same as Issues.
 
 
 # Contribution Guidlines
@@ -45,4 +47,4 @@ Steven Deutekom (Scrum Master)
 
 4. No pull requests should be submitted for branches that do not pass the pipline.
 
-5. All code **must** follow a **TDD** process. To ensure this it is best to commit changes after writing the test. Then implementing the functionality and commiting again when the test is passing. If tests and implementation are really small this can be relaxed a bit.
+5. All code should follow a **TDD** process if at all possible. Try your best. If you don't have full tests plan on writing them before moving on to new features.
