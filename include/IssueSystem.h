@@ -120,7 +120,8 @@ class IssueSystem {
     void removeUser(int id);
     void removeComment(int id);
     std::vector<Comment> filterComments(int id);
-    std::vector<Issue> filterIssues(int priority = -1, std::string tag = "");
+    std::vector<Issue> filterIssues(int priority = -1, std::string tag = "",
+        int status = -1);
 
     std::string serialize();
     void deserialize(const std::string&);

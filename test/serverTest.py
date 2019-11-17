@@ -37,6 +37,11 @@ r_add2 = requests.post(issue_url, data = json.dumps(body2))
 # get all issues
 r_all_issues = requests.get(issue_url)
 
+# filter issues
+#r_p_filt = requests.get(issue_url + "?priority=20")
+#r_s_filt = requests.get(issue_url + "?status=1")
+#r_t_filt = requests.get(issue_url + "?tag=OS")
+
 # get a single issue
 r_single_issue = requests.get(issue_url + "?id=1")
 

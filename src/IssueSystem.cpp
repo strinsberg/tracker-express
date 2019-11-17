@@ -3,6 +3,7 @@
 #include "User.h"
 #include "Comment.h"
 #include <vector>
+#include <algorithm>
 #include <stdexcept>
 #include <nlohmann/json.hpp>
 
@@ -180,31 +181,32 @@ std::vector<Comment> IssueSystem::filterComments(int id) {
     return coms;
 }
 
-std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag) {
-    std::vector<Issue> filtered;
+std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag,
+        int status) {
+    std::vector<Issue> filtered(issues);
+    auto begin = filtered.begin();
+    auto end = filtered.end();
 
-    if (priority != -1 && tag != "") {
-        for (auto iss : issues) {
-            std::vector<std::string> tags = iss.getTags();
-            if (iss.getPriority() == priority &&
-                    std::find(tags.begin(), tags.end(), tag) != tags.end())
-                filtered.push_back(iss);
-        }
-
-    } else if (priority != -1) {
-        for (auto iss : issues) {
-            if (iss.getPriority() == priority)
-                filtered.push_back(iss);
-        }
-        
-    } else if (tag != "") {
-        for (auto iss : issues) {
-            std::vector<std::string> tags = iss.getTags();
-            if (std::find(tags.begin(), tags.end(), tag) != tags.end())
-                filtered.push_back(iss);
-        }
+    if (priority != -1) {
+        end = std::remove_if(begin, end, [priority](Issue& iss) {
+            return iss.getPriority() != priority;
+        });
     }
 
+    if (status != -1) {
+        end = std::remove_if(begin, end, [status](Issue& iss) {
+            return iss.getStatus() != static_cast<Status>(status);
+        });
+    }
+
+    if (tag != "") {
+        end = std::remove_if(begin, end, [tag](Issue& iss) {
+            std::vector<std::string> tags = iss.getTags();
+            return std::find(tags.begin(), tags.end(), tag) != tags.end();
+        });
+    }
+
+    filtered.erase(end + 1, issues.end());
     return filtered;
 }
 
