@@ -44,7 +44,7 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
       int pri = request->get_query_parameter<int>("priority", -1);
       std::string tag = request->get_query_parameter("tag", "");
       int stat = request->get_query_parameter<int>("status", -1);
-      
+
       std::vector<Issue> issues = system->filterIssues(pri, tag, stat);
       for (auto & iss : issues)
           result["response"].push_back(iss.toJson().dump());
