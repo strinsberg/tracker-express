@@ -31,10 +31,6 @@ void Server::setup() {
     [this](const std::shared_ptr<restbed::Session>& session) {
       this->handler.post_issue(session, &(this->system));
     });
-  issueResource->set_method_handler("DELETE",
-    [this](const std::shared_ptr<restbed::Session>& session) {
-      this->handler.delete_issue(session, &(this->system));
-    });
 
   // Set user resources
   userResource->set_method_handler("GET",
@@ -45,10 +41,6 @@ void Server::setup() {
     [this](const std::shared_ptr<restbed::Session>& session) {
       this->handler.post_user(session, &(this->system));
     });
-  userResource->set_method_handler("DELETE",
-    [this](const std::shared_ptr<restbed::Session>& session) {
-      this->handler.delete_user(session, &(this->system));
-    });
 
   // Set comment resources
   commentResource->set_method_handler("GET",
@@ -58,10 +50,6 @@ void Server::setup() {
   commentResource->set_method_handler("POST",
     [this](const std::shared_ptr<restbed::Session>& session) {
       this->handler.post_comment(session, &(this->system));
-    });
-  commentResource->set_method_handler("DELETE",
-    [this](const std::shared_ptr<restbed::Session>& session) {
-      this->handler.delete_comment(session, &(this->system));
     });
 
   // Publish resources
