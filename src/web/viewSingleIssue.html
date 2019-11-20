@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
+  <link href="style/main-style.css" rel="stylesheet">
+  <script src="js/singleIssue.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <title>Issue Tracker Express</title>
+</head>
+
+<body>
+      <h1>Issue</h1>
+      <h3 id="title"></h3>
+      <p id="description"></p>
+      <p id="status"></p>
+      <p id="assignee"></p>
+      <p id="creator"></p>
+      <p id="priority"></p>
+      <p id="tags"></p>
+  </div>
+
+  <div class="comment_box">
+  <textarea id="newComment" name="newComment" rows="5" cols="20" required>
+    Type your comment here.
+  </textarea>
+  <input type="button" value="Submit" onclick="postComment();"/>
+  <br></br>
+  </div>
+</body>
+</html>

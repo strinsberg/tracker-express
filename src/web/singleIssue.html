@@ -38,11 +38,31 @@
       <p id="priority"></p>
       <p id="tags"></p>
   </div>
-  <div class="footer">
-    <div class="footer-text">
-        <div class="footer-copyright">Copyright &copy; 2019 Lorenzo Conrad, Steven Deutekom, and Mathew Richards.</div>
-        </div>
-    </div>
+  <div class = "comments">
+  <div class = "single_comment">
+  <div class = "user_info">Steven</div>
+  <div class = "text">
+    <p>The quick brown fox jumps over the lazy dog.</p>
   </div>
+  </div>
+  <div class = "single_comment">
+  <div class = "user_info">Steven</div>
+  <div class = "text">
+    <p>The quick brown fox jumps over the lazy dog.</p>
+  </div>
+  </div>
+  </div>
+  <div class="comment_box">
+  <textarea id="newComment" name="newComment" rows="5" cols="20" required>
+    Type your comment here.
+  </textarea>
+  <select id="userID" name="userID">
+    <option value=-1>(none)</option>
+    <option value=1>Lorenzo Conrad</option>
+    <option value=2>Steven Deutekom</option>
+  </select>
+  <input type="button" value="Submit" onclick="postComment();"/>
+  </div>
+  <br></br>
 </body>
 </html>
