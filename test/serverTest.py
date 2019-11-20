@@ -5,6 +5,7 @@ import json
 base_url = "http://localhost:1234/trackEx"
 issue_url = base_url + "/issues"
 user_url = base_url + "/users"
+comments_url = base_url + "/comments"
 
 
 ## ISSUES ######################################################
@@ -36,6 +37,11 @@ r_add2 = requests.post(issue_url, data = json.dumps(body2))
 # get all issues
 r_all_issues = requests.get(issue_url)
 
+# filter issues
+#r_p_filt = requests.get(issue_url + "?priority=20")
+#r_s_filt = requests.get(issue_url + "?status=1")
+#r_t_filt = requests.get(issue_url + "?tag=OS")
+
 # get a single issue
 r_single_issue = requests.get(issue_url + "?id=1")
 
@@ -43,7 +49,7 @@ r_single_issue = requests.get(issue_url + "?id=1")
 r_invalid_issue = requests.get(issue_url + "?id=20")
 
 # delete an issue
-r_delete_issue = requests.delete(issue_url + "?id=2");
+r_delete_issue = requests.get(issue_url + "?id=2&delete");
 r_all_issues = requests.get(issue_url)
 
 # update an issue
@@ -77,8 +83,44 @@ r_single_user = requests.get(user_url + "?id=1")
 r_invalid_user = requests.get(user_url + "?id=20")
 
 # delete an user
-r_delete_user = requests.delete(user_url + "?id=2");
+r_delete_user = requests.get(user_url + "?id=2&delete");
 r_all_user = requests.get(user_url)
 
 # update user
 r_update_user = requests.post(user_url + "?id=1", data = json.dumps(body4));
+
+
+## Comments ####################################################
+
+# create some comments
+body5 = {
+    "issue_id": 1,
+    "user_id": 1,
+    "text": "I don't think this Issue is necessary.",
+}
+
+body6 = {
+    "issue_id": 1,
+    "user_id": 1,
+    "text": "Why have we not deleted this yet",
+}
+
+r_comment1 = requests.post(comments_url, json.dumps(body5))
+r_comment2 = requests.post(comments_url, json.dumps(body6))
+
+# get all comments
+r_all_comments = requests.get(comments_url);
+
+# get a comment
+r_single_comment = requests.get(comments_url + "?id=1")
+
+# get an invalid comment
+r_invalid_comment = requests.get(comments_url + "id?=20")
+
+# delete a comment
+r_delete_comment = requests.get(comments_url + "?id=2&delete")
+r_all_comments = requests.get(comments_url)
+
+# update a comment
+r_update_comment = requests.post(comments_url + "?id=1", json.dumps(body6))
+

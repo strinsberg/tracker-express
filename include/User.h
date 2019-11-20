@@ -85,6 +85,7 @@ class User {
      */
     void setPictureNum(int val);
 
+    void update(nlohmann::json data);
     void update(std::string json);
 
     /**

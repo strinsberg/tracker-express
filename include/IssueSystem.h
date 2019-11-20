@@ -84,7 +84,7 @@ class IssueSystem {
      * @param json An json string of an issue object.
      * @return the issue
      */
-    Issue& createIssue(const char* json);
+    Issue& createIssue(const std::string& json);
 
     /**
      * Create a user.
@@ -99,7 +99,7 @@ class IssueSystem {
      * @param json An json string of a user object.
      * @return the user.
      */
-    User& createUser(const char* json);
+    User& createUser(const std::string& json);
 
     /**
      * Create a new comment.
@@ -114,20 +114,17 @@ class IssueSystem {
      * @param json A json string of a comment object.
      * @return the id of the comment.
      */
-    Comment& createComment(const char* json);
+    Comment& createComment(const std::string& json);
 
     void removeIssue(int id);
     void removeUser(int id);
     void removeComment(int id);
     std::vector<Comment> filterComments(int id);
-    std::vector<Issue> filterIssues(int priority = -1, std::string tag = "");
+    std::vector<Issue> filterIssues(int priority = -1, std::string tag = "",
+        int status = -1);
 
-    /**
-     * Returns a JSON representation of the IssueSystem.
-     *
-     * @return the system as a JSON object.
-     */
-    nlohmann::json toJson();
+    std::string serialize();
+    void deserialize(const std::string&);
 
     /**
      * Clean any garbage from a string that is supposed to contain JSON.
