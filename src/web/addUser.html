@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Issue</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
+  <link href="style/main-style.css" rel="stylesheet">
+  <script src="js/addUsers.js"></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <h1>Add A User</h1>
+  <form>
+    Name:<br>
+      <input id="name" type="text" name="name" required>
+
+    <br>Blurb:<br>
+      <textarea id="blurb" name="blurb" rows="5" cols="20" required>
+      Distinguish yourself.
+      </textarea>
+    <br></br>
+    
+    Picture:<br>
+      <select id="pic" name="picture_num">
+        <option value=0>Pic 1</option>
+        <option value=1>Pic 2</option>
+      </select>
+      
+    <br>
+      <input type="button" value="Submit" onclick="postUser();"/>
+    </br>
+  </form>
+  
+</body>
+</html>

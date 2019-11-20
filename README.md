@@ -3,12 +3,17 @@
 3720 group project.
 
 #### Release
-Proposal Phase
-**Version** 1.0
+End of Sprint 2
+**Version** 1.2
+
+* Single Issue, User pages
+* Add issue, users forms
+* Submit custom form data for Issues and Users
+* List all Issues and Users
+* Forms return to previous pages and refresh lists
 
 #### Documentation
 * Project release documentation is in docs folder
-* Agile documentation is in docs/agile, with finalized sprint retrospectives in docs
 * Code documentation using doxygen is in docs/source
 * All design, planning, and team documentation is in docs/planning
 
@@ -16,6 +21,21 @@ Proposal Phase
 Lorenzo Conrad (Front-End Specialist)  
 Mathew Richards (Idea Specialist)  
 Steven Deutekom (Scrum Master)  
+
+
+# Compilation and Use
+
+* Compile and run the tests `$ make testTrackEx`
+* Compile the server `$ make trackEx`
+* Run the server `$ ./trackEx`
+* To see some basic initial functionality
+  1. open `$ src/web/index.html` in your browser.
+  2. Open issues page to see the current issue list (which is empty when the server starts).
+  3. You can add custom issues.
+  4. Refreshing the issue page will update the list of issues.
+  5. Selecting the issue title will bring up a page for just that issue.
+  6. Users page will work same as Issues.
+
 
 # Contribution Guidlines
 
@@ -27,4 +47,4 @@ Steven Deutekom (Scrum Master)
 
 4. No pull requests should be submitted for branches that do not pass the pipline.
 
-5. All code **must** follow a **TDD** process. To ensure this it is best to commit changes after writing the test. Then implementing the functionality and commiting again when the test is passing. If tests and implementation are really small this can be relaxed a bit.
+5. All code should follow a **TDD** process if at all possible. Try your best. If you don't have full tests plan on writing them before moving on to new features.

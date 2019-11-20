@@ -1,8 +1,11 @@
 #ifndef COMMENT_H
 #define COMMENT_H
 
-#include<string>
+#include <nlohmann/json.hpp>
+#include <string>
+
 using std::string;
+
 class Comment{
  public:
      /**
@@ -14,12 +17,12 @@ class Comment{
      * @brief Setter for the Issue ID
      * @param issue_id, the Issue ID to set
      */
-     void setIssueID(int);
+     void setIssueId(int);
      /**
      * @brief Setter for the User ID
      * @param user_id, the User ID to set
      */
-     void setUserID(int);
+     void setUserId(int);
      /**
      * @brief Setter for the comment text
      * @param comment, The text of the comment
@@ -29,31 +32,39 @@ class Comment{
      * @brief Setter for Comment ID
      * @param comment_id, the Comment ID to set
      */
-     int getCommentID();
+     int getId();
      /**
      * @brief Getter for the Issue ID
      * @return issueID, The issueID variable
      */
-     int getIssueID();
+     int getIssueId();
      /**
      * @brief Getter for the User ID
      * @return userID, the UserID
      */
-     int getUserID();
+     int getUserId();
      /**
      * @brief Getter for the Comment text
      * @return The Comment string
      */
      string getCommentText();
+     void update(std::string json);
      /**
      * @brief Destructor for Comment class.
      */
      ~Comment();
 
+     /**
+      * Returns a JSON representation of the comment.
+      *
+      * @return the comment object as a JSON object.
+      */
+     nlohmann::json toJson();
+
  private:
-    int commentID;
-    int issueID;
-    int userID;
+    int commentId;
+    int issueId;
+    int userId;
     string text;
 };
 
