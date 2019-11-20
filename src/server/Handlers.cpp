@@ -33,6 +33,10 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
       try {
         Issue& iss = system->getIssue(id);
         result["response"] = iss.toJson().dump();
+
+        // Delete the issue (because DELETE didn't work)
+        if (request->has_query_parameter("delete"))
+            system->removeIssue(id);
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid id";
@@ -152,6 +156,8 @@ void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
       try {
         User& user = system->getUser(id);
         result["response"] = user.toJson().dump();
+        if (request->has_query_parameter("delete"))
+            system->removeUser(id);
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid id";
@@ -261,6 +267,8 @@ void Handlers::get_comments(const std::shared_ptr<restbed::Session>& session,
       try {
         Comment& com = system->getComment(id);
         result["response"] = com.toJson().dump();
+        if (request->has_query_parameter("delete"))
+            system->removeComment(id);
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid id";

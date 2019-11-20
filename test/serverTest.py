@@ -49,7 +49,7 @@ r_single_issue = requests.get(issue_url + "?id=1")
 r_invalid_issue = requests.get(issue_url + "?id=20")
 
 # delete an issue
-r_delete_issue = requests.delete(issue_url + "?id=2");
+r_delete_issue = requests.get(issue_url + "?id=2&delete");
 r_all_issues = requests.get(issue_url)
 
 # update an issue
@@ -83,7 +83,7 @@ r_single_user = requests.get(user_url + "?id=1")
 r_invalid_user = requests.get(user_url + "?id=20")
 
 # delete an user
-r_delete_user = requests.delete(user_url + "?id=2");
+r_delete_user = requests.get(user_url + "?id=2&delete");
 r_all_user = requests.get(user_url)
 
 # update user
@@ -118,7 +118,7 @@ r_single_comment = requests.get(comments_url + "?id=1")
 r_invalid_comment = requests.get(comments_url + "id?=20")
 
 # delete a comment
-r_delete_comment = requests.delete(comments_url + "?id=2")
+r_delete_comment = requests.get(comments_url + "?id=2&delete")
 r_all_comments = requests.get(comments_url)
 
 # update a comment
