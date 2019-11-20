@@ -18,12 +18,8 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
 //not working properly yet
 //i can confirm the handler works because I tested it with curl
 async function deleteIssue() {
-  const response = await fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"), {
-    method: "DELETE",
-    headers: {
-      "Accept": "*/*",
-      "Content-Type": "text/plain"
-    },
-  body: "",
-  });
+if (confirm("Are you sure you would like to delete this issue?")) {
+fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id") + "&delete")
+window.open("issues.html","_self");
+}
 }

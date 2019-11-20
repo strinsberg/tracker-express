@@ -35,8 +35,10 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
         result["response"] = iss.toJson().dump();
 
         // Delete the issue (because DELETE didn't work)
-        if (request->has_query_parameter("delete"))
+        if (request->has_query_parameter("delete")) {
             system->removeIssue(id);
+            std::cout<< "DELETE." << std::endl;
+            }
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid id";
