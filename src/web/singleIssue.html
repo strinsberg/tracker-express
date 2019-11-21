@@ -27,7 +27,8 @@
     <div class="sidenav">
 		<p>Issue Options</p>
 		<a href="javascript:void(0);" NAME="Add An Issue"  title="findIssue" onClick=window.open("addIssue.html","_self");>Add an Issue</a>
-		<a href="javascript:void(0);" onClick="deleteIssue();" NAME="Delete"  title="deleteIssue">Delete Issue</a><br>
+		<a href="javascript:void(0);" onClick="deleteIssue();" NAME="Delete"  title="deleteIssue">Delete Issue</a>
+		<a href="javascript:void(0);" onClick="addComment();" NAME="Add Comment"  title="addComment">Comment</a><br>
 	</div>
       <h1>Issue</h1>
       <h3 id="title"></h3>
@@ -47,18 +48,6 @@
   </tr>
       
   </table>
-  </div>
-  <div class="comment_box">
-  <textarea id="newComment" name="newComment" rows="5" cols="20" required>
-    Type your comment here.
-  </textarea>
-  <select id="userID" name="userID">
-    <option value=-1>(none)</option>
-    <option value=1>Lorenzo Conrad</option>
-    <option value=2>Steven Deutekom</option>
-  </select>
-  <input type="button" value="Submit" onclick="postComment();"/>
-  </div>
   <br></br>
 </body>
 <script src="js/singleIssue.js"></script>

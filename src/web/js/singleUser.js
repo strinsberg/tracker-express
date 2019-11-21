@@ -14,8 +14,8 @@ fetch("http://localhost:1234/trackEx/users?id=" + params.get("id"))
 //not working properly yet
 //i can confirm the handler works because I tested it with curl
 async function deleteUser() {
-if (confirm("Are you sure you would like to delete this user?")) {
-fetch("http://localhost:1234/trackEx/users?id=" + params.get("id") + "&delete")
-window.open("users.html","_self");
-}
+    if (confirm("Are you sure you would like to delete this user?")) {
+        const response = await fetch("http://localhost:1234/trackEx/users?id=" + params.get("id") + "&delete");
+        window.open("users.html","_self");
+    }
 }
