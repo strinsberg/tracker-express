@@ -15,7 +15,7 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
     document.getElementById("tags").innerHTML = "Tags: " + iss.tags;
 });
 
-fetch("http://localhost:1234/trackEx/comments")
+fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))
 .then(response => {
     console.log(response);
     return response.json();

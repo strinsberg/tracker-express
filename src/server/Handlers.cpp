@@ -226,8 +226,11 @@ void Handlers::get_comments(const std::shared_ptr<restbed::Session>& session,
 
       try {
         std::vector<Comment> coms = system->filterComments(id);
-        for (auto & com : coms)
+        std::cout << "size: " << coms.size() << std::endl;
+        for (auto & com : coms) {
+          std::cout << "ID: " << com.getId() << std::endl;
           result["response"].push_back(com.toJson().dump());
+        }
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid issue id";
