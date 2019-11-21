@@ -3,7 +3,7 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
   <link href="style/main-style.css" rel="stylesheet">
-  <script src="js/singleIssue.js"></script>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Issue Tracker Express</title>
 </head>
@@ -38,19 +38,15 @@
       <p id="priority"></p>
       <p id="tags"></p>
   </div>
-  <div class = "comments">
-  <div class = "single_comment">
-  <div class = "user_info">Steven</div>
-  <div class = "text">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </div>
-  </div>
-  <div class = "single_comment">
-  <div class = "user_info">Steven</div>
-  <div class = "text">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </div>
-  </div>
+  <div class="comments">
+  <h3>Comments</h3>
+  <table id="comment_table">
+  <tr>
+    <th>User</th>
+    <th>Text</th>
+  </tr>
+      
+  </table>
   </div>
   <div class="comment_box">
   <textarea id="newComment" name="newComment" rows="5" cols="20" required>
@@ -65,4 +61,5 @@
   </div>
   <br></br>
 </body>
+<script src="js/singleIssue.js"></script>
 </html>
