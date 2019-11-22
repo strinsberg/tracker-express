@@ -1,3 +1,31 @@
+//Fetch all users from the API
+fetch("http://localhost:1234/trackEx/users")
+.then(response => {
+console.log(response);
+return response.json();
+})
+.then(data => {
+var creator = document.getElementById("creator");
+var assignee = document.getElementById("assignee");
+
+//Dynamically update HTML elements for creator and assignee.
+        data.response.forEach(user => {
+        var user_data = JSON.parse(user);
+        var opt = document.createElement("option");
+        opt.value = user_data.id;
+        opt.innerHTML = user_data.name;
+        creator.appendChild(opt);
+        var opt2 = document.createElement("option");
+        opt2.value = user_data.id;
+        opt2.innerHTML = user_data.name;
+        assignee.appendChild(opt2);
+        })
+})
+.catch(err => {
+console.error("Error:", err);
+});
+
+
 async function postIssue() {
   values = {
     "title": document.getElementById("title").value,
@@ -23,4 +51,3 @@ async function postIssue() {
   console.log('Success', response);
   window.open("issues.html","_self");
 }
-

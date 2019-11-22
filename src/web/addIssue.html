@@ -9,7 +9,7 @@
 
 <body>
   <h1>Add an Issue</h1>
-  
+
   <form>
     Title:<br>
       <input id="title" type="text" name="title" required>
@@ -28,14 +28,12 @@
 
     <br>Created By:<br>
       <select id="creator" name="createdBy">
-        <option value=1>Mathew Richards</option>
-        <option value=2>Steven Deutekom</option>
+      <option value=-1>Guest User</option>
       </select>
 
     <br>Assigned To:<br>
       <select id="assignee" name="assignedTo">
         <option value=-1>Unassigned</option>
-        <option value=3>Lorenzo Conrad</option>
       </select>
 
     <br>Tags (separate by comma):<br>
@@ -43,7 +41,7 @@
     <br>
       <input type="button" value="Submit" onclick="postIssue();" />
   </form>
-  
+
 </body>
 
   <script src="js/addIssue.js"></script>
