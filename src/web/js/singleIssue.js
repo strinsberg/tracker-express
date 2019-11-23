@@ -28,10 +28,12 @@ fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))
         
         var user = row.insertCell(0);
         var text = row.insertCell(1);
-        var del = row.insertCell(2);
+        var edit = row.insertCell(2)
+        var del = row.insertCell(3);
         
         user.innerHTML = com.user_id;
         text.innerHTML = com.text;
+        edit.innerHTML = '<a href="javascript:void(0);" onclick="editComment(' + com.id + ');">edit</a>';
         del.innerHTML = '<a href="javascript:void(0);" onclick="deleteComment(' + com.id + ');">delete</a>';
 
         console.log("Comment:", com);
@@ -50,7 +52,20 @@ async function deleteIssue() {
 }
 
 function addComment() {
-    window.open("addComment.html?id=" + params.get("id"), "_self");
+    window.open("addComment.html?issue=" + params.get("id"), "_self");
+}
+
+async function editComment(id) {
+    fetch('http://localhost:1234/trackEx/comments?id=' + id)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        comment = JSON.parse(data.response);
+        window.open("addComment.html?issue=" + params.get("id") + "&id=" + comment.id + "&user=" + comment.user_id,"_self");
+    }).catch(err => {
+        console.error("Error:", err);
+    });
 }
 
 async function deleteComment(id) {
