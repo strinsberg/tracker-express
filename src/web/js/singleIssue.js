@@ -43,6 +43,11 @@ fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))
 });
 
 
+function editIssue() {
+    window.open("addIssue.html?id=" + params.get("id"), "_self");
+}
+
+
 async function deleteIssue() {
     if (confirm("Are you sure you would like to delete this issue?")) {
         const response = await fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id") + "&delete")

@@ -1,3 +1,5 @@
+var params = new URLSearchParams(window.location.search);
+
 //Fetch all users from the API
 fetch("http://localhost:1234/trackEx/users")
 .then(response => {
@@ -25,8 +27,31 @@ var assignee = document.getElementById("assignee");
 console.error("Error:", err);
 });
 
+// If updateing get the issue and fill all the fields
+if (params.has("id")) {
+    fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        var iss = JSON.parse(data.response);
+        
+        document.getElementById("title").value = iss.title;
+        document.getElementById("description").value = iss.description;
+        document.getElementById("assignee").value = iss.assignee;
+        document.getElementById("creator").value = iss.creator;
+        document.getElementById("priority").value = iss.priority;
+        tags = JSON.parse(iss.tags);
+        document.getElementById("tags").value = tags.join(", ");
+    })
+}
 
 async function postIssue() {
+  var url = "http://localhost:1234/trackEx/issues";
+  if (params.has("id")) {
+    url += "?id=" + params.get("id");
+  }
+
   values = {
     "title": document.getElementById("title").value,
     "description": document.getElementById("description").value,
@@ -38,7 +63,7 @@ async function postIssue() {
   }
   console.log('values', values);
 
-  const response = await fetch("http://localhost:1234/trackEx/issues", {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Accept": "*/*",
