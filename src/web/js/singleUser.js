@@ -7,8 +7,12 @@ fetch("http://localhost:1234/trackEx/users?id=" + params.get("id"))
 .then(data => {
     var user = JSON.parse(data.response);
     document.getElementById("name").innerHTML = user.name;
-    document.getElementById("blurb").innerHTML = "About: " + user.blurb;
-    document.getElementById("picture").innerHTML = user.pic;
+    document.getElementById("blurb").innerHTML = user.blurb;
+    var picNum = user.pic;
+    if (picNum > 5 || picNum < 0) {
+        picNum = -1;
+    }
+    document.getElementById("picture").src = "images/" + user.pic + ".jpg";
 });
 
 function editUser() {
