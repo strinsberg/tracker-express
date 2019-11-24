@@ -170,12 +170,12 @@ void IssueSystem::removeComment(int id) {
 
 
 // Object list filters ///////////////////////////////////////////////////
-
+#include <iostream>
 std::vector<Comment> IssueSystem::filterComments(int id) {
     std::vector<Comment> coms;
 
     for (auto com : comments) {
-        if (com.getUserId() == id)
+        if (com.getIssueId() == id)
             coms.push_back(com);
     }
     return coms;
