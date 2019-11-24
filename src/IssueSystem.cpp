@@ -139,7 +139,6 @@ void IssueSystem::removeIssue(int id) {
     for (size_t i = 0; i < issues.size(); i++) {
         if (id == issues.at(i).getId()) {
             issues.erase(issues.begin() + i);
-            issueCount--;
             return;
         }
     }
@@ -150,7 +149,6 @@ void IssueSystem::removeUser(int id) {
     for (size_t i = 0; i < users.size(); i++) {
         if (id == users.at(i).getId()) {
             users.erase(users.begin() + i);
-            userCount--;
             return;
         }
     }
@@ -161,7 +159,6 @@ void IssueSystem::removeComment(int id) {
     for (size_t i = 0; i < comments.size(); i++) {
         if (id == comments.at(i).getId()) {
             comments.erase(comments.begin() + i);
-            commentCount--;
             return;
         }
     }
