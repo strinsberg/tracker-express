@@ -11,8 +11,10 @@ fetch("http://localhost:1234/trackEx/users?id=" + params.get("id"))
     document.getElementById("picture").innerHTML = user.pic;
 });
 
-//not working properly yet
-//i can confirm the handler works because I tested it with curl
+function editUser() {
+    window.open("addUser.html?id=" + params.get("id"), "_self");
+}
+
 async function deleteUser() {
     if (confirm("Are you sure you would like to delete this user?")) {
         const response = await fetch("http://localhost:1234/trackEx/users?id=" + params.get("id") + "&delete");
