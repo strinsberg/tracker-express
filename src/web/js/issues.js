@@ -4,7 +4,7 @@ fetch("http://localhost:1234/trackEx/issues")
     return response.json();
     })
     .then(data => {
-        var table = document.getElementById("issue_table");
+        var table = document.getElementById("table_body");
         data.response.forEach(issue => {
             var iss = JSON.parse(issue)
             var row = table.insertRow(-1);
@@ -22,3 +22,45 @@ fetch("http://localhost:1234/trackEx/issues")
     console.error("Error:", err);
 });
 
+function filterIssues() {
+    var priority = document.getElementById("priority-filter");
+    var tag = document.getElementById("tag-filter");
+    var status = document.getElementById("status-filter");
+    
+    
+    var url = "http://localhost:1234/trackEx/issues"//?status=" + status.value;
+
+    console.log(url);
+    
+    getIssues(url);
+}
+
+function getIssues(url) {
+    fetch(url) 
+        .then(response => {
+        console.log(response);
+        return response.json();
+        })
+        .then(data => {
+            var table = document.getElementById("issue_table");
+            var body = document.getElementById("table_body");
+            var newBody = document.createElement("tbody");
+            newBody.id = "table_body";
+            data.response.forEach(issue => {
+                var iss = JSON.parse(issue)
+                var row = newBody.insertRow(-1);
+                
+                var title = row.insertCell(0);
+                var create = row.insertCell(1);
+                var prior = row.insertCell(2);
+                
+                title.innerHTML = '<a href="singleIssue.html?id=' + iss.id + '">' + iss.title + '</a>';
+                create.innerHTML = iss.creator;
+                prior.innerHTML = iss.priority;
+            })
+            table.replaceChild(newBody, body);
+        })
+        .catch(err => {
+        console.error("Error:", err);
+    });
+}

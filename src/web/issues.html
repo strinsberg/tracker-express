@@ -3,10 +3,8 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
   <link href="style/main-style.css" rel="stylesheet">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="js/issues.js"></script>
-  <script src="js/filter.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Issue Tracker Express</title>
 </head>
@@ -40,23 +38,29 @@
         </div>
         <div class="col-md-2">
             <h4>Tag</h4>
-           <select id="projectfilter" name="projectfilter" class="table-filter form-control" data-col="2">
-             <option value="">Select one</option>
-             <option value="1">Test project</option><option value="2">Test2</option></select>
+           <input type="search" class="form-control" id="tag-filter" placeholder="N/A">
         </div>
      <div class="col-md-2">
             <h4>Status</h4>
-           <select id="servicefilter" name="servicefilter" class="table-filter form-control"  data-col="3">
-             <option value="">Select one</option>
-             <option value="1">Test service</option><option value="2">Test2 service</option></select>
+           <select id="status-filter" name="status-filter" class="table-filter form-control"  data-col="3">
+             <option value="0">New</option>
+             <option value="1">Assigned</option>
+             <option value="2">Fixed</option>
+             <option value="3">Won't Fix</option></select>
+        </div>
+        <div class="col-md-3">
+            <br><br>
+            <button id="filter" onClick="filterIssues();">Filter</button>
         </div>
     </div>
       <p><table id="issue_table">
-  <tr>
+  <thead>
     <th>Issue Name</th>
     <th>Creator</th>
     <th>Priority</th>
-  </tr>
+  </thead>
+  <tbody id="table_body">
+  </tbody>
 </table>
   </div>
   <div class="footer">

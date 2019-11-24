@@ -12,7 +12,8 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
     document.getElementById("assignee").innerHTML = "Assignee: " + iss.assignee;
     document.getElementById("creator").innerHTML = "Creator: " + iss.creator;
     document.getElementById("priority").innerHTML = "Priority: " + iss.priority;
-    document.getElementById("tags").innerHTML = "Tags: " + iss.tags;
+    tags = JSON.parse(iss.tags);
+    document.getElementById("tags").innerHTML = tags.join(", ");
 });
 
 fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))

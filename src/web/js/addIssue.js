@@ -43,7 +43,7 @@ if (params.has("id")) {
         document.getElementById("priority").value = iss.priority;
         tags = JSON.parse(iss.tags);
         document.getElementById("tags").value = tags.join(", ");
-    })
+    });
 }
 
 async function postIssue() {
