@@ -7,13 +7,13 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
 .then(data => {
     var iss = JSON.parse(data.response);
     document.getElementById("title").innerHTML = iss.title;
-    document.getElementById("description").innerHTML = iss.description;
-    document.getElementById("status").innerHTML = "Status: " + iss.status;
-    document.getElementById("assignee").innerHTML = "Assignee: " + iss.assignee;
-    document.getElementById("creator").innerHTML = "Creator: " + iss.creator;
-    document.getElementById("priority").innerHTML = "Priority: " + iss.priority;
+    document.getElementById("description").innerHTML = "Description:   " + iss.description;
+    document.getElementById("status").innerHTML = "Status:   " + iss.status;
+    document.getElementById("assignee").innerHTML = "Assignee:   " + iss.assignee;
+    document.getElementById("creator").innerHTML = "Creator:   " + iss.creator;
+    document.getElementById("priority").innerHTML = "Priority:   " + iss.priority;
     tags = JSON.parse(iss.tags);
-    document.getElementById("tags").innerHTML = tags.join(", ");
+    document.getElementById("tags").innerHTML = "Tags:   " + tags.join(", ");
 });
 
 fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))
