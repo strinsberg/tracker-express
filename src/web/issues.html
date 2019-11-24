@@ -34,7 +34,7 @@
       <div class="row">
         <div class="col-md-3">
             <h4>Priority</h4>
-            <input type="number" step="1" class="form-control" id="priority-filter"  data-col="1">
+            <input type="number" step="1" class="form-control" id="priority-filter"  data-col="1" value="-1">
         </div>
         <div class="col-md-2">
             <h4>Tag</h4>
@@ -42,7 +42,8 @@
         </div>
      <div class="col-md-2">
             <h4>Status</h4>
-           <select id="status-filter" name="status-filter" class="table-filter form-control"  data-col="3">
+           <select id="status-filter" name="status-filter" class="table-filter form-control"  data-col="3" value="-1">
+             <option value="-1">N/A</option>
              <option value="0">New</option>
              <option value="1">Assigned</option>
              <option value="2">Fixed</option>
