@@ -1,6 +1,8 @@
 #include <restbed>
 #include <nlohmann/json.hpp>
 #include <memory>
+#include <fstream>
+#include <iostream>
 #include <string>
 #include "Server.h"
 #include "Handlers.h"
@@ -18,7 +20,18 @@ Server::Server(std::string host, int port)
 }
 
 
-Server::~Server() {}
+Server::~Server() {
+    // save the server contents
+    std::string state(system.serialize());
+    std::fstream file;
+    file.open("serverState.json", std::fstream::out);
+    if (file.is_open()) {
+        file << state;
+        std::cout << "TrackEx: Server state saved.\n\n";
+    } else {
+        std::cout << "TrackEx: Error saving server state.\n\n";
+    }
+}
 
 
 void Server::setup() {
@@ -56,6 +69,22 @@ void Server::setup() {
   service.publish(issueResource);
   service.publish(userResource);
   service.publish(commentResource);
+
+  // load current issue system state
+  std::string fileContents;
+  std::fstream file;
+  file.open("serverState.json", std::fstream::in);
+  if (file.is_open()) {
+      char c;
+      while(file.get(c))
+         fileContents.push_back(c);
+      file.close();
+      system.deserialize(fileContents);
+      std::cout << "TrackEX: Loaded previous server state\n\n" << std::endl;
+  } else {
+      std::cout << "TrackEx: Could not load previous state";
+      std::cout << " or there was no save file.\n\n";
+  }
 }
 
 

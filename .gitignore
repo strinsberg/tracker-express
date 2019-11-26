@@ -4,6 +4,7 @@
 *.swo
 *.autosave
 *.orig
+serverState.json
 
 # coverage artifacts
 *.gcda
