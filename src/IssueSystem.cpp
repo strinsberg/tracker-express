@@ -180,30 +180,20 @@ std::vector<Comment> IssueSystem::filterComments(int id) {
 
 std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag,
         int status) {
-    std::vector<Issue> filtered(issues);
-    auto begin = filtered.begin();
-    auto end = filtered.end();
+    std::vector<Issue> filtered;
 
-    if (priority != -1) {
-        end = std::remove_if(begin, end, [priority](Issue& iss) {
-            return iss.getPriority() != priority;
-        });
+    for (auto iss : issues) {
+        std::vector<std::string> tags = iss.getTags();
+        Status stat = iss.getStatus();
+
+        if ((priority == -1 || iss.getPriority() == priority)
+              && (tag == ""
+              || std::find(tags.begin(), tags.end(), tag) != tags.end())
+              && (status == -1 || stat == static_cast<Status>(status))) {
+          filtered.push_back(iss);
+        }
     }
 
-    if (status != -1) {
-        end = std::remove_if(begin, end, [status](Issue& iss) {
-            return iss.getStatus() != static_cast<Status>(status);
-        });
-    }
-
-    if (tag != "") {
-        end = std::remove_if(begin, end, [tag](Issue& iss) {
-            std::vector<std::string> tags = iss.getTags();
-            return std::find(tags.begin(), tags.end(), tag) != tags.end();
-        });
-    }
-
-    filtered.erase(end + 1, issues.end());
     return filtered;
 }
 
