@@ -76,7 +76,7 @@ void Server::setup() {
   file.open("serverState.json", std::fstream::in);
   if (file.is_open()) {
       char c;
-      while(file.get(c))
+      while (file.get(c))
          fileContents.push_back(c);
       file.close();
       system.deserialize(fileContents);
