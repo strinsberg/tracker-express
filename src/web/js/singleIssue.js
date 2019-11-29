@@ -1,5 +1,8 @@
 var params = new URLSearchParams(window.location.search);
+var assignee = -1;
+var creator = -1;
 
+// Get the issue
 fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
 .then(response => {
     return response.json();
@@ -9,13 +12,43 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
     document.getElementById("title").innerHTML = iss.title;
     document.getElementById("description").innerHTML = "Description:   " + iss.description;
     document.getElementById("status").innerHTML = "Status:   " + iss.status;
-    document.getElementById("assignee").innerHTML = "Assignee:   " + iss.assignee;
-    document.getElementById("creator").innerHTML = "Creator:   " + iss.creator;
+    document.getElementById("assignee").innerHTML = "Assignee: Unassigned";
+    document.getElementById("creator").innerHTML = "Creator:   Guest";
     document.getElementById("priority").innerHTML = "Priority:   " + iss.priority;
     tags = JSON.parse(iss.tags);
     document.getElementById("tags").innerHTML = "Tags:   " + tags.join(", ");
+    
+    assignee = iss.assignee;
+    creator = iss.creator;
+}).then(function() {
+    // Get the name for the assignee
+    if (assignee != -1) {
+        fetch("http://localhost:1234/trackEx/users?id=" + assignee)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            var user = JSON.parse(data.response);
+            document.getElementById("assignee").innerHTML = "Assignee: " + user.name;
+        })
+    }
+
+    // Get the name of the creator
+    if (creator != -1) {
+        fetch("http://localhost:1234/trackEx/users?id=" + creator)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            var user = JSON.parse(data.response);
+            document.getElementById("creator").innerHTML = "Creator: " + user.name;
+        })
+    }
+}).catch(err => {
+    console.error("Error:", err);
 });
 
+// Get all the comments
 fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))
 .then(response => {
     console.log(response);
@@ -44,6 +77,9 @@ fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))
 });
 
 
+
+
+// Functions //////////////////////////////////////////////////////////////////
 function editIssue() {
     window.open("addIssue.html?id=" + params.get("id"), "_self");
 }
