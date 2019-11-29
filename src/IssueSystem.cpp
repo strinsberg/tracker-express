@@ -138,10 +138,19 @@ Comment& IssueSystem::getComment(int id) {
 void IssueSystem::removeIssue(int id) {
     for (size_t i = 0; i < issues.size(); i++) {
         if (id == issues.at(i).getId()) {
+            // remove the issue if it exists
             issues.erase(issues.begin() + i);
+
+            // remove all the issues comments
+            for (auto & com : comments) {
+                if (com.getIssueId() == id)
+                    removeComment(com.getId());
+            }
             return;
         }
     }
+
+    // If the issue did not exist throw an error
     throw std::invalid_argument("Error: Not a valid ID");
 }
 
@@ -149,6 +158,22 @@ void IssueSystem::removeUser(int id) {
     for (size_t i = 0; i < users.size(); i++) {
         if (id == users.at(i).getId()) {
             users.erase(users.begin() + i);
+
+            // Adjust all Issues and Comments referencing the user
+            for (auto & iss : issues) {
+                if (iss.getAssignee() == id) {
+                    iss.setStatus(Status::NEW);
+                    iss.setAssignee(-1);
+                }
+
+                if (iss.getCreator() == id)
+                    iss.setCreator(-1);
+            }
+
+            for (auto & com : comments) {
+                if (com.getUserId() == id)
+                    com.setUserId(-1);
+            }
             return;
         }
     }
