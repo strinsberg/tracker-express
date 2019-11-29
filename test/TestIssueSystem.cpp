@@ -229,9 +229,17 @@ TEST(TestIssueSystem, getComment_throw) {
 TEST(TestIssueSystem, remove_issue) {
     IssueSystem iss;
     iss.createIssue();
-    EXPECT_EQ(1, iss.getIssues().size());
+
+    const char* tempJson =
+    "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45,"
+    "\"text\": \"a comment\"}";
+
+    iss.createIssue(tempJson);
+
+    EXPECT_EQ(2, iss.getIssues().size());
     iss.removeIssue(1);
-    EXPECT_EQ(0, iss.getIssues().size());
+    EXPECT_EQ(1, iss.getIssues().size());
+    //EXPECT_EQ()
 }
 
 TEST(TestIssueSystem, remove_issue_throw) {
@@ -254,3 +262,47 @@ TEST(TestIssueSystem, remove_user_throw) {
     EXPECT_THROW(iss.removeUser(2), std::invalid_argument);
 }
 
+TEST(TestIssueSystem, remove_comment) {
+    IssueSystem iss;
+    iss.createComment();
+    EXPECT_THROW(iss.removeComment(2), std::invalid_argument);
+
+    const char* tempJson =
+    "{\"id\" : 1, \"issue_id\": 1, \"user_id\": 45,"
+    "\"text\": \"a comment\"}";
+
+    iss.createComment(tempJson);
+    iss.removeComment(1);
+    //what to expect here
+}
+
+TEST(TestIssueSystem, filter_comments) {
+    IssueSystem iss;
+    iss.createComment();
+    iss.createComment();
+    iss.createComment();
+
+
+    const char* tempJson =
+    "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\"}";
+    iss.createComment(tempJson);
+
+    EXPECT_EQ(1, iss.filterComments(14).size());
+    EXPECT_EQ(3, iss.filterComments(1).size());
+}
+
+TEST(TestIssueSystem, filter_issues) {
+    IssueSystem iss;
+
+    const char* tempJson =
+    "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tag\": \"tag\", \"status\": 10"
+    "\"priority\": 100}";
+
+    iss.createIssue(tempJson);
+
+    EXPECT_EQ(1, iss.filterIssues(100, "tag", 10).size());
+    iss.createIssue();
+    EXPECT_EQ(2, iss.filterIssues(100, "tag", 10).size());
+}
