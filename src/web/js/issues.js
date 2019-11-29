@@ -37,19 +37,22 @@ function getIssues(url) {
             var body = document.getElementById("table_body");
             var newBody = document.createElement("tbody");
             newBody.id = "table_body";
-            data.response.forEach(issue => {
-                var iss = JSON.parse(issue)
-                console.log(iss);
-                var row = newBody.insertRow(-1);
-                
-                var title = row.insertCell(0);
-                var create = row.insertCell(1);
-                var prior = row.insertCell(2);
-                
-                title.innerHTML = '<a href="singleIssue.html?id=' + iss.id + '">' + iss.title + '</a>';
-                create.innerHTML = iss.creator;
-                prior.innerHTML = iss.priority;
-            })
+            if (data.response != null) {
+            
+                data.response.forEach(issue => {
+                    var iss = JSON.parse(issue)
+                    console.log(iss);
+                    var row = newBody.insertRow(-1);
+                    
+                    var title = row.insertCell(0);
+                    var create = row.insertCell(1);
+                    var prior = row.insertCell(2);
+                    
+                    title.innerHTML = '<a href="singleIssue.html?id=' + iss.id + '">' + iss.title + '</a>';
+                    create.innerHTML = iss.creator;
+                    prior.innerHTML = iss.priority;
+                })
+            }
             table.replaceChild(newBody, body);
         })
         .catch(err => {

@@ -79,6 +79,8 @@ void Issue::update(nlohmann::json data) {
         description = data["description"];
     if (data.find("priority") != data.end())
         priority = data["priority"];
+    if (data.find("status") != data.end())
+        status = static_cast<Status>(data["status"]);
     if (data.find("assignee") != data.end()) {
         assignee = data["assignee"];
         if (status == Status::NEW && assignee != -1)
@@ -88,8 +90,6 @@ void Issue::update(nlohmann::json data) {
     }
     if (data.find("creator") != data.end())
         creator = data["creator"];
-    if (data.find("status") != data.end())
-        status = static_cast<Status>(data["status"]);
 
     if (data.find("tags") != data.end()) {
         tags.clear();
