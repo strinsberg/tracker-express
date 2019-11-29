@@ -282,14 +282,13 @@ TEST(TestIssueSystem, filter_comments) {
     iss.createComment();
     iss.createComment();
 
-
     const char* tempJson =
     "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
     "\"text\": \"a comment\"}";
     iss.createComment(tempJson);
 
     EXPECT_EQ(1, iss.filterComments(14).size());
-    EXPECT_EQ(3, iss.filterComments(1).size());
+    EXPECT_EQ(3, iss.filterComments(-1).size());
 }
 
 TEST(TestIssueSystem, filter_issues) {
@@ -297,12 +296,17 @@ TEST(TestIssueSystem, filter_issues) {
 
     const char* tempJson =
     "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
-    "\"text\": \"a comment\", \"tag\": \"tag\", \"status\": 10"
+    "\"text\": \"a comment\", \"tag\": \"tag\", \"status\": 10,"
     "\"priority\": 100}";
 
     iss.createIssue(tempJson);
 
     EXPECT_EQ(1, iss.filterIssues(100, "tag", 10).size());
-    iss.createIssue();
+    const char* tempJson1 =
+    "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tag\": \"\", \"status\": -1,"
+    "\"priority\": -1}";
+
+    iss.createIssue(tempJson1);
     EXPECT_EQ(2, iss.filterIssues(100, "tag", 10).size());
 }
