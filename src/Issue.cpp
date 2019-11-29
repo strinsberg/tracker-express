@@ -92,6 +92,7 @@ void Issue::update(nlohmann::json data) {
         status = static_cast<Status>(data["status"]);
 
     if (data.find("tags") != data.end()) {
+        tags.clear();
         for (auto & t : data["tags"])
             tags.push_back(t);
     }
