@@ -10,7 +10,7 @@
 <body>
   <h1>Add an Issue</h1>
 
-  <form>
+  <form id="form">
     Title:<br>
       <input id="title" type="text" name="title"></input>
 
@@ -18,7 +18,17 @@
       <textarea id="description" name="description" rows="5" cols="20" required>
         Type your description here.
       </textarea>
-    <br></br>
+    <br><br>
+    
+    <div hidden id="status_div">
+    Status:<br>
+      <select id="status" name="priority">
+        <option value=0>New</option>
+        <option value=1>Assigned</option>
+        <option value=2>Fixed</option>
+        <option value=3>Won't Fix</option>
+      </select>
+    </div>
 
     Priority:<br>
       <select id="priority" name="priority">
@@ -26,10 +36,12 @@
         <option value=2>Low Priority</option>
       </select>
 
-    <br>Created By:<br>
+    <div id="creator_div">
+    Created By:<br>
       <select id="creator" name="createdBy">
       <option value=-1>Guest User</option>
       </select>
+    </div>
 
     <br>Assigned To:<br>
       <select id="assignee" name="assignedTo">

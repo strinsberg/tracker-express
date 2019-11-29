@@ -39,10 +39,16 @@ if (params.has("id")) {
         document.getElementById("title").value = iss.title;
         document.getElementById("description").value = iss.description;
         document.getElementById("assignee").value = iss.assignee;
+        
         document.getElementById("creator").value = iss.creator;
+        document.getElementById("creator_div").hidden = true;
+        
         document.getElementById("priority").value = iss.priority;
         tags = JSON.parse(iss.tags);
         document.getElementById("tags").value = tags.join(", ");
+
+        document.getElementById("status_div").hidden = false;
+        document.getElementById("status").value = iss.status;
     });
 }
 
@@ -60,6 +66,7 @@ async function postIssue() {
     "priority": parseInt(document.getElementById("priority").value),
     "tags": document.getElementById("tags").value.split(',').map(
         item => {return item.trim()}),
+    "status": parseInt(document.getElementById("status").value),
   }
   console.log('values', values);
 
