@@ -8,7 +8,7 @@ function filterIssues() {
     var status = document.getElementById("status-filter");
     
     
-    var url = "http://localhost:1234/trackEx/issues";
+    var url = "http://localhost:1234/trackEx/issues?filter";
     if (status.value != -1) {
         url += "&status=" + status.value;
     }
@@ -22,16 +22,15 @@ function filterIssues() {
     }
     
     console.log(url);
-    
-    // Uncomment this when the filter function is working on the server
-    //getIssues(url);
+
+    getIssues(url);
 }
 
 function getIssues(url) {
     fetch(url) 
         .then(response => {
-        console.log(response);
-        return response.json();
+            console.log(response);
+            return response.json();
         })
         .then(data => {
             var table = document.getElementById("issue_table");
@@ -40,6 +39,7 @@ function getIssues(url) {
             newBody.id = "table_body";
             data.response.forEach(issue => {
                 var iss = JSON.parse(issue)
+                console.log(iss);
                 var row = newBody.insertRow(-1);
                 
                 var title = row.insertCell(0);
