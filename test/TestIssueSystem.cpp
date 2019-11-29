@@ -47,6 +47,32 @@ TEST(TestIssueSystem, createIssue_json) {
     EXPECT_EQ(132, iss.getPriority());
 }
 
+TEST(TestIssueSystem, createIssue_json_lowerId) {
+    IssueSystem system;
+    system.createIssue();
+    system.createIssue();
+    system.createIssue();
+
+    const char* tempJson =
+    "{\"id\" : 2, \"title\" : \"meow\", \"description\" : \"description\","
+     "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
+
+    Issue& iss = system.createIssue(tempJson);
+    EXPECT_EQ(4, system.createIssue());
+}
+
+TEST(TestIssueSystem, createIssue_json_higherId) {
+    IssueSystem system;
+    system.createIssue();
+
+    const char* tempJson =
+    "{\"id\" : 6, \"title\" : \"meow\", \"description\" : \"description\","
+     "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
+
+    Issue& iss = system.createIssue(tempJson);
+    EXPECT_EQ(7, system.createIssue());
+}
+
 TEST(TestIssueSystem, createUser_json) {
     IssueSystem system;
 
@@ -58,6 +84,32 @@ TEST(TestIssueSystem, createUser_json) {
     EXPECT_EQ("meow", us.getName());
     EXPECT_EQ("blurb", us.getBlurb());
     EXPECT_EQ(1, us.getPictureNum());
+}
+
+TEST(TestIssueSystem, createUser_json_lowerId) {
+    IssueSystem system;
+    system.createUser();
+    system.createUser();
+    system.createUser();
+
+    const char* tempJson =
+    "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+
+    User& us = system.createUser(tempJson);
+
+    EXPECT_EQ(4, system.createUser());
+}
+
+TEST(TestIssueSystem, createUser_json_higherId) {
+    IssueSystem system;
+    system.createUser();
+
+    const char* tempJson =
+    "{\"id\" : 6, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+
+    User& us = system.createUser(tempJson);
+
+    EXPECT_EQ(7, system.createUser());
 }
 
 TEST(TestIssueSystem, createUser_json_with_clean_string) {
@@ -85,6 +137,31 @@ TEST(TestIssueSystem, createComment_json) {
     EXPECT_EQ(12, com.getIssueId());
     EXPECT_EQ(45, com.getUserId());
     EXPECT_EQ("a comment", com.getCommentText());
+}
+
+TEST(TestIssueSystem, createComment_json_lowerId) {
+    IssueSystem system;
+    system.createComment();
+    system.createComment();
+    system.createComment();
+
+    const char* tempJson =
+    "{\"id\" : 2, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
+
+    Comment& com = system.createComment(tempJson);
+
+    EXPECT_EQ(4, system.createComment());
+}
+
+TEST(TestIssueSystem, createComment_json_higherId) {
+    IssueSystem system;
+
+    const char* tempJson =
+    "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
+
+    Comment& com = system.createComment(tempJson);
+
+    EXPECT_EQ(7, system.createComment());
 }
 
 TEST(TestIssueSystem, getIssue_by_Id) {
@@ -176,3 +253,4 @@ TEST(TestIssueSystem, remove_user_throw) {
     iss.createUser();
     EXPECT_THROW(iss.removeUser(2), std::invalid_argument);
 }
+
