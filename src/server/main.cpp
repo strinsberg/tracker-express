@@ -1,7 +1,7 @@
+#include <signal.h>
 #include <restbed>
 #include <nlohmann/json.hpp>
 #include <memory>
-#include <signal.h>
 #include "Server.h"
 
 Server* server;
