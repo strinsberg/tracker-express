@@ -37,6 +37,8 @@ class Server {
    */
   void run();
 
+  void save();
+
  private:
   IssueSystem system;
   Handlers handler;

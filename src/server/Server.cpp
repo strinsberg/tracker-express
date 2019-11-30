@@ -21,16 +21,7 @@ Server::Server(std::string host, int port)
 
 
 Server::~Server() {
-    // save the server contents
-    std::string state(system.serialize());
-    std::fstream file;
-    file.open("serverState.json", std::fstream::out);
-    if (file.is_open()) {
-        file << state;
-        std::cout << "TrackEx: Server state saved.\n\n";
-    } else {
-        std::cout << "TrackEx: Error saving server state.\n\n";
-    }
+  save();
 }
 
 
@@ -79,6 +70,7 @@ void Server::setup() {
       while (file.get(c))
          fileContents.push_back(c);
       file.close();
+      std::cout << fileContents << std::endl;
       system.deserialize(fileContents);
       std::cout << "TrackEX: Loaded previous server state\n\n" << std::endl;
   } else {
@@ -90,5 +82,18 @@ void Server::setup() {
 
 void Server::run() {
   service.start(settings);
+}
+
+void Server::save() {
+    // save the server contents
+    std::string state(system.serialize());
+    std::fstream file;
+    file.open("serverState.json", std::fstream::out);
+    if (file.is_open()) {
+        file << state;
+        std::cout << "TrackEx: Server state saved.\n\n";
+    } else {
+        std::cout << "TrackEx: Error saving server state.\n\n";
+    }
 }
 
