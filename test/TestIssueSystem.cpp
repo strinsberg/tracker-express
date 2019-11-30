@@ -250,9 +250,29 @@ TEST(TestIssueSystem, remove_issue_throw) {
 
 TEST(TestIssueSystem, remove_user) {
     IssueSystem iss;
+
+    const char* tempJson =
+    "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\","
+    " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
+
     iss.createUser();
-    EXPECT_EQ(1, iss.getUsers().size());
+    iss.createUser(tempJson);
+
+    const char* tempJson1 =
+    "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\","
+    " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
+
+    iss.createIssue(tempJson1);
+
+    const char* tempJson2 =
+    "{\"id\" : 2, \"name\" : \"meow\", \"userID\" : 2, \"blurb\" : \"blurb\","
+    " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
+
+    iss.createComment(tempJson2);
+    EXPECT_EQ(2, iss.getUsers().size());
     iss.removeUser(1);
+    EXPECT_EQ(1, iss.getUsers().size());
+    iss.removeUser(2);
     EXPECT_EQ(0, iss.getUsers().size());
 }
 
