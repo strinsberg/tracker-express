@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 #include <stdexcept>
+#include <string>
 #include "gtest/gtest.h"
 
 
@@ -57,7 +58,11 @@ TEST(TestIssueSystem, createIssue_json_lowerId) {
     "{\"id\" : 2, \"title\" : \"meow\", \"description\" : \"description\","
      "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
 
-    Issue& iss = system.createIssue(tempJson);
+    // Because the id is lower this does not increment issueCount
+    system.createIssue(tempJson);
+
+    // So the next issue id will still be 4 even though there are 5 issues
+    // ignoring the fact that we shouldn't allow a duplicate id.
     EXPECT_EQ(4, system.createIssue());
 }
 
@@ -69,7 +74,7 @@ TEST(TestIssueSystem, createIssue_json_higherId) {
     "{\"id\" : 6, \"title\" : \"meow\", \"description\" : \"description\","
      "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
 
-    Issue& iss = system.createIssue(tempJson);
+    system.createIssue(tempJson);
     EXPECT_EQ(7, system.createIssue());
 }
 
@@ -95,8 +100,7 @@ TEST(TestIssueSystem, createUser_json_lowerId) {
     const char* tempJson =
     "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
 
-    User& us = system.createUser(tempJson);
-
+    system.createUser(tempJson);
     EXPECT_EQ(4, system.createUser());
 }
 
@@ -107,8 +111,7 @@ TEST(TestIssueSystem, createUser_json_higherId) {
     const char* tempJson =
     "{\"id\" : 6, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
 
-    User& us = system.createUser(tempJson);
-
+    system.createUser(tempJson);
     EXPECT_EQ(7, system.createUser());
 }
 
@@ -148,8 +151,7 @@ TEST(TestIssueSystem, createComment_json_lowerId) {
     const char* tempJson =
     "{\"id\" : 2, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
 
-    Comment& com = system.createComment(tempJson);
-
+    system.createComment(tempJson);
     EXPECT_EQ(4, system.createComment());
 }
 
@@ -159,8 +161,7 @@ TEST(TestIssueSystem, createComment_json_higherId) {
     const char* tempJson =
     "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
 
-    Comment& com = system.createComment(tempJson);
-
+    system.createComment(tempJson);
     EXPECT_EQ(7, system.createComment());
 }
 
@@ -316,17 +317,58 @@ TEST(TestIssueSystem, filter_issues) {
 
     const char* tempJson =
     "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
-    "\"text\": \"a comment\", \"tag\": \"tag\", \"status\": 10,"
+    "\"text\": \"a comment\", \"tags\": [\"tag\"], \"status\": 1,"
     "\"priority\": 100}";
 
-    iss.createIssue(tempJson);
-
-    EXPECT_EQ(1, iss.filterIssues(100, "tag", 10).size());
     const char* tempJson1 =
-    "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
-    "\"text\": \"a comment\", \"tag\": \"\", \"status\": -1,"
-    "\"priority\": -1}";
+    "{\"id\" : 2, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tags\": [\"pop\", \"chips\"], \"status\": 2,"
+    "\"priority\": 100}";
 
+    const char* tempJson2 =
+    "{\"id\" : 3, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tags\": [\"tag\", \"pop\"], \"status\": 2,"
+    "\"priority\": 30}";
+
+    iss.createIssue(tempJson);
     iss.createIssue(tempJson1);
-    EXPECT_EQ(2, iss.filterIssues(100, "tag", 10).size());
+    iss.createIssue(tempJson2);
+
+    EXPECT_EQ(2, iss.filterIssues(100).size());
+    EXPECT_EQ(2, iss.filterIssues(-1, "pop").size());
+    EXPECT_EQ(1, iss.filterIssues(-1, "tag", 2).size());
+    EXPECT_EQ(3, iss.filterIssues().size());
+}
+
+
+TEST(TestIssueSystem, serialize) {
+  IssueSystem iss;
+
+  iss.createIssue();
+  iss.createUser();
+  iss.createComment();
+
+  std::string json = iss.serialize();
+  json.push_back('X'); // Delete this!!!!
+}
+
+
+TEST(TestIssueSystem, deserialize) {
+  IssueSystem iss;
+
+  const char* saved = R"({
+        "comment_count": 2,
+        "comments": [ 
+            {"id":2,"issue_id":2,"text":"hello","user_id":-1}
+        ],
+        "issue_count": 2,
+        "issues": [
+            {"assignee":-1,"creator":-1,"description":"Type your description here.","id":2,"priority":10,"status":0,"tags":["dfdsf"],"title":"fear it"}
+        ],
+        "user_count": 2,
+        "users": [
+            {"blurb":"Distinguish yourself.","id":2,"name":"sfsdfsdfs","pic":2}
+        ]})";
+
+  iss.deserialize(saved);
 }
