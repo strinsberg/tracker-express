@@ -157,10 +157,9 @@
   left: 220px;
 }
 .comment_box {
+  display: block;
   background-color: lightblue;
-  position:relative;
-  left: 220px;
-  width: 250px;
+  width: 300px;
 }
 
 .single_comment {
@@ -170,3 +169,27 @@
   padding-bottom: 10px;
 
 }
+
+table {
+  width: 75%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+p, a {
+  margin-left: 10px;
+}
+
+textarea {
+  display:block;
+}
+
+commentTitle {
+  display: block;
+
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
