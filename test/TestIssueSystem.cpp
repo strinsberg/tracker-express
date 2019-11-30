@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 #include <stdexcept>
+#include <string>
 #include "gtest/gtest.h"
 
 
@@ -57,7 +58,11 @@ TEST(TestIssueSystem, createIssue_json_lowerId) {
     "{\"id\" : 2, \"title\" : \"meow\", \"description\" : \"description\","
      "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
 
-    Issue& iss = system.createIssue(tempJson);
+    // Because the id is lower this does not increment issueCount
+    system.createIssue(tempJson);
+
+    // So the next issue id will still be 4 even though there are 5 issues
+    // ignoring the fact that we shouldn't allow a duplicate id.
     EXPECT_EQ(4, system.createIssue());
 }
 
@@ -69,7 +74,7 @@ TEST(TestIssueSystem, createIssue_json_higherId) {
     "{\"id\" : 6, \"title\" : \"meow\", \"description\" : \"description\","
      "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
 
-    Issue& iss = system.createIssue(tempJson);
+    system.createIssue(tempJson);
     EXPECT_EQ(7, system.createIssue());
 }
 
@@ -95,8 +100,7 @@ TEST(TestIssueSystem, createUser_json_lowerId) {
     const char* tempJson =
     "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
 
-    User& us = system.createUser(tempJson);
-
+    system.createUser(tempJson);
     EXPECT_EQ(4, system.createUser());
 }
 
@@ -107,8 +111,7 @@ TEST(TestIssueSystem, createUser_json_higherId) {
     const char* tempJson =
     "{\"id\" : 6, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
 
-    User& us = system.createUser(tempJson);
-
+    system.createUser(tempJson);
     EXPECT_EQ(7, system.createUser());
 }
 
@@ -148,8 +151,7 @@ TEST(TestIssueSystem, createComment_json_lowerId) {
     const char* tempJson =
     "{\"id\" : 2, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
 
-    Comment& com = system.createComment(tempJson);
-
+    system.createComment(tempJson);
     EXPECT_EQ(4, system.createComment());
 }
 
@@ -159,8 +161,7 @@ TEST(TestIssueSystem, createComment_json_higherId) {
     const char* tempJson =
     "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
 
-    Comment& com = system.createComment(tempJson);
-
+    system.createComment(tempJson);
     EXPECT_EQ(7, system.createComment());
 }
 
@@ -348,6 +349,7 @@ TEST(TestIssueSystem, serialize) {
   iss.createComment();
 
   std::string json = iss.serialize();
+  json.push_back('X'); // Delete this!!!!
 }
 
 
