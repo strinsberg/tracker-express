@@ -11,7 +11,6 @@
 #include "User.h"
 #include "Comment.h"
 
-
 #define ALLOW_ALL { "Access-Control-Allow-Origin", "*" }
 #define CLOSE_CONNECTION { "Connection", "close" }
 
