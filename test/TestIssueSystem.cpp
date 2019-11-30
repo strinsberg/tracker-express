@@ -350,14 +350,21 @@ TEST(TestIssueSystem, filter_issues) {
 
 
 TEST(TestIssueSystem, serialize) {
-  IssueSystem iss;
+    IssueSystem iss;
 
-  iss.createIssue();
-  iss.createUser();
-  iss.createComment();
+    iss.createIssue();
+    iss.createUser();
+    iss.createComment();
 
-  std::string json = iss.serialize();
-  json.push_back('X'); // Delete this!!!!
+    std::string json = iss.serialize();
+
+    auto data = nlohmann::json::parse(json);
+    EXPECT_EQ(2, data["issue_count"]);
+    EXPECT_EQ(2, data["comment_count"]);
+    EXPECT_EQ(2, data["user_count"]);
+    EXPECT_EQ("empty", data["issues"][0]["title"]);
+    EXPECT_EQ("empty text", data["comments"][0]["text"]);
+    EXPECT_EQ("", data["users"][0]["blurb"]);
 }
 
 
@@ -367,18 +374,24 @@ TEST(TestIssueSystem, deserialize) {
   const char* saved = R"({
         "comment_count": 2,
         "comments": [
-            {"id":2,"issue_id":2,"text":"hello","user_id":-1}
+            {"id":2,"issue_id":2,"text":"I have spoken","user_id":-1}
         ],
         "issue_count": 2,
         "issues": [
-            {"assignee":-1,"creator":-1,"description":"Type your description here.","id":2,"priority":10,"status":0,"tags":["dfdsf"],"title":"fear it"}
+            {"assignee":-1,"creator":-1,"description":"This is the way.","id":2,"priority":10,"status":0,"tags":["dfdsf"],"title":"fear it"}
         ],
         "user_count": 2,
         "users": [
-            {"blurb":"Distinguish yourself.","id":2,"name":"sfsdfsdfs","pic":2}
+            {"blurb":"Distinguish yourself.","id":2,"name":"Mandalorian","pic":4}
         ]})";
 
   iss.deserialize(saved);
+  EXPECT_EQ(iss.getComment(2).getIssueId(), 2);
+  EXPECT_EQ(iss.getComment(2).getCommentText(), "I have spoken");
+  EXPECT_EQ(iss.getIssue(2).getCreator(), -1);
+  EXPECT_EQ(iss.getIssue(2).getDescription(), "This is the way.");
+  EXPECT_EQ(iss.getUser(2).getPictureNum(), 4);
+  EXPECT_EQ(iss.getUser(2).getName(), "Mandalorian");
 }
 
 TEST(TestIssueSystem, clean_string) {
