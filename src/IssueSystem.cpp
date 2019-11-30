@@ -29,7 +29,7 @@ int IssueSystem::createComment() {
     comments.push_back(Comment(commentCount));
     return commentCount++;
 }
- 
+
 Issue& IssueSystem::createIssue(const std::string& json) {
     auto data = nlohmann::json::parse(clean(json));
 
@@ -217,7 +217,7 @@ std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag,
               && (tag == ""
               || std::find(tags.begin(), tags.end(), tag) != tags.end())
               && (status == -1 || stat == static_cast<Status>(status))) {
-          std::cout << "good" << std::endl;
+
           filtered.push_back(iss);
         }
     }
@@ -237,7 +237,7 @@ std::string IssueSystem::serialize() {
         {"user_count", userCount},
         {"comment_count", commentCount}
     };
-    
+
     for (auto& iss : issues)
         data["issues"].push_back(iss.toJson());
 
@@ -267,10 +267,8 @@ void IssueSystem::deserialize(const std::string& json) {
     commentCount = system["comment_count"];
 }
 
-// private ///////////////////////////////////////////////////////////////
-
 std::string IssueSystem::clean(std::string str) {
-    size_t pos = str.rfind('}'); 
+    size_t pos = str.rfind('}');
     if (pos != std::string::npos)
         return str.substr(0, pos+1);
 
