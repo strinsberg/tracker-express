@@ -232,15 +232,15 @@ TEST(TestIssueSystem, remove_issue) {
     iss.createIssue();
 
     const char* tempJson =
-    "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45,"
+    "{\"id\" : 6, \"issue_id\": 1, \"user_id\": 45,"
     "\"text\": \"a comment\"}";
 
-    iss.createIssue(tempJson);
-
-    EXPECT_EQ(2, iss.getIssues().size());
-    iss.removeIssue(1);
+    iss.createComment(tempJson);
     EXPECT_EQ(1, iss.getIssues().size());
-    //EXPECT_EQ()
+    EXPECT_EQ(1, iss.getComments().size());
+    iss.removeIssue(1);
+    EXPECT_EQ(0, iss.getIssues().size());
+    EXPECT_EQ(0, iss.getComments().size());
 }
 
 TEST(TestIssueSystem, remove_issue_throw) {
@@ -266,7 +266,8 @@ TEST(TestIssueSystem, remove_user) {
     iss.createIssue(tempJson1);
 
     const char* tempJson2 =
-    "{\"id\" : 2, \"name\" : \"meow\", \"userID\" : 2, \"blurb\" : \"blurb\","
+    "{\"id\" : 2, \"user_id\" : 1, \"name\" : \"meow\","
+     "\"userID\" : 2, \"blurb\" : \"blurb\","
     " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
 
     iss.createComment(tempJson2);
@@ -285,16 +286,22 @@ TEST(TestIssueSystem, remove_user_throw) {
 
 TEST(TestIssueSystem, remove_comment) {
     IssueSystem iss;
-    iss.createComment();
-    EXPECT_THROW(iss.removeComment(2), std::invalid_argument);
+    IssueSystem system;
 
     const char* tempJson =
     "{\"id\" : 1, \"issue_id\": 1, \"user_id\": 45,"
     "\"text\": \"a comment\"}";
 
     iss.createComment(tempJson);
+    EXPECT_EQ(1, iss.getComments().size());
     iss.removeComment(1);
-    //what to expect here
+    EXPECT_EQ(0, iss.getComments().size());
+}
+
+TEST(TestIssueSystem, remove_comment_throw) {
+    IssueSystem iss;
+    iss.createComment();
+    EXPECT_THROW(iss.removeComment(2), std::invalid_argument);
 }
 
 TEST(TestIssueSystem, filter_comments) {
@@ -319,6 +326,7 @@ TEST(TestIssueSystem, filter_issues) {
     "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
     "\"text\": \"a comment\", \"tags\": [\"tag\"], \"status\": 1,"
     "\"priority\": 100}";
+
 
     const char* tempJson1 =
     "{\"id\" : 2, \"issue_id\": 14, \"user_id\": 45,"
@@ -358,7 +366,7 @@ TEST(TestIssueSystem, deserialize) {
 
   const char* saved = R"({
         "comment_count": 2,
-        "comments": [ 
+        "comments": [
             {"id":2,"issue_id":2,"text":"hello","user_id":-1}
         ],
         "issue_count": 2,
@@ -371,4 +379,25 @@ TEST(TestIssueSystem, deserialize) {
         ]})";
 
   iss.deserialize(saved);
+}
+
+TEST(TestIssueSystem, clean_string) {
+    IssueSystem system;
+
+    const char* tempJson =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }some'/ garbage";
+
+    std::string cleanStr =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+
+    EXPECT_EQ(cleanStr, system.clean(tempJson));
+}
+
+TEST(TestIssueSystem, not_clean_string) {
+    IssueSystem system;
+
+    std::string tempJson =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 some'/ garbage";
+
+    EXPECT_EQ(tempJson, system.clean(tempJson));
 }

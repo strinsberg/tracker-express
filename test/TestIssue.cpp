@@ -88,6 +88,22 @@ TEST(TestIssue, test_update_assignee_creator_status) {
     EXPECT_EQ(Status::ASSIGNED, iss.getStatus());
 }
 
+TEST(TestIssue, test_update_assignee_creator_status_minus) {
+    Issue iss(1);
+
+    nlohmann::json data = {
+        {"assignee", -1},
+        {"creator", 2},
+        {"status", 1},
+    };
+
+    iss.update(data.dump());
+
+    EXPECT_EQ(-1, iss.getAssignee());
+    EXPECT_EQ(2, iss.getCreator());
+    EXPECT_EQ(0, iss.getStatus());
+}
+
 TEST(TestIssue, test_to_json_string) {
     Issue iss(1);
 
