@@ -316,19 +316,27 @@ TEST(TestIssueSystem, filter_issues) {
 
     const char* tempJson =
     "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
-    "\"text\": \"a comment\", \"tag\": \"tag\", \"status\": 10,"
+    "\"text\": \"a comment\", \"tags\": [\"tag\"], \"status\": 1,"
     "\"priority\": 100}";
 
-    iss.createIssue(tempJson);
-
-    EXPECT_EQ(1, iss.filterIssues(100, "tag", 10).size());
     const char* tempJson1 =
-    "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
-    "\"text\": \"a comment\", \"tag\": \"\", \"status\": -1,"
-    "\"priority\": -1}";
+    "{\"id\" : 2, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tags\": [\"pop\", \"chips\"], \"status\": 2,"
+    "\"priority\": 100}";
 
+    const char* tempJson2 =
+    "{\"id\" : 3, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tags\": [\"tag\", \"pop\"], \"status\": 2,"
+    "\"priority\": 30}";
+
+    iss.createIssue(tempJson);
     iss.createIssue(tempJson1);
-    EXPECT_EQ(2, iss.filterIssues(100, "tag", 10).size());
+    iss.createIssue(tempJson2);
+
+    EXPECT_EQ(2, iss.filterIssues(100).size());
+    EXPECT_EQ(2, iss.filterIssues(-1, "pop").size());
+    EXPECT_EQ(1, iss.filterIssues(-1, "tag", 2).size());
+    EXPECT_EQ(3, iss.filterIssues().size());
 }
 
 
