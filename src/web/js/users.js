@@ -14,7 +14,10 @@ fetch("http://localhost:1234/trackEx/users")
             var pic = row.insertCell(2);
             id.innerHTML = user.id;
             name.innerHTML = '<a href="singleUser.html?id=' + user.id + '">' + user.name + '</a>';
-            pic.innerHTML = user.pic;
+            var image = document.createElement("img");
+            image.src = "images/" + user.pic + ".jpg"
+            image.height = 40;
+            pic.appendChild(image);
         })
     })
     .catch(err => {

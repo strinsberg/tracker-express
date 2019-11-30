@@ -7,19 +7,21 @@ fetch("http://localhost:1234/trackEx/users?id=" + params.get("id"))
 .then(data => {
     var user = JSON.parse(data.response);
     document.getElementById("name").innerHTML = user.name;
-    document.getElementById("blurb").innerHTML = "About: " + user.blurb;
-    document.getElementById("picture").innerHTML = user.pic;
+    document.getElementById("blurb").innerHTML = user.blurb;
+    var picNum = user.pic;
+    if (picNum > 5 || picNum < 0) {
+        picNum = -1;
+    }
+    document.getElementById("picture").src = "images/" + user.pic + ".jpg";
 });
 
-//not working properly yet
-//i can confirm the handler works because I tested it with curl
+function editUser() {
+    window.open("addUser.html?id=" + params.get("id"), "_self");
+}
+
 async function deleteUser() {
-  const response = await fetch("http://localhost:1234/trackEx/users?id=" + params.get("id"), {
-    method: "DELETE",
-    headers: {
-      "Accept": "*/*",
-      "Content-Type": "text/plain"
-    },
-  body: "",
-  });
+    if (confirm("Are you sure you would like to delete this user?")) {
+        const response = await fetch("http://localhost:1234/trackEx/users?id=" + params.get("id") + "&delete");
+        window.open("users.html","_self");
+    }
 }

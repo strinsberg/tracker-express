@@ -72,21 +72,35 @@ void Issue::setStatus(Status s) {
     status = s;
 }
 
-void Issue::update(std::string json) {
-    auto data = nlohmann::json::parse(json);
-
-    if (data.find("title") != data.end())
+void Issue::update(nlohmann::json data) {
+    if (data.find("title") != data.end() && data["title"] != "")
         title = data["title"];
     if (data.find("description") != data.end())
         description = data["description"];
     if (data.find("priority") != data.end())
         priority = data["priority"];
-    if (data.find("assignee") != data.end())
-        assignee = data["assignee"];
-    if (data.find("creator") != data.end())
-        creator = data["creator"];
     if (data.find("status") != data.end())
         status = static_cast<Status>(data["status"]);
+    if (data.find("assignee") != data.end()) {
+        assignee = data["assignee"];
+        if (status == Status::NEW && assignee != -1)
+            status = Status::ASSIGNED;
+        else if (status == Status::ASSIGNED && assignee == -1)
+            status = Status::NEW;
+    }
+    if (data.find("creator") != data.end())
+        creator = data["creator"];
+
+    if (data.find("tags") != data.end()) {
+        tags.clear();
+        for (auto & t : data["tags"])
+            tags.push_back(t);
+    }
+}
+
+void Issue::update(std::string json) {
+    auto data = nlohmann::json::parse(json);
+    update(data);
 }
 
 nlohmann::json Issue::toJson() {
@@ -100,7 +114,7 @@ nlohmann::json Issue::toJson() {
     data["creator"] = creator;
     data["status"] = status;
     nlohmann::json j_vec(tags);
-    data["tags"] = j_vec.dump();
+    data["tags"] = j_vec;
 
     return data;
 }

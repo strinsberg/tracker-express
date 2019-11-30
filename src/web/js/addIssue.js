@@ -1,4 +1,63 @@
+var params = new URLSearchParams(window.location.search);
+
+//Fetch all users from the API
+fetch("http://localhost:1234/trackEx/users")
+.then(response => {
+console.log(response);
+return response.json();
+})
+.then(data => {
+var creator = document.getElementById("creator");
+var assignee = document.getElementById("assignee");
+
+//Dynamically update HTML elements for creator and assignee.
+        data.response.forEach(user => {
+        var user_data = JSON.parse(user);
+        var opt = document.createElement("option");
+        opt.value = user_data.id;
+        opt.innerHTML = user_data.name;
+        creator.appendChild(opt);
+        var opt2 = document.createElement("option");
+        opt2.value = user_data.id;
+        opt2.innerHTML = user_data.name;
+        assignee.appendChild(opt2);
+        })
+})
+.catch(err => {
+console.error("Error:", err);
+});
+
+// If updateing get the issue and fill all the fields
+if (params.has("id")) {
+    fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        var iss = JSON.parse(data.response);
+        
+        document.getElementById("title").value = iss.title;
+        document.getElementById("description").value = iss.description;
+        document.getElementById("assignee").value = iss.assignee;
+        
+        document.getElementById("creator").value = iss.creator;
+        document.getElementById("creator_div").hidden = true;
+        
+        document.getElementById("priority").value = iss.priority;
+        tags = JSON.parse(iss.tags);
+        document.getElementById("tags").value = tags.join(", ");
+
+        document.getElementById("status_div").hidden = false;
+        document.getElementById("status").value = iss.status;
+    });
+}
+
 async function postIssue() {
+  var url = "http://localhost:1234/trackEx/issues";
+  if (params.has("id")) {
+    url += "?id=" + params.get("id");
+  }
+
   values = {
     "title": document.getElementById("title").value,
     "description": document.getElementById("description").value,
@@ -7,10 +66,11 @@ async function postIssue() {
     "priority": parseInt(document.getElementById("priority").value),
     "tags": document.getElementById("tags").value.split(',').map(
         item => {return item.trim()}),
+    "status": parseInt(document.getElementById("status").value),
   }
   console.log('values', values);
 
-  const response = await fetch("http://localhost:1234/trackEx/issues", {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Accept": "*/*",
@@ -23,4 +83,3 @@ async function postIssue() {
   console.log('Success', response);
   window.open("issues.html","_self");
 }
-

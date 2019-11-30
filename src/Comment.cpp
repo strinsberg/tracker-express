@@ -1,4 +1,5 @@
 #include <nlohmann/json.hpp>
+#include <iostream>
 #include <string>
 #include "Comment.h"
 
@@ -39,11 +40,18 @@ Comment::~Comment() {
     //dtor
 }
 
-void Comment::update(std::string json) {
-    auto data = nlohmann::json::parse(json);
-
+void Comment::update(nlohmann::json data) {
+    if (data.find("issue_id") != data.end())
+        issueId = data["issue_id"];
+    if (data.find("user_id") != data.end())
+        userId = data["user_id"];
     if (data.find("text") != data.end())
         text = data["text"];
+}
+
+void Comment::update(std::string json) {
+    auto data = nlohmann::json::parse(json);
+    update(data);
 }
 
 nlohmann::json Comment::toJson() {
@@ -52,7 +60,7 @@ nlohmann::json Comment::toJson() {
     data["id"] = commentId;
     data["issue_id"] = issueId;
     data["user_id"] = userId;
-    data["text"] = "nothing";
+    data["text"] = text;
 
     return data;
 }

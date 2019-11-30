@@ -86,12 +86,11 @@
         }
 
       .footer {
-          position: absolute;
+          position: fixed;
           right: 0;
           left: 0;
           bottom: 0;
           background-color: #F5F5F5;
-          height: 80px;
           padding: 20px;
 
           box-sizing: border-box;
@@ -150,4 +149,24 @@
 	background: #eee;
 	overflow-x: hidden;
 	padding: 8px 0;
+}
+
+.comments {
+  background-color: white;
+  position:relative;
+  left: 220px;
+}
+.comment_box {
+  background-color: lightblue;
+  position:relative;
+  left: 220px;
+  width: 250px;
+}
+
+.single_comment {
+  background-color: yellow;
+  border: 2px solid red;
+  width: 500px;
+  padding-bottom: 10px;
+
 }

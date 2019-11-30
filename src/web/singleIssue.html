@@ -3,7 +3,7 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
   <link href="style/main-style.css" rel="stylesheet">
-  <script src="js/singleIssue.js"></script>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Issue Tracker Express</title>
 </head>
@@ -26,8 +26,10 @@
   <div class="page-body">
     <div class="sidenav">
 		<p>Issue Options</p>
-		<a href="javascript:void(0);" NAME="Add An Issue"  title="findIssue" onClick=window.open("addIssue.html","_self");>Add an Issue</a>
-		<a href="javascript:void(0);" onClick="deleteIssue();" NAME="Delete"  title="deleteIssue">Delete Issue</a><br>
+		<a href="javascript:void(0);" NAME="Add An Issue"  title="findIssue" onClick=window.open("addIssue.html","_self");>Add an Issue</a><br>
+		<a href="javascript:void(0);" onClick="editIssue();" NAME="EditIssue"  title="editIssue">Edit Issue</a><br>
+		<a href="javascript:void(0);" onClick="deleteIssue();" NAME="Delete"  title="deleteIssue">Delete Issue</a>
+		<a href="javascript:void(0);" onClick="addComment();" NAME="Add Comment"  title="addComment">Comment</a><br>
 	</div>
       <h1>Issue</h1>
       <h3 id="title"></h3>
@@ -38,11 +40,16 @@
       <p id="priority"></p>
       <p id="tags"></p>
   </div>
-  <div class="footer">
-    <div class="footer-text">
-        <div class="footer-copyright">Copyright &copy; 2019 Lorenzo Conrad, Steven Deutekom, and Mathew Richards.</div>
-        </div>
-    </div>
-  </div>
+  <div class="comments">
+  <h3>Comments</h3>
+  <table id="comment_table">
+  <tr>
+    <th>User</th>
+    <th>Text</th>
+  </tr>
+      
+  </table>
+  <br></br>
 </body>
+<script src="js/singleIssue.js"></script>
 </html>
