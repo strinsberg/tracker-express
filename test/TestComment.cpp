@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "Comment.h"
+#include <string>
 
 TEST(TestComment, testConstructor) {
     Comment c(1);
@@ -36,12 +37,11 @@ TEST(TestComment, to_json) {
 }
 
 TEST(TestComment, update_from_str) {
-
     std::string data = "{\"issue_id\" : 2, \"user_id\" : 1,"
     "\"text\" : \"stuff\"}";
 
-   Comment com(1);
-   com.update(data);
+    Comment com(1);
+    com.update(data);
 
     EXPECT_EQ(2, com.getIssueId());
     EXPECT_EQ(1, com.getUserId());
