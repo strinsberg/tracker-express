@@ -236,13 +236,13 @@ std::string IssueSystem::serialize() {
     };
     
     for (auto& iss : issues)
-        data["issues"].push_back(iss.toJson().dump());
+        data["issues"].push_back(iss.toJson());
 
     for (auto& user : users)
-        data["users"].push_back(user.toJson().dump());
+        data["users"].push_back(user.toJson());
 
     for (auto& com : comments)
-        data["comments"].push_back(com.toJson().dump());
+        data["comments"].push_back(com.toJson());
 
     return data.dump(4);
 }

@@ -330,3 +330,35 @@ TEST(TestIssueSystem, filter_issues) {
     iss.createIssue(tempJson1);
     EXPECT_EQ(2, iss.filterIssues(100, "tag", 10).size());
 }
+
+
+TEST(TestIssueSystem, serialize) {
+  IssueSystem iss;
+
+  iss.createIssue();
+  iss.createUser();
+  iss.createComment();
+
+  std::string json = iss.serialize();
+}
+
+
+TEST(TestIssueSystem, deserialize) {
+  IssueSystem iss;
+
+  const char* saved = R"({
+        "comment_count": 2,
+        "comments": [ 
+            {"id":2,"issue_id":2,"text":"hello","user_id":-1}
+        ],
+        "issue_count": 2,
+        "issues": [
+            {"assignee":-1,"creator":-1,"description":"Type your description here.","id":2,"priority":10,"status":0,"tags":["dfdsf"],"title":"fear it"}
+        ],
+        "user_count": 2,
+        "users": [
+            {"blurb":"Distinguish yourself.","id":2,"name":"sfsdfsdfs","pic":2}
+        ]})";
+
+  iss.deserialize(saved);
+}
