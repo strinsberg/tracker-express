@@ -114,7 +114,7 @@ nlohmann::json Issue::toJson() {
     data["creator"] = creator;
     data["status"] = status;
     nlohmann::json j_vec(tags);
-    data["tags"] = j_vec.dump();
+    data["tags"] = j_vec;
 
     return data;
 }

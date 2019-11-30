@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 #include <stdexcept>
+#include <string>
 #include "gtest/gtest.h"
 
 
@@ -47,6 +48,36 @@ TEST(TestIssueSystem, createIssue_json) {
     EXPECT_EQ(132, iss.getPriority());
 }
 
+TEST(TestIssueSystem, createIssue_json_lowerId) {
+    IssueSystem system;
+    system.createIssue();
+    system.createIssue();
+    system.createIssue();
+
+    const char* tempJson =
+    "{\"id\" : 2, \"title\" : \"meow\", \"description\" : \"description\","
+     "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
+
+    // Because the id is lower this does not increment issueCount
+    system.createIssue(tempJson);
+
+    // So the next issue id will still be 4 even though there are 5 issues
+    // ignoring the fact that we shouldn't allow a duplicate id.
+    EXPECT_EQ(4, system.createIssue());
+}
+
+TEST(TestIssueSystem, createIssue_json_higherId) {
+    IssueSystem system;
+    system.createIssue();
+
+    const char* tempJson =
+    "{\"id\" : 6, \"title\" : \"meow\", \"description\" : \"description\","
+     "\"assignee\" : -1, \"creator\" : 12, \"priority\" : 132 }";
+
+    system.createIssue(tempJson);
+    EXPECT_EQ(7, system.createIssue());
+}
+
 TEST(TestIssueSystem, createUser_json) {
     IssueSystem system;
 
@@ -58,6 +89,30 @@ TEST(TestIssueSystem, createUser_json) {
     EXPECT_EQ("meow", us.getName());
     EXPECT_EQ("blurb", us.getBlurb());
     EXPECT_EQ(1, us.getPictureNum());
+}
+
+TEST(TestIssueSystem, createUser_json_lowerId) {
+    IssueSystem system;
+    system.createUser();
+    system.createUser();
+    system.createUser();
+
+    const char* tempJson =
+    "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+
+    system.createUser(tempJson);
+    EXPECT_EQ(4, system.createUser());
+}
+
+TEST(TestIssueSystem, createUser_json_higherId) {
+    IssueSystem system;
+    system.createUser();
+
+    const char* tempJson =
+    "{\"id\" : 6, \"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+
+    system.createUser(tempJson);
+    EXPECT_EQ(7, system.createUser());
 }
 
 TEST(TestIssueSystem, createUser_json_with_clean_string) {
@@ -85,6 +140,29 @@ TEST(TestIssueSystem, createComment_json) {
     EXPECT_EQ(12, com.getIssueId());
     EXPECT_EQ(45, com.getUserId());
     EXPECT_EQ("a comment", com.getCommentText());
+}
+
+TEST(TestIssueSystem, createComment_json_lowerId) {
+    IssueSystem system;
+    system.createComment();
+    system.createComment();
+    system.createComment();
+
+    const char* tempJson =
+    "{\"id\" : 2, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
+
+    system.createComment(tempJson);
+    EXPECT_EQ(4, system.createComment());
+}
+
+TEST(TestIssueSystem, createComment_json_higherId) {
+    IssueSystem system;
+
+    const char* tempJson =
+    "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45, \"text\": \"a comment\"}";
+
+    system.createComment(tempJson);
+    EXPECT_EQ(7, system.createComment());
 }
 
 TEST(TestIssueSystem, getIssue_by_Id) {
@@ -152,9 +230,17 @@ TEST(TestIssueSystem, getComment_throw) {
 TEST(TestIssueSystem, remove_issue) {
     IssueSystem iss;
     iss.createIssue();
-    EXPECT_EQ(1, iss.getIssues().size());
+
+    const char* tempJson =
+    "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45,"
+    "\"text\": \"a comment\"}";
+
+    iss.createIssue(tempJson);
+
+    EXPECT_EQ(2, iss.getIssues().size());
     iss.removeIssue(1);
-    EXPECT_EQ(0, iss.getIssues().size());
+    EXPECT_EQ(1, iss.getIssues().size());
+    //EXPECT_EQ()
 }
 
 TEST(TestIssueSystem, remove_issue_throw) {
@@ -165,9 +251,29 @@ TEST(TestIssueSystem, remove_issue_throw) {
 
 TEST(TestIssueSystem, remove_user) {
     IssueSystem iss;
+
+    const char* tempJson =
+    "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\","
+    " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
+
     iss.createUser();
-    EXPECT_EQ(1, iss.getUsers().size());
+    iss.createUser(tempJson);
+
+    const char* tempJson1 =
+    "{\"id\" : 2, \"name\" : \"meow\", \"blurb\" : \"blurb\","
+    " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
+
+    iss.createIssue(tempJson1);
+
+    const char* tempJson2 =
+    "{\"id\" : 2, \"name\" : \"meow\", \"userID\" : 2, \"blurb\" : \"blurb\","
+    " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
+
+    iss.createComment(tempJson2);
+    EXPECT_EQ(2, iss.getUsers().size());
     iss.removeUser(1);
+    EXPECT_EQ(1, iss.getUsers().size());
+    iss.removeUser(2);
     EXPECT_EQ(0, iss.getUsers().size());
 }
 
@@ -175,4 +281,94 @@ TEST(TestIssueSystem, remove_user_throw) {
     IssueSystem iss;
     iss.createUser();
     EXPECT_THROW(iss.removeUser(2), std::invalid_argument);
+}
+
+TEST(TestIssueSystem, remove_comment) {
+    IssueSystem iss;
+    iss.createComment();
+    EXPECT_THROW(iss.removeComment(2), std::invalid_argument);
+
+    const char* tempJson =
+    "{\"id\" : 1, \"issue_id\": 1, \"user_id\": 45,"
+    "\"text\": \"a comment\"}";
+
+    iss.createComment(tempJson);
+    iss.removeComment(1);
+    //what to expect here
+}
+
+TEST(TestIssueSystem, filter_comments) {
+    IssueSystem iss;
+    iss.createComment();
+    iss.createComment();
+    iss.createComment();
+
+    const char* tempJson =
+    "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\"}";
+    iss.createComment(tempJson);
+
+    EXPECT_EQ(1, iss.filterComments(14).size());
+    EXPECT_EQ(3, iss.filterComments(-1).size());
+}
+
+TEST(TestIssueSystem, filter_issues) {
+    IssueSystem iss;
+
+    const char* tempJson =
+    "{\"id\" : 1, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tags\": [\"tag\"], \"status\": 1,"
+    "\"priority\": 100}";
+
+    const char* tempJson1 =
+    "{\"id\" : 2, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tags\": [\"pop\", \"chips\"], \"status\": 2,"
+    "\"priority\": 100}";
+
+    const char* tempJson2 =
+    "{\"id\" : 3, \"issue_id\": 14, \"user_id\": 45,"
+    "\"text\": \"a comment\", \"tags\": [\"tag\", \"pop\"], \"status\": 2,"
+    "\"priority\": 30}";
+
+    iss.createIssue(tempJson);
+    iss.createIssue(tempJson1);
+    iss.createIssue(tempJson2);
+
+    EXPECT_EQ(2, iss.filterIssues(100).size());
+    EXPECT_EQ(2, iss.filterIssues(-1, "pop").size());
+    EXPECT_EQ(1, iss.filterIssues(-1, "tag", 2).size());
+    EXPECT_EQ(3, iss.filterIssues().size());
+}
+
+
+TEST(TestIssueSystem, serialize) {
+  IssueSystem iss;
+
+  iss.createIssue();
+  iss.createUser();
+  iss.createComment();
+
+  std::string json = iss.serialize();
+  json.push_back('X'); // Delete this!!!!
+}
+
+
+TEST(TestIssueSystem, deserialize) {
+  IssueSystem iss;
+
+  const char* saved = R"({
+        "comment_count": 2,
+        "comments": [ 
+            {"id":2,"issue_id":2,"text":"hello","user_id":-1}
+        ],
+        "issue_count": 2,
+        "issues": [
+            {"assignee":-1,"creator":-1,"description":"Type your description here.","id":2,"priority":10,"status":0,"tags":["dfdsf"],"title":"fear it"}
+        ],
+        "user_count": 2,
+        "users": [
+            {"blurb":"Distinguish yourself.","id":2,"name":"sfsdfsdfs","pic":2}
+        ]})";
+
+  iss.deserialize(saved);
 }

@@ -8,23 +8,23 @@ using std::string;
 
 /**
  * Header file for the User class.
- * @author Mathew Richards
- * @date 2019-10
+ * @author Mathew Richards.
+ * @date 2019-10.
  */
 class User {
  public:
     /**
      * Creates a user object, id is set and all others set to default.
      *
-     * @param id The user's id number
+     * @param id The user's id number.
      */
     explicit User(int id);
     /**
      * Creates a user object.
-     * @param id The user's id number
-     * @param name The user's name
-     * @param blurb The user's profile blurb
-     * @param pictureNum The user's profile picture choice
+     * @param id The user's id number.
+     * @param name The user's name.
+     * @param blurb The user's profile blurb.
+     * @param pictureNum The user's profile picture choice.
     */
     User(int id, string name, string blurb, int pictureNum);
     virtual ~User();
@@ -85,7 +85,18 @@ class User {
      */
     void setPictureNum(int val);
 
+    /**
+     * Update the json object for the issue.
+     *
+     * @param data The json fields for the issue.
+     */
     void update(nlohmann::json data);
+
+    /**
+     * Update the json object for the issue.
+     *
+     * @param json The string containing json information for the issue.
+     */
     void update(std::string json);
 
     /**
@@ -95,8 +106,6 @@ class User {
      */
     nlohmann::json toJson();
 
- protected:
-    //prevent style error
  private:
     int id;
     string name;
