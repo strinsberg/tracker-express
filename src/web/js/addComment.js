@@ -8,7 +8,7 @@ if (params.has("id")) {
     })
     .then(data => {
         var text_box = document.getElementById("newComment");
-        text_box.innerHTML = JSON.parse(data.response).text;
+        text_box.innerHTML = data.response.text;
     })
     .catch(err => {
     console.error("Error:", err);
@@ -23,8 +23,7 @@ return response.json();
 .then(data => {
     var userID = document.getElementById("userID");
 
-    data.response.forEach(user => {
-    var user_data = JSON.parse(user);
+    data.response.forEach(user_data => {
     var opt = document.createElement("option");
     opt.value = user_data.id;
     opt.innerHTML = user_data.name;

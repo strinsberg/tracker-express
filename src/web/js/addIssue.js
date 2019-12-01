@@ -12,7 +12,7 @@ var assignee = document.getElementById("assignee");
 
 //Dynamically update HTML elements for creator and assignee.
         data.response.forEach(user => {
-        var user_data = JSON.parse(user);
+        var user_data = user;
         var opt = document.createElement("option");
         opt.value = user_data.id;
         opt.innerHTML = user_data.name;
@@ -35,7 +35,7 @@ if (params.has("id")) {
     })
     .then(data => {
         console.log(data.response);
-        var iss = JSON.parse(data.response);
+        var iss = data.response;
         
         document.getElementById("title").value = iss.title;
         document.getElementById("description").value = iss.description;

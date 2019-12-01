@@ -32,7 +32,7 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
     return response.json();
 })
 .then(data => {
-    var iss = JSON.parse(data.response);
+    var iss = data.response;
     document.getElementById("title").innerHTML = iss.title;
     document.getElementById("description").innerHTML = "Description: ".bold() + iss.description;
     document.getElementById("status").innerHTML = "Status:   ".bold() + convertStatus(iss.status);
@@ -51,7 +51,7 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
             return response.json();
         })
         .then(data => {
-            var user = JSON.parse(data.response);
+            var user = data.response;
             document.getElementById("assignee").innerHTML = "Assignee: ".bold() + user.name;
         })
     }
@@ -63,7 +63,7 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
             return response.json();
         })
         .then(data => {
-            var user = JSON.parse(data.response);
+            var user = data.response;
             document.getElementById("creator").innerHTML = "Creator: ".bold() + user.name;
         })
     }
@@ -79,8 +79,7 @@ fetch("http://localhost:1234/trackEx/comments?issue=" + params.get("id"))
 })
 .then(data => {
     var table = document.getElementById("comment_table");
-    data.response.forEach(comment => {
-        var com = JSON.parse(comment);
+    data.response.forEach(com => {
         var row = table.insertRow(-1);
         
         var user = row.insertCell(0);
@@ -126,7 +125,7 @@ async function editComment(id) {
         return response.json();
     })
     .then(data => {
-        comment = JSON.parse(data.response);
+        comment = data.response;
         window.open("addComment.html?issue=" + params.get("id") + "&id=" + comment.id + "&user=" + comment.user_id,"_self");
     }).catch(err => {
         console.error("Error:", err);

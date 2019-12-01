@@ -6,7 +6,7 @@ if (params.has("id")) {
         return response.json();
     })
     .then(data => {
-        var user = JSON.parse(data.response);
+        var user = data.response;
         
         document.getElementById("name").value = user.name;
         document.getElementById("blurb").value = user.blurb;

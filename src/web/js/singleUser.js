@@ -5,7 +5,7 @@ fetch("http://localhost:1234/trackEx/users?id=" + params.get("id"))
     return response.json();
 })
 .then(data => {
-    var user = JSON.parse(data.response);
+    var user = data.response;
     document.getElementById("name").innerHTML = user.name;
     document.getElementById("blurb").innerHTML = user.blurb;
     var picNum = user.pic;

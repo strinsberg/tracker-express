@@ -64,7 +64,7 @@ function getIssues(url) {
             if (data.response != null) {
             
                 data.response.forEach(issue => {
-                    var iss = JSON.parse(issue)
+                    var iss = issue
                     console.log(iss);
                     var row = newBody.insertRow(-1);
                     

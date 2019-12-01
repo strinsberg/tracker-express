@@ -31,7 +31,7 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
 
       try {
         Issue& iss = system->getIssue(id);
-        result["response"] = iss.toJson().dump();
+        result["response"] = iss.toJson();
 
         // Delete the issue (because DELETE didn't work)
         if (request->has_query_parameter("delete")) {
@@ -49,12 +49,11 @@ void Handlers::get_issues(const std::shared_ptr<restbed::Session>& session,
 
       std::vector<Issue> issues = system->filterIssues(pri, tag, stat);
       for (auto & iss : issues)
-          result["response"].push_back(iss.toJson().dump());
+          result["response"].push_back(iss.toJson());
 
   } else {
       for (auto & iss : system->getIssues()) {
-        std::string json(iss.toJson().dump());
-        result["response"].push_back(json);
+        result["response"].push_back(iss.toJson());
       }
   }
 
@@ -87,7 +86,7 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
       try {
         Issue& iss = system->getIssue(id);
         iss.update(system->clean(bodyInfo));
-        result["response"] = iss.toJson().dump();
+        result["response"] = iss.toJson();
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid id";
@@ -95,7 +94,7 @@ void Handlers::post_issue(const std::shared_ptr<restbed::Session>& session,
 
     } else {
         Issue& iss = system->createIssue(bodyInfo);
-        result["response"] = iss.toJson().dump();
+        result["response"] = iss.toJson();
     }
 
     std::string response = result.dump(4);
@@ -126,7 +125,7 @@ void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
 
       try {
         User& user = system->getUser(id);
-        result["response"] = user.toJson().dump();
+        result["response"] = user.toJson();
         if (request->has_query_parameter("delete")) {
             system->removeUser(id);
             }
@@ -137,8 +136,7 @@ void Handlers::get_users(const std::shared_ptr<restbed::Session>& session,
 
   } else {
       for (auto & user : system->getUsers()) {
-        std::string json(user.toJson().dump());
-        result["response"].push_back(json);
+        result["response"].push_back(user.toJson());
       }
   }
 
@@ -172,7 +170,7 @@ void Handlers::post_user(const std::shared_ptr<restbed::Session>& session,
       try {
         User& user = system->getUser(id);
         user.update(system->clean(bodyInfo));
-        result["response"] = user.toJson().dump();
+        result["response"] = user.toJson();
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid id";
@@ -180,7 +178,7 @@ void Handlers::post_user(const std::shared_ptr<restbed::Session>& session,
 
     } else {
         User& user = system->createUser(bodyInfo);
-        result["response"] = user.toJson().dump();
+        result["response"] = user.toJson();
     }
 
     std::string response = result.dump(4);
@@ -210,7 +208,7 @@ void Handlers::get_comments(const std::shared_ptr<restbed::Session>& session,
 
       try {
         Comment& com = system->getComment(id);
-        result["response"] = com.toJson().dump();
+        result["response"] = com.toJson();
         if (request->has_query_parameter("delete"))
             system->removeComment(id);
       } catch (const std::invalid_argument& e) {
@@ -226,7 +224,7 @@ void Handlers::get_comments(const std::shared_ptr<restbed::Session>& session,
         std::cout << "size: " << coms.size() << std::endl;
         for (auto & com : coms) {
           std::cout << "ID: " << com.getId() << std::endl;
-          result["response"].push_back(com.toJson().dump());
+          result["response"].push_back(com.toJson());
         }
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
@@ -235,8 +233,7 @@ void Handlers::get_comments(const std::shared_ptr<restbed::Session>& session,
 
   } else {
       for (auto & com : system->getComments()) {
-        std::string json(com.toJson().dump());
-        result["response"].push_back(json);
+        result["response"].push_back(com.toJson());
       }
   }
 
@@ -270,7 +267,7 @@ void Handlers::post_comment(const std::shared_ptr<restbed::Session>& session,
       try {
         Comment& com = system->getComment(id);
         com.update(system->clean(bodyInfo));
-        result["response"] = com.toJson().dump();
+        result["response"] = com.toJson();
       } catch (const std::invalid_argument& e) {
         result["status"] = "fail";
         result["response"] = "invalid id";
@@ -278,7 +275,7 @@ void Handlers::post_comment(const std::shared_ptr<restbed::Session>& session,
 
     } else {
         Comment& com = system->createComment(bodyInfo);
-        result["response"] = com.toJson().dump();
+        result["response"] = com.toJson();
     }
 
     std::string response = result.dump(4);

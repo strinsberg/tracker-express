@@ -5,8 +5,7 @@ fetch("http://localhost:1234/trackEx/users")
     })
     .then(data => {
         var table = document.getElementById("user_table");
-        data.response.forEach(user_str => {
-            var user = JSON.parse(user_str)
+        data.response.forEach(user => {
             var row = table.insertRow(-1);
 
             var id = row.insertCell(0);
