@@ -32,9 +32,12 @@
 	</div>
       <h1>Issues</h1>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <h4>Priority</h4>
-            <input type="number" step="1" class="form-control" id="priority-filter"  data-col="1" value="-1">
+           <select id="priority-filter" name="status-filter" class="table-filter form-control"  data-col="3" value="-1">
+             <option value="-1">N/A</option>
+             <option value="2">Low</option>
+             <option value="10">High</option></select>
         </div>
         <div class="col-md-2">
             <h4>Tag</h4>
@@ -57,7 +60,7 @@
       <p><table id="issue_table">
   <thead>
     <th>Issue Name</th>
-    <th>Creator</th>
+    <th>Status</th>
     <th>Priority</th>
   </thead>
   <tbody id="table_body">

@@ -2,6 +2,30 @@ var params = new URLSearchParams(window.location.search);
 var assignee = -1;
 var creator = -1;
 
+function convertStatus(status) {
+    if (status == 0) {
+        return "New";
+    } else if (status == 1) {
+        return "Assigned";
+    } else if (status == 2) {
+        return "Fixed";
+    } else if (status == 3) {
+        return "Won't Fix";
+    } else {
+        return "Error: Bad Status";
+    }
+}
+
+function convertPriority(priority) {
+    if (priority == 2) {
+        return "Low";
+    } else if (priority == 10) {
+        return "High";
+    } else {
+        return priority;
+    }
+}
+
 // Get the issue
 fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
 .then(response => {
@@ -11,10 +35,10 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
     var iss = JSON.parse(data.response);
     document.getElementById("title").innerHTML = iss.title;
     document.getElementById("description").innerHTML = "Description: ".bold() + iss.description;
-    document.getElementById("status").innerHTML = "Status:   ".bold() + iss.status;
+    document.getElementById("status").innerHTML = "Status:   ".bold() + convertStatus(iss.status);
     document.getElementById("assignee").innerHTML = "Assignee: ".bold() + "Unassigned";
     document.getElementById("creator").innerHTML = "Creator: ".bold() + "Guest";
-    document.getElementById("priority").innerHTML = "Priority: ".bold() + iss.priority;
+    document.getElementById("priority").innerHTML = "Priority: ".bold() + convertPriority(iss.priority);
     document.getElementById("tags").innerHTML = "Tags: ".bold() + iss.tags.join(", ");
     
     assignee = iss.assignee;
@@ -110,7 +134,9 @@ async function editComment(id) {
 }
 
 async function deleteComment(id) {
-    const response = await fetch('http://localhost:1234/trackEx/comments?id=' + id + '&delete');
-    console.log(response);
-    window.open("singleIssue.html?id=" + params.get("id"),"_self");
+    if (confirm("Are you sure you would like to delete this comment?")) {
+        const response = await fetch('http://localhost:1234/trackEx/comments?id=' + id + '&delete');
+        console.log(response);
+        window.open("singleIssue.html?id=" + params.get("id"),"_self");
+    }
 }
