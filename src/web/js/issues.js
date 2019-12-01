@@ -2,6 +2,30 @@ window.onload = function() {
     getIssues("http://localhost:1234/trackEx/issues");
 }
 
+function convertStatus(status) {
+    if (status == 0) {
+        return "New";
+    } else if (status == 1) {
+        return "Assigned";
+    } else if (status == 2) {
+        return "Fixed";
+    } else if (status == 3) {
+        return "Won't Fix";
+    } else {
+        return "Error: Bad Status";
+    }
+}
+
+function convertPriority(priority) {
+    if (priority == 2) {
+        return "Low";
+    } else if (priority == 10) {
+        return "High";
+    } else {
+        return priority;
+    }
+}
+
 function filterIssues() {
     var priority = document.getElementById("priority-filter");
     var tag = document.getElementById("tag-filter");
@@ -49,8 +73,8 @@ function getIssues(url) {
                     var prior = row.insertCell(2);
                     
                     title.innerHTML = '<a href="singleIssue.html?id=' + iss.id + '">' + iss.title + '</a>';
-                    create.innerHTML = iss.creator;
-                    prior.innerHTML = iss.priority;
+                    create.innerHTML = convertStatus(iss.status);
+                    prior.innerHTML = convertPriority(iss.priority);
                 })
             }
             table.replaceChild(newBody, body);

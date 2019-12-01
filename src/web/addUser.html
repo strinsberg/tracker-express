@@ -3,23 +3,21 @@
 <head>
   <title>Add User</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link href="style/main-style.css" rel="stylesheet">
   <script src="js/addUsers.js"></script>
   <meta charset="UTF-8">
 </head>
 
 <body>
-  <h1>Add A User</h1>
+  <h1>Add or Modify a User</h1>
   <form>
     Name:<br>
-      <input id="name" type="text" name="name" required>
-
+      <input required id="name" type="text" name="name" placeholder="First Name Last Name">
+      <br>
     <br>Blurb:<br>
-      <textarea id="blurb" name="blurb" rows="5" cols="20" required>
-      Distinguish yourself.
-      </textarea>
+      <textarea id="blurb" name="blurb" placeholder="Distinguish yourself." rows="5" cols="20"></textarea>
     <br></br>
-    
     Picture:<br>
       <select id="pic" name="picture_num">
         <option value=-1>None</option>
@@ -30,11 +28,10 @@
         <option value=4>Minion</option>
         <option value=5>Patrick</option>
       </select>
-      
-    <br>
+    <br></br>
       <input type="button" value="Submit" onclick="postUser();"/>
     </br>
   </form>
-  
+
 </body>
 </html>

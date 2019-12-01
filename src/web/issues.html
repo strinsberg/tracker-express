@@ -2,8 +2,8 @@
 <html>
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-  <link href="style/main-style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="style/main-style.css" rel="stylesheet">
   <script src="js/issues.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Issue Tracker Express</title>
@@ -32,9 +32,12 @@
 	</div>
       <h1>Issues</h1>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <h4>Priority</h4>
-            <input type="number" step="1" class="form-control" id="priority-filter"  data-col="1" value="-1">
+           <select id="priority-filter" name="status-filter" class="table-filter form-control"  data-col="3" value="-1">
+             <option value="-1">N/A</option>
+             <option value="2">Low</option>
+             <option value="10">High</option></select>
         </div>
         <div class="col-md-2">
             <h4>Tag</h4>
@@ -57,18 +60,12 @@
       <p><table id="issue_table">
   <thead>
     <th>Issue Name</th>
-    <th>Creator</th>
+    <th>Status</th>
     <th>Priority</th>
   </thead>
   <tbody id="table_body">
   </tbody>
 </table>
-  </div>
-  <div class="footer">
-    <div class="footer-text">
-        <div class="footer-copyright">Copyright &copy; 2019 Lorenzo Conrad, Steven Deutekom, and Mathew Richards.</div>
-        </div>
-    </div>
   </div>
 </body>
 </html>

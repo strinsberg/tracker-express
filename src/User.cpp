@@ -6,7 +6,7 @@
 using std::string;
 
 User::User(int id) : id(id),
-    name(""), blurb(""), pictureNum(0) {}
+    name("empty"), blurb(""), pictureNum(0) {}
 
 User::User(int id, string name, string blurb, int pictureNum):id(id),
     name(name), blurb(blurb), pictureNum(pictureNum) {}
