@@ -210,14 +210,10 @@ std::vector<Issue> IssueSystem::filterIssues(int priority, std::string tag,
     for (auto & iss : issues) {
         std::vector<std::string> tags = iss.getTags();
         Status stat = iss.getStatus();
-        std::cout << priority << " " << iss.getPriority() <<std::endl;
-        std::cout << tag << " " << (std::find(tags.begin(), tags.end(), tag) != tags.end()) << std::endl;
-        std::cout << status << " " << stat <<std::endl;
         if ((priority == -1 || iss.getPriority() == priority)
               && (tag == ""
               || std::find(tags.begin(), tags.end(), tag) != tags.end())
               && (status == -1 || stat == static_cast<Status>(status))) {
-
           filtered.push_back(iss);
         }
     }

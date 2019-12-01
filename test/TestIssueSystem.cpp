@@ -232,15 +232,15 @@ TEST(TestIssueSystem, remove_issue) {
     iss.createIssue();
 
     const char* tempJson =
-    "{\"id\" : 6, \"issue_id\": 12, \"user_id\": 45,"
+    "{\"id\" : 6, \"issue_id\": 1, \"user_id\": 45,"
     "\"text\": \"a comment\"}";
 
-    iss.createIssue(tempJson);
-
-    EXPECT_EQ(2, iss.getIssues().size());
-    iss.removeIssue(1);
+    iss.createComment(tempJson);
     EXPECT_EQ(1, iss.getIssues().size());
-    //EXPECT_EQ()
+    EXPECT_EQ(1, iss.getComments().size());
+    iss.removeIssue(1);
+    EXPECT_EQ(0, iss.getIssues().size());
+    EXPECT_EQ(0, iss.getComments().size());
 }
 
 TEST(TestIssueSystem, remove_issue_throw) {
@@ -266,7 +266,8 @@ TEST(TestIssueSystem, remove_user) {
     iss.createIssue(tempJson1);
 
     const char* tempJson2 =
-    "{\"id\" : 2, \"name\" : \"meow\", \"userID\" : 2, \"blurb\" : \"blurb\","
+    "{\"id\" : 2, \"user_id\" : 1, \"name\" : \"meow\","
+     "\"userID\" : 2, \"blurb\" : \"blurb\","
     " \"assignee\" : 1, \"creator\" : 2, \"pic\" : 1 }";
 
     iss.createComment(tempJson2);
@@ -285,16 +286,22 @@ TEST(TestIssueSystem, remove_user_throw) {
 
 TEST(TestIssueSystem, remove_comment) {
     IssueSystem iss;
-    iss.createComment();
-    EXPECT_THROW(iss.removeComment(2), std::invalid_argument);
+    IssueSystem system;
 
     const char* tempJson =
     "{\"id\" : 1, \"issue_id\": 1, \"user_id\": 45,"
     "\"text\": \"a comment\"}";
 
     iss.createComment(tempJson);
+    EXPECT_EQ(1, iss.getComments().size());
     iss.removeComment(1);
-    //what to expect here
+    EXPECT_EQ(0, iss.getComments().size());
+}
+
+TEST(TestIssueSystem, remove_comment_throw) {
+    IssueSystem iss;
+    iss.createComment();
+    EXPECT_THROW(iss.removeComment(2), std::invalid_argument);
 }
 
 TEST(TestIssueSystem, filter_comments) {
@@ -320,6 +327,7 @@ TEST(TestIssueSystem, filter_issues) {
     "\"text\": \"a comment\", \"tags\": [\"tag\"], \"status\": 1,"
     "\"priority\": 100}";
 
+
     const char* tempJson1 =
     "{\"id\" : 2, \"issue_id\": 14, \"user_id\": 45,"
     "\"text\": \"a comment\", \"tags\": [\"pop\", \"chips\"], \"status\": 2,"
@@ -342,14 +350,21 @@ TEST(TestIssueSystem, filter_issues) {
 
 
 TEST(TestIssueSystem, serialize) {
-  IssueSystem iss;
+    IssueSystem iss;
 
-  iss.createIssue();
-  iss.createUser();
-  iss.createComment();
+    iss.createIssue();
+    iss.createUser();
+    iss.createComment();
 
-  std::string json = iss.serialize();
-  json.push_back('X'); // Delete this!!!!
+    std::string json = iss.serialize();
+
+    auto data = nlohmann::json::parse(json);
+    EXPECT_EQ(2, data["issue_count"]);
+    EXPECT_EQ(2, data["comment_count"]);
+    EXPECT_EQ(2, data["user_count"]);
+    EXPECT_EQ("empty", data["issues"][0]["title"]);
+    EXPECT_EQ("empty text", data["comments"][0]["text"]);
+    EXPECT_EQ("", data["users"][0]["blurb"]);
 }
 
 
@@ -358,17 +373,44 @@ TEST(TestIssueSystem, deserialize) {
 
   const char* saved = R"({
         "comment_count": 2,
-        "comments": [ 
-            {"id":2,"issue_id":2,"text":"hello","user_id":-1}
+        "comments": [
+            {"id":2,"issue_id":2,"text":"I have spoken","user_id":-1}
         ],
         "issue_count": 2,
         "issues": [
-            {"assignee":-1,"creator":-1,"description":"Type your description here.","id":2,"priority":10,"status":0,"tags":["dfdsf"],"title":"fear it"}
+            {"assignee":-1,"creator":-1,"description":"This is the way.","id":2,"priority":10,"status":0,"tags":["dfdsf"],"title":"fear it"}
         ],
         "user_count": 2,
         "users": [
-            {"blurb":"Distinguish yourself.","id":2,"name":"sfsdfsdfs","pic":2}
+            {"blurb":"Distinguish yourself.","id":2,"name":"Mandalorian","pic":4}
         ]})";
 
   iss.deserialize(saved);
+  EXPECT_EQ(iss.getComment(2).getIssueId(), 2);
+  EXPECT_EQ(iss.getComment(2).getCommentText(), "I have spoken");
+  EXPECT_EQ(iss.getIssue(2).getCreator(), -1);
+  EXPECT_EQ(iss.getIssue(2).getDescription(), "This is the way.");
+  EXPECT_EQ(iss.getUser(2).getPictureNum(), 4);
+  EXPECT_EQ(iss.getUser(2).getName(), "Mandalorian");
+}
+
+TEST(TestIssueSystem, clean_string) {
+    IssueSystem system;
+
+    const char* tempJson =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }some'/ garbage";
+
+    std::string cleanStr =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 }";
+
+    EXPECT_EQ(cleanStr, system.clean(tempJson));
+}
+
+TEST(TestIssueSystem, not_clean_string) {
+    IssueSystem system;
+
+    std::string tempJson =
+    "{\"name\" : \"meow\", \"blurb\" : \"blurb\", \"pic\" : 1 some'/ garbage";
+
+    EXPECT_EQ(tempJson, system.clean(tempJson));
 }
