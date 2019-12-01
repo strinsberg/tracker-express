@@ -10,13 +10,12 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
 .then(data => {
     var iss = JSON.parse(data.response);
     document.getElementById("title").innerHTML = iss.title;
-    document.getElementById("description").innerHTML = "Description:   " + iss.description;
-    document.getElementById("status").innerHTML = "Status:   " + iss.status;
-    document.getElementById("assignee").innerHTML = "Assignee: Unassigned";
-    document.getElementById("creator").innerHTML = "Creator:   Guest";
-    document.getElementById("priority").innerHTML = "Priority:   " + iss.priority;
-    tags = JSON.parse(iss.tags);
-    document.getElementById("tags").innerHTML = "Tags:   " + tags.join(", ");
+    document.getElementById("description").innerHTML = "Description: ".bold() + iss.description;
+    document.getElementById("status").innerHTML = "Status:   ".bold() + iss.status;
+    document.getElementById("assignee").innerHTML = "Assignee: ".bold() + "Unassigned";
+    document.getElementById("creator").innerHTML = "Creator: ".bold() + "Guest";
+    document.getElementById("priority").innerHTML = "Priority: ".bold() + iss.priority;
+    document.getElementById("tags").innerHTML = "Tags: ".bold() + iss.tags.join(", ");
     
     assignee = iss.assignee;
     creator = iss.creator;
@@ -29,7 +28,7 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
         })
         .then(data => {
             var user = JSON.parse(data.response);
-            document.getElementById("assignee").innerHTML = "Assignee: " + user.name;
+            document.getElementById("assignee").innerHTML = "Assignee: ".bold() + user.name;
         })
     }
 
@@ -41,7 +40,7 @@ fetch("http://localhost:1234/trackEx/issues?id=" + params.get("id"))
         })
         .then(data => {
             var user = JSON.parse(data.response);
-            document.getElementById("creator").innerHTML = "Creator: " + user.name;
+            document.getElementById("creator").innerHTML = "Creator: ".bold() + user.name;
         })
     }
 }).catch(err => {

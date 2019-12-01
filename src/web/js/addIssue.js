@@ -34,6 +34,7 @@ if (params.has("id")) {
         return response.json();
     })
     .then(data => {
+        console.log(data.response);
         var iss = JSON.parse(data.response);
         
         document.getElementById("title").value = iss.title;
@@ -44,11 +45,12 @@ if (params.has("id")) {
         document.getElementById("creator_div").hidden = true;
         
         document.getElementById("priority").value = iss.priority;
-        tags = JSON.parse(iss.tags);
-        document.getElementById("tags").value = tags.join(", ");
+        document.getElementById("tags").value = iss.tags.join(", ");
 
         document.getElementById("status_div").hidden = false;
         document.getElementById("status").value = iss.status;
+    }).catch(err => {
+        console.error("Error:", err);
     });
 }
 
