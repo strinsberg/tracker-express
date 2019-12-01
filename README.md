@@ -3,14 +3,19 @@
 3720 group project.
 
 #### Release
-End of Sprint 2
-**Version** 1.2
+End of Sprint 3
+**Version** 1.3
 
+* Final version - all functionality is completed
 * Single Issue, User pages
 * Add issue, users forms
 * Submit custom form data for Issues and Users
 * List all Issues and Users
 * Forms return to previous pages and refresh lists
+* Comments added to Issues
+* Edit Users, Comments, Issues
+* Remove Users, Comments, Issues 
+* Working Web Client
 
 #### Documentation
 * Project release documentation is in docs folder
@@ -28,14 +33,8 @@ Steven Deutekom (Scrum Master)
 * Compile and run the tests `$ make testTrackEx`
 * Compile the server `$ make trackEx`
 * Run the server `$ ./trackEx`
-* To see some basic initial functionality
-  1. open `$ src/web/index.html` in your browser.
-  2. Open issues page to see the current issue list (which is empty when the server starts).
-  3. You can add custom issues.
-  4. Refreshing the issue page will update the list of issues.
-  5. Selecting the issue title will bring up a page for just that issue.
-  6. Users page will work same as Issues.
-
+* Web Client Guid is available in docs folder
+* API reference is also available in docs folder
 
 # Contribution Guidlines
 
