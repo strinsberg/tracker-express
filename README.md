@@ -1,6 +1,10 @@
-# Aegir Rest Service 3720
+# Aegir Rest Service - CPSC 3720 Group Project
 
-3720 group project.
+A simple rest server and front end for a basic Issue Tracking System.
+
+The server is written in C++ and uses https://github.com/Corvusoft/restbed
+
+The front end is kind of hacked together, as none of us had much javascript or REST Api experience
 
 #### Release
 End of Sprint 3
@@ -36,7 +40,7 @@ Steven Deutekom (Scrum Master)
 * Web Client Guid is available in docs folder
 * API reference is also available in docs folder
 
-# Contribution Guidlines
+# Group Contribution Guidelines
 
 1. Master branch will always contain the current release. The only updates that will be made to this branch are merges with the dev branch or merges with urgent bug fixes.
 
